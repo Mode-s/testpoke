@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../data/mods/gen3colosseum/moves.ts"],
+  "sourcesContent": ["/**\n * Gen 3 colosseum modifications (perish song should fail if it effects all remaining pokemon)\n */\nexport const Moves: import('../../../sim/dex-moves').ModdedMoveDataTable = {\n\tperishsong: {\n\t\tinherit: true,\n\t\tonTryMove(attacker, defender, move) {\n\t\t\tif (attacker.side.pokemonLeft === 1) {\n\t\t\t\tthis.add('-fail', attacker, 'move: Perish Song');\n\t\t\t\tthis.hint(\"Self KO Clause: The last pokemon on a team cannot use moves that force fainting\");\n\t\t\t\treturn false;\n\t\t\t}\n\t\t},\n\t},\n\tdestinybond: {\n\t\tinherit: true,\n\t\tonTryMove(attacker, defender, move) {\n\t\t\tif (attacker.side.pokemonLeft === 1) {\n\t\t\t\tthis.add('-fail', attacker, 'move: Perish Song');\n\t\t\t\tthis.hint(\"Self KO Clause: The last pokemon on a team cannot use moves that force fainting\");\n\t\t\t\treturn false;\n\t\t\t}\n\t\t},\n\t},\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAGO,MAAM,QAA8D;AAAA,EAC1E,YAAY;AAAA,IACX,SAAS;AAAA,IACT,UAAU,UAAU,UAAU,MAAM;AACnC,UAAI,SAAS,KAAK,gBAAgB,GAAG;AACpC,aAAK,IAAI,SAAS,UAAU,mBAAmB;AAC/C,aAAK,KAAK,iFAAiF;AAC3F,eAAO;AAAA,MACR;AAAA,IACD;AAAA,EACD;AAAA,EACA,aAAa;AAAA,IACZ,SAAS;AAAA,IACT,UAAU,UAAU,UAAU,MAAM;AACnC,UAAI,SAAS,KAAK,gBAAgB,GAAG;AACpC,aAAK,IAAI,SAAS,UAAU,mBAAmB;AAC/C,aAAK,KAAK,iFAAiF;AAC3F,eAAO;AAAA,MACR;AAAA,IACD;AAAA,EACD;AACD;",
+  "names": []
+}

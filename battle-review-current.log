@@ -1,0 +1,241 @@
+p1 選出候補: [Venusaur / Blastoise / Arcanine]=259.2 | [Venusaur / Blastoise / Charizard]=211.8 | [Blastoise / Gengar / Arcanine]=162.0
+p1 選出判断: Arcanine → Blastoise → Venusaur (team 532)
+p1: team 532
+p2 選出候補: [Arcanine / Blastoise / Venusaur]=259.2 | [Charizard / Blastoise / Venusaur]=211.8 | [Arcanine / Blastoise / Steelix]=180.6
+p2 選出判断: Arcanine → Blastoise → Venusaur (team 245)
+p2: team 245
+p1 特性公開: Intimidate
+p2 能力変化: atk -1 → -1
+p2 特性公開: Intimidate
+p1 能力変化: atk -1 → -1
+p1 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Scorching Sands/Hyper Beam/Dig 34.7〜63.5%
+p1 交代候補: Blastoise=38.6 (攻82.9 守20.0 被予想:Solar Beam/Wild Charge/Hyper Beam 50.0〜92.3% 次速度不明 [143 vs 103〜161]) / Venusaur=-96.6 (攻45.5 守-25.0 被予想:Burn Up/Overheat/Flare Blitz 85.4〜154.1% 次速度不明 [145 vs 103〜161])
+p1 自主交代判断: Arcanine → Blastoise
+p1: switch 2
+p2 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Scorching Sands/Hyper Beam/Dig 34.7〜63.5%
+p2 交代候補: Blastoise=38.6 (攻82.9 守20.0 被予想:Solar Beam/Wild Charge/Hyper Beam 50.0〜92.3% 次速度不明 [143 vs 103〜161]) / Venusaur=-96.6 (攻45.5 守-25.0 被予想:Burn Up/Overheat/Flare Blitz 85.4〜154.1% 次速度不明 [145 vs 103〜161])
+p2 自主交代判断: Arcanine → Blastoise
+p2: switch 2
+p1 素早さ推定: Blastoise 143 / Blastoise 88〜143 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Focus Punch/Giga Impact/Hyper Beam 28.2〜53.2%
+p1 交代候補: Venusaur=85.0 (攻101.5 守20.0 被予想:Ice Spinner/Ice Beam/Ice Punch 35.7〜66.2% 次先+15 [145 vs 88〜143]) / Arcanine=-110.8 (攻19.6 守-25.0 被予想:Water Spout/Hydro Cannon/Surf 97.0〜180.8% いかく 次先+15 [161 vs 88〜143])
+p1 自主交代判断: Blastoise → Venusaur
+p1: switch 3
+p2 素早さ推定: Blastoise 143 / Blastoise 88〜143 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Focus Punch/Giga Impact/Hyper Beam 28.2〜53.2%
+p2 交代候補: Venusaur=85.0 (攻101.5 守20.0 被予想:Ice Spinner/Ice Beam/Ice Punch 35.7〜66.2% 次先+15 [145 vs 88〜143]) / Arcanine=-110.8 (攻19.6 守-25.0 被予想:Water Spout/Hydro Cannon/Surf 97.0〜180.8% いかく 次先+15 [161 vs 88〜143])
+p2 自主交代判断: Blastoise → Venusaur
+p2: switch 3
+p1 素早さ推定: Venusaur 145 / Venusaur 90〜145 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Sludge Wave/Giga Impact/Sludge Bomb 31.2〜57.3%
+p1 交代候補: Arcanine=49.0 (攻82.2 守0.0 被予想:Earth Power/Sludge Wave/Sludge Bomb 44.3〜81.4% いかく 次先+15 [161 vs 90〜145]) / Blastoise=-126.1 (攻18.6 守-25.0 被予想:Frenzy Plant/Solar Beam/Petal Dance 96.2〜173.1% 次速度不明 [143 vs 90〜145])
+p1 技評価: Sludge Bomb 推定25.7〜54.8% 評価48.3【どく】 / Giga Drain 推定5.3〜11.6% 評価13.1【吸収】 / Protect 推定0.0〜0.0% 評価10.0【先に倒される危険なし】 / Sleep Powder 推定0.0〜0.0% 評価-100.0【粉技無効】
+p1: move 2
+p2 素早さ推定: Venusaur 145 / Venusaur 90〜145 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Sludge Wave/Giga Impact/Sludge Bomb 31.2〜57.3%
+p2 交代候補: Arcanine=49.0 (攻82.2 守0.0 被予想:Earth Power/Sludge Wave/Sludge Bomb 44.3〜81.4% いかく 次先+15 [161 vs 90〜145]) / Blastoise=-126.1 (攻18.6 守-25.0 被予想:Frenzy Plant/Solar Beam/Petal Dance 96.2〜173.1% 次速度不明 [143 vs 90〜145])
+p2 技評価: Sludge Bomb 推定25.7〜54.8% 評価48.3【どく】 / Giga Drain 推定5.3〜11.6% 評価13.1【吸収】
+p2: move 2
+p1 公開技記憶: Venusaur → Sludge Bomb
+p1 素早さ観測: Venusaur 90〜145（Venusaurが先 / 絞り込みなし）
+p2 素早さ学習: Venusaur 90〜145 → 145〜145（Venusaurが先）
+p2 公開技記憶: Venusaur → Sludge Bomb
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Venusaur 145 / Venusaur 90〜145 → 速度関係不明
+p1 現在対面の被ダメ推定: Sludge Bomb 29.3〜54.1%
+p1 交代候補: Arcanine=49.1 (攻82.2 守0.0 被予想:Earth Power/Sludge Wave/Hyper Beam 35.4〜65.1% いかく+1 次先+15 [161 vs 90〜145]) / Blastoise=-102.2 (攻18.6 守-25.0 被予想:Frenzy Plant/Solar Beam/Petal Dance 76.9〜138.5% 次速度不明 [143 vs 90〜145])
+p1 自主交代判断: Venusaur → Arcanine
+p1: switch 2
+p2 相手公開技: Venusaur [Sludge Bomb]
+p2 素早さ推定: Venusaur 145 / Venusaur 145〜145 → 速度関係不明（観測1回反映）
+p2 技評価: Sludge Bomb 推定25.7〜54.8% 評価37.1【推定乱数1発】【どく】【交代読み:Steelix無効】 / Giga Drain 推定5.3〜11.6% 評価13.1【吸収】
+p2: move 2
+p2 能力変化: atk -1 → -1
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Arcanine 161 / Venusaur 90〜145 → 自分が確実に速い
+p1 技評価: Flamethrower 推定51.3〜109.7% 評価71.2【推定乱数1発】【やけど】【交代読み:Charizard】
+p1: move 1
+p2 素早さ推定: Venusaur 145 / Arcanine 103〜161 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Flare Blitz/Raging Fury/Burn Up 96.8〜177.1%
+p2 交代候補: Blastoise=35.4 (攻82.9 守20.0 被予想:Solar Beam/Wild Charge/Giga Impact 50.0〜92.3% 次速度不明 [143 vs 103〜161]) / Arcanine=6.0 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 34.7〜63.5% いかく 次速度不明 [161 vs 103〜161])
+p2 自主交代判断: Venusaur → Blastoise
+p2: switch 3
+p1 公開技記憶: Arcanine → Flamethrower
+p1 素早さ推定: Arcanine 161 / Blastoise 88〜143 → 自分が確実に速い
+p1 現在対面の被ダメ推定: 予想:Hydro Cannon/Wave Crash/Water Spout 97.0〜180.8%
+p1 交代候補: Venusaur=29.3 (攻101.5 守20.0 被予想:Ice Spinner/Ice Beam/Ice Punch 35.7〜66.2% 次先+15 [145 vs 88〜143]) / Blastoise=-2.3 (攻18.0 守20.0 被予想:Focus Punch/Giga Impact/Hyper Beam 28.2〜53.2% 次速度不明 [143 vs 88〜143])
+p1 自主交代判断: Arcanine → Venusaur
+p1: switch 2
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Blastoise 143 / Arcanine 103〜161 → 速度関係不明
+p2 技評価: Surf 推定49.7〜112.7% 評価81.3【推定確定1発】【交代読み:Venusaur】
+p2: move 1
+p2 公開技記憶: Blastoise → Surf
+p1 相手公開技: Blastoise [Surf]
+p1 素早さ推定: Venusaur 145 / Blastoise 88〜143 → 自分が確実に速い
+p1 技評価: Giga Drain 推定61.3〜133.8% 評価90.6【推定乱数1発】【吸収】【交代読み:Charizard】 / Sleep Powder 推定0.0〜0.0% 評価30.9【ねむりで次の予想:Ice Spinner/Ice Beam/Ice Punchを回避 命中75%】 / Sludge Bomb 推定24.2〜53.2% 評価13.4【どく】【交代読み:Steelix無効】 / Protect 推定0.0〜0.0% 評価10.0【先に倒される危険なし】
+p1: move 1
+p2 相手公開技: Venusaur [Sludge Bomb]
+p2 素早さ推定: Blastoise 143 / Venusaur 145〜145 → 相手が確実に速い（観測1回反映）
+p2 現在対面の被ダメ推定: 予想:Frenzy Plant/Solar Beam/Petal Dance 76.9〜138.5%
+p2 交代候補: Arcanine=49.1 (攻82.2 守0.0 被予想:Earth Power/Sludge Wave/Hyper Beam 35.4〜65.1% いかく+1 次先+15 [161 vs 145〜145]) / Venusaur=-19.6 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 次速度不明 [145 vs 145〜145])
+p2 自主交代判断: Blastoise → Arcanine
+p2: switch 2
+p1 能力変化: atk -1 → -1
+p1 公開技記憶: Venusaur → Giga Drain
+p1 素早さ推定: Venusaur 145 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Flare Blitz/Raging Fury/Burn Up 96.8〜177.1%
+p1 交代候補: Blastoise=35.4 (攻82.9 守20.0 被予想:Solar Beam/Wild Charge/Giga Impact 50.0〜92.3% 次速度不明 [143 vs 103〜161]) / Arcanine=-15.5 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 34.7〜63.5% いかく 次速度不明 [161 vs 103〜161])
+p1 自主交代判断: Venusaur → Blastoise
+p1: switch 3
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Arcanine 161 / Venusaur 145〜145 → 自分が確実に速い（観測1回反映）
+p2 技評価: Flamethrower 推定51.3〜109.7% 評価77.7【推定確定1発】【やけど】【交代読み:Blastoise】
+p2: move 1
+p2 公開技記憶: Arcanine → Flamethrower
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Blastoise 143 / Arcanine 103〜161 → 速度関係不明
+p1 技評価: Surf 推定49.7〜112.7% 評価72.9【推定乱数1発】【交代読み:Blastoise】 / Rain Dance 推定0.0〜0.0% 評価40.2【雨展開価値 攻+40.9 防+10.1 約5ターン】
+p1: move 1
+p2 素早さ推定: Arcanine 161 / Blastoise 88〜143 → 自分が確実に速い
+p2 現在対面の被ダメ推定: 予想:Hydro Cannon/Wave Crash/Water Spout 97.0〜180.8%
+p2 交代候補: Venusaur=31.6 (攻101.5 守20.0 被予想:Ice Spinner/Ice Beam/Ice Punch 35.7〜66.2% 次先+15 [145 vs 88〜143]) / Blastoise=-10.1 (攻18.0 守20.0 被予想:Focus Punch/Giga Impact/Hyper Beam 28.2〜53.2% 次速度不明 [143 vs 88〜143])
+p2 自主交代判断: Arcanine → Venusaur
+p2: switch 3
+p1 公開技記憶: Blastoise → Surf
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Blastoise 143 / Venusaur 90〜145 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Frenzy Plant/Solar Beam/Petal Dance 76.9〜138.5%
+p1 交代候補: Arcanine=7.7 (攻82.2 守0.0 被予想:Earth Power/Sludge Wave/Hyper Beam 35.4〜65.1% いかく+1 次先+15 [161 vs 90〜145]) / Venusaur=-42.2 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 90〜145])
+p1 技評価: Surf 推定11.2〜25.2% 評価-6.4【速度関係不明で予想:Frenzy Plant/Solar Beam/Petal DanceのKO危険】 / Rain Dance 推定0.0〜0.0% 評価-13.0【速度関係不明で予想:Frenzy Plant/Solar Beam/Petal DanceのKO危険】【雨展開価値 攻+9.3 防+0.0 約5ターン】
+p1: move 1
+p2 相手公開技: Blastoise [Surf]
+p2 素早さ推定: Venusaur 145 / Blastoise 88〜143 → 自分が確実に速い
+p2 技評価: Giga Drain 推定41.9〜89.6% 評価74.5【推定乱数1発】【吸収】【交代読み:Venusaur】 / Sludge Bomb 推定24.2〜53.2% 評価13.4【どく】【交代読み:Steelix無効】
+p2: move 1
+p2 公開技記憶: Venusaur → Giga Drain
+p1 素早さ学習: Venusaur 90〜145 → 143〜145（Venusaurが先）
+p2 素早さ観測: Blastoise 88〜143（Venusaurが先 / 絞り込みなし）
+p1 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p1 素早さ推定: Blastoise 143 / Venusaur 143〜145 → 速度関係不明（観測1回反映）
+p1 現在対面の被ダメ推定: 予想:Frenzy Plant/Solar Beam 62.5〜112.5%
+p1 交代候補: Arcanine=-12.1 (攻82.2 守0.0 被Sludge Bomb 32.9〜61.1% 倒れる可能性 いかく 次先+15 [161 vs 143〜145]) / Venusaur=-42.2 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 143〜145])
+p1 技評価: Surf 推定16.6〜36.8% 評価-60.8【速度関係不明でSludge BombのKO危険】 / Rain Dance 推定0.0〜0.0% 評価-82.3【速度関係不明でSludge BombのKO危険】【雨展開価値 攻+13.9 防+0.0 約5ターン】
+p1: move 1
+p2 相手公開技: Blastoise [Surf]
+p2 素早さ推定: Venusaur 145 / Blastoise 88〜143 → 自分が確実に速い
+p2 技評価: Giga Drain 推定41.9〜89.6% 評価98.5【推定確定1発】【吸収】【交代読み:Venusaur】 / Sludge Bomb 推定24.2〜53.2% 評価60.2【推定確定1発】【どく】【交代読み:Steelix無効】
+p2: move 1
+p1 強制交代候補: Arcanine=14.1 (攻82.2 守0.0 被Sludge Bomb 32.9〜61.1% 倒れる可能性 いかく 次先+15 [161 vs 143〜145]) / Venusaur=-19.5 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 143〜145])
+p1 強制交代判断: Arcanine
+p1: switch 2
+p2 能力変化: atk -1 → -1
+p1 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p1 素早さ推定: Arcanine 161 / Venusaur 143〜145 → 自分が確実に速い（観測1回反映）
+p1 技評価: Flamethrower 推定51.3〜109.7% 評価95.2【推定確定1発】【やけど】【交代読み:Charizard】
+p1: move 1
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Venusaur 145 / Arcanine 103〜161 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7%
+p2 交代候補: Blastoise=27.8 (攻82.9 守20.0 被予想:Solar Beam/Wild Charge/Giga Impact 40.0〜73.8% 次速度不明 [143 vs 103〜161]) / Arcanine=-9.6 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8% いかく+8 次速度不明 [161 vs 103〜161])
+p2 自主交代判断: Venusaur → Blastoise
+p2: switch 2
+p1 相手公開技: Blastoise [Surf]
+p1 素早さ推定: Arcanine 161 / Blastoise 88〜143 → 自分が確実に速い
+p1 現在対面の被ダメ推定: 予想:Hydro Cannon/Wave Crash/Hydro Pump 77.6〜144.7%
+p1 交代候補: Venusaur=34.2 (攻101.5 守20.0 被予想:Ice Spinner/Ice Beam/Ice Punch 28.5〜53.0% 次先+15 [145 vs 88〜143])
+p1 自主交代判断: Arcanine → Venusaur
+p1: switch 3
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Blastoise 143 / Arcanine 103〜161 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Solar Beam/Wild Charge/Giga Impact 40.0〜73.8%
+p2 交代候補: Arcanine=-9.6 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8% いかく+8 次速度不明 [161 vs 103〜161]) / Venusaur=-100.1 (攻45.5 守-25.0 被予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7% 次速度不明 [145 vs 103〜161])
+p2 技評価: Surf 推定49.7〜112.7% 評価66.6【推定確定1発】【速度関係不明で予想:Solar Beam/Wild Charge/Giga ImpactのKO危険】【交代読み:Venusaur】
+p2: move 1
+p1 相手公開技: Blastoise [Surf]
+p1 素早さ推定: Venusaur 145 / Blastoise 88〜143 → 自分が確実に速い
+p1 技評価: Giga Drain 推定61.3〜133.8% 評価114.6【推定確定1発】【吸収】【交代読み:Charizard】 / Sleep Powder 推定0.0〜0.0% 評価30.9【ねむりで次の予想:Ice Spinner/Ice Beam/Ice Punchを回避 命中75%】 / Sludge Bomb 推定24.2〜53.2% 評価13.4【どく】【交代読み:Steelix無効】 / Protect 推定0.0〜0.0% 評価10.0【先に倒される危険なし】
+p1: move 1
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Blastoise 143 / Venusaur 145〜145 → 相手が確実に速い（観測1回反映）
+p2 現在対面の被ダメ推定: 予想:Frenzy Plant/Solar Beam 62.5〜112.5%
+p2 交代候補: Arcanine=23.6 (攻82.2 守0.0 被Sludge Bomb 32.9〜61.1% いかく 次先+15 [161 vs 145〜145]) / Venusaur=-43.0 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 145〜145])
+p2 技評価: Surf 推定11.2〜25.2% 評価-64.4【相手の予想:Frenzy Plant/Solar Beamが先に確定KO推定】
+p2: move 1
+p2 強制交代候補: Arcanine=54.8 (攻82.2 守0.0 被Sludge Bomb 32.9〜61.1% いかく 次先+15 [161 vs 145〜145]) / Venusaur=-20.3 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 145〜145])
+p2 強制交代判断: Arcanine
+p2: switch 3
+p1 能力変化: atk -1 → -1
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Venusaur 145 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7%
+p1 交代候補: Arcanine=-17.8 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8% いかく+8 次速度不明 [161 vs 103〜161])
+p1 現在能力: atk-1
+p1 技評価: Protect 推定0.0〜0.0% 評価90.0【相手のFlamethrowerが先に確定KOするためまもる】 / Sleep Powder 推定0.0〜0.0% 評価-7.5【速度関係不明でFlamethrowerのKO危険】【ねむりで次の予想:Flare Blitz/Raging Fury/Burn Upを回避 命中75%】 / Giga Drain 推定11.2〜25.5% 評価-61.1【速度関係不明でFlamethrowerのKO危険】【吸収】 / Sludge Bomb 推定27.4〜61.8% 評価-73.0【速度関係不明でFlamethrowerのKO危険】【どく】【交代読み:Steelix無効】
+p1: move 4
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Arcanine 161 / Venusaur 145〜145 → 自分が確実に速い（観測1回反映）
+p2 技評価: Flamethrower 推定51.3〜109.7% 評価60.6【推定乱数1発】【やけど】【交代読み:Blastoise】
+p2: move 1
+p1 公開技記憶: Venusaur → Protect
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Venusaur 145 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7%
+p1 交代候補: Arcanine=-17.8 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8% いかく+8 次速度不明 [161 vs 103〜161])
+p1 現在能力: atk-1
+p1 技評価: Sleep Powder 推定0.0〜0.0% 評価-7.5【速度関係不明でFlamethrowerのKO危険】【ねむりで次の予想:Flare Blitz/Raging Fury/Burn Upを回避 命中75%】 / Protect 推定0.0〜0.0% 評価-50.0【前ターンもまもる系】 / Giga Drain 推定11.2〜25.5% 評価-61.1【速度関係不明でFlamethrowerのKO危険】【吸収】 / Sludge Bomb 推定27.4〜61.8% 評価-73.0【速度関係不明でFlamethrowerのKO危険】【どく】【交代読み:Steelix無効】
+p1: move 3
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain, Protect]
+p2 素早さ推定: Arcanine 161 / Venusaur 145〜145 → 自分が確実に速い（観測1回反映）
+p2 技評価: Flamethrower 推定51.3〜109.7% 評価60.6【推定乱数1発】【やけど】【交代読み:Blastoise】
+p2: move 1
+p1 強制交代候補: Arcanine=7.6 (攻22.8 守20.0 被予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8% いかく+3 次速度不明 [161 vs 103〜161])
+p1 強制交代判断: Arcanine
+p1: switch 3
+p2 能力変化: atk -1 → -1
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8%
+p1 技評価: Flamethrower 推定13.7〜30.9% 評価10.4【速度関係不明で予想:Scorching Sands/Hyper Beam/DigのKO危険】【やけど】
+p1: move 1
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Dig/Giga Impact/Scorching Sands 34.5〜61.3%
+p2 交代候補: Venusaur=-100.1 (攻45.5 守-25.0 被予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7% 次速度不明 [145 vs 103〜161])
+p2 現在能力: atk-1
+p2 技評価: Flamethrower 推定13.7〜30.9% 評価28.4【やけど】
+p2: move 1
+p1 素早さ観測: Arcanine 103〜161（Arcanineが先 / 絞り込みなし）
+p2 素早さ学習: Arcanine 103〜161 → 161〜161（Arcanineが先）
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8%
+p1 技評価: Flamethrower 推定13.7〜30.9% 評価-14.6【速度関係不明で予想:Scorching Sands/Hyper Beam/DigのKO危険】【やけど】
+p1: move 1
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Arcanine 161 / Arcanine 161〜161 → 速度関係不明（観測1回反映）
+p2 現在対面の被ダメ推定: 予想:Dig/Giga Impact/Scorching Sands 34.5〜61.3%
+p2 交代候補: Venusaur=-115.1 (攻45.5 守-25.0 被予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7% 次後-15 [145 vs 161〜161])
+p2 現在能力: atk-1
+p2 技評価: Flamethrower 推定13.7〜30.9% 評価50.4【推定乱数1発】【速度関係不明で予想:Dig/Giga Impact/Scorching SandsのKO危険】【やけど】
+p2: move 1
+p1 素早さ観測: Arcanine 103〜161（Arcanineが先 / 絞り込みなし）
+p2 素早さ観測: Arcanine 161〜161（Arcanineが先 / 絞り込みなし）
+p1 相手公開技: Arcanine [Flamethrower]
+p1 素早さ推定: Arcanine 161 / Arcanine 103〜161 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Scorching Sands/Hyper Beam/Dig 27.8〜50.8%
+p1 技評価: Flamethrower 推定13.7〜30.9% 評価-21.6【推定乱数1発】【速度関係不明でFlamethrowerのKO危険】【やけど】
+p1: move 1
+p2 相手公開技: Arcanine [Flamethrower]
+p2 素早さ推定: Arcanine 161 / Arcanine 161〜161 → 速度関係不明（観測1回反映）
+p2 現在対面の被ダメ推定: 予想:Dig/Giga Impact/Scorching Sands 34.5〜61.3%
+p2 交代候補: Venusaur=-115.1 (攻45.5 守-25.0 被予想:Flare Blitz/Raging Fury/Burn Up 77.5〜141.7% 次後-15 [145 vs 161〜161])
+p2 現在能力: atk-1
+p2 技評価: Flamethrower 推定13.7〜30.9% 評価18.4【推定確定1発】【速度関係不明でFlamethrowerのKO危険】【やけど】
+p2: move 1
+
+=== 対戦終了 ===
+勝者: AI-2
+ターン数: 19

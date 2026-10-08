@@ -1,0 +1,109 @@
+[
+  {
+    "pokemon": "ハガネール",
+    "ability": "がんじょう",
+    "item": null,
+    "nature": "まじめ",
+    "statPoints": {
+      "hp": 32,
+      "attack": 0,
+      "defense": 32,
+      "spAttack": 0,
+      "spDefense": 2,
+      "speed": 0
+    },
+    "moves": [
+      "ステルスロック"
+    ]
+  },
+  {
+    "pokemon": "フシギバナ",
+    "ability": "しんりょく",
+    "item": null,
+    "nature": "おくびょう",
+    "statPoints": {
+      "hp": 2,
+      "attack": 0,
+      "defense": 0,
+      "spAttack": 32,
+      "spDefense": 0,
+      "speed": 32
+    },
+    "moves": [
+      "ギガドレイン",
+      "ヘドロばくだん",
+      "ねむりごな",
+      "まもる"
+    ]
+  },
+  {
+    "pokemon": "カメックス",
+    "ability": "げきりゅう",
+    "item": null,
+    "nature": "おくびょう",
+    "statPoints": {
+      "hp": 2,
+      "attack": 0,
+      "defense": 0,
+      "spAttack": 32,
+      "spDefense": 0,
+      "speed": 32
+    },
+    "moves": [
+      "なみのり",
+      "あまごい"
+    ]
+  },
+  {
+    "pokemon": "ゲンガー",
+    "ability": "のろわれボディ",
+    "item": null,
+    "nature": "おくびょう",
+    "statPoints": {
+      "hp": 2,
+      "attack": 0,
+      "defense": 0,
+      "spAttack": 32,
+      "spDefense": 0,
+      "speed": 32
+    },
+    "moves": [
+      "シャドーボール"
+    ]
+  },
+  {
+    "pokemon": "ウインディ",
+    "ability": "いかく",
+    "item": null,
+    "nature": "おくびょう",
+    "statPoints": {
+      "hp": 2,
+      "attack": 0,
+      "defense": 0,
+      "spAttack": 32,
+      "spDefense": 0,
+      "speed": 32
+    },
+    "moves": [
+      "かえんほうしゃ"
+    ]
+  },
+  {
+    "pokemon": "リザードン",
+    "ability": "もうか",
+    "item": null,
+    "nature": "おくびょう",
+    "statPoints": {
+      "hp": 2,
+      "attack": 0,
+      "defense": 0,
+      "spAttack": 32,
+      "spDefense": 0,
+      "speed": 32
+    },
+    "moves": [
+      "かえんほうしゃ",
+      "にほんばれ"
+    ]
+  }
+]

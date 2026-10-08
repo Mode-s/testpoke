@@ -1,0 +1,1309 @@
+{
+  "game": "Pokémon Champions",
+  "asOf": "2026-10-08",
+  "regulation": "M-C",
+  "regulationPeriodUtc": {
+    "start": "2026-09-09T02:00:00Z",
+    "end": "2026-12-02T01:59:00Z"
+  },
+  "source": "Pokémon Champions v1.2.0 のポケモンデータが参照している特性と、ゲーム内の特性名、効果文",
+  "notes": [
+    "対戦に出るポケモンが所持している特性です。誰も持っていない特性は入れていません。",
+    "showdownId は Pokémon Showdown の特性idです。id はチャンピオンズの特性番号で、Showdown の ability.num と同じです。"
+  ],
+  "counts": {
+    "abilities": 215
+  },
+  "abilities": [
+    {
+      "id": 1,
+      "name": "あくしゅう",
+      "showdownId": "stench",
+      "effect": "技でダメージを与えた時 １０％の確率で相手をひるませる。"
+    },
+    {
+      "id": 2,
+      "name": "あめふらし",
+      "showdownId": "drizzle",
+      "effect": "登場した時から ５ターンの間 あめ状態にする。"
+    },
+    {
+      "id": 3,
+      "name": "かそく",
+      "showdownId": "speedboost",
+      "effect": "ターン終わりに 素早さが１段階上がる。 交代で出てきたターンは すばやさが上がらない。"
+    },
+    {
+      "id": 4,
+      "name": "カブトアーマー",
+      "showdownId": "battlearmor",
+      "effect": "相手の攻撃が急所に当たらない。"
+    },
+    {
+      "id": 5,
+      "name": "がんじょう",
+      "showdownId": "sturdy",
+      "effect": "ＨＰ満タンの時 一撃で ひんしになる技のダメージを受けると ＨＰを１残して耐える。 一撃必殺技も効かない。"
+    },
+    {
+      "id": 6,
+      "name": "しめりけ",
+      "showdownId": "damp",
+      "effect": "全員 爆発の技が使用できず 爆発する特性も発動しない。"
+    },
+    {
+      "id": 7,
+      "name": "じゅうなん",
+      "showdownId": "limber",
+      "effect": "まひ状態にならない。"
+    },
+    {
+      "id": 8,
+      "name": "すながくれ",
+      "showdownId": "sandveil",
+      "effect": "すなあらし状態の時 回避率が１．２５倍になる。 すなあらし状態で受けるダメージが効かない。"
+    },
+    {
+      "id": 9,
+      "name": "せいでんき",
+      "showdownId": "static",
+      "effect": "接触技を受けると ３０％の確率で 相手をまひ状態にする。"
+    },
+    {
+      "id": 10,
+      "name": "ちくでん",
+      "showdownId": "voltabsorb",
+      "effect": "でんきタイプの技が効かず 最大ＨＰの１／４回復する。"
+    },
+    {
+      "id": 11,
+      "name": "ちょすい",
+      "showdownId": "waterabsorb",
+      "effect": "みずタイプの技が効かず 最大ＨＰの１／４回復する。"
+    },
+    {
+      "id": 12,
+      "name": "どんかん",
+      "showdownId": "oblivious",
+      "effect": "メロメロ ちょうはつ状態にならず いかくも効かない。"
+    },
+    {
+      "id": 13,
+      "name": "ノーてんき",
+      "showdownId": "cloudnine",
+      "effect": "あらゆる天気の影響をなくす。"
+    },
+    {
+      "id": 14,
+      "name": "ふくがん",
+      "showdownId": "compoundeyes",
+      "effect": "技の命中率が１．３倍になる。"
+    },
+    {
+      "id": 15,
+      "name": "ふみん",
+      "showdownId": "insomnia",
+      "effect": "ねむり ねむけ状態にならない。"
+    },
+    {
+      "id": 17,
+      "name": "めんえき",
+      "showdownId": "immunity",
+      "effect": "どく もうどく状態にならない。"
+    },
+    {
+      "id": 18,
+      "name": "もらいび",
+      "showdownId": "flashfire",
+      "effect": "ほのおタイプの技が効かず 自分はもらいび状態になる。"
+    },
+    {
+      "id": 19,
+      "name": "りんぷん",
+      "showdownId": "shielddust",
+      "effect": "攻撃の追加効果が効かない。"
+    },
+    {
+      "id": 20,
+      "name": "マイペース",
+      "showdownId": "owntempo",
+      "effect": "こんらん状態にならず いかくも効かない。"
+    },
+    {
+      "id": 21,
+      "name": "きゅうばん",
+      "showdownId": "suctioncups",
+      "effect": "相手の入れ替えさせる技や道具が効かない。"
+    },
+    {
+      "id": 22,
+      "name": "いかく",
+      "showdownId": "intimidate",
+      "effect": "登場した時 相手の攻撃を１段階下げる。"
+    },
+    {
+      "id": 23,
+      "name": "かげふみ",
+      "showdownId": "shadowtag",
+      "effect": "相手は交代することができなくなる。"
+    },
+    {
+      "id": 24,
+      "name": "さめはだ",
+      "showdownId": "roughskin",
+      "effect": "接触技を受けると 相手の最大ＨＰの １／８のダメージを与える。"
+    },
+    {
+      "id": 26,
+      "name": "ふゆう",
+      "showdownId": "levitate",
+      "effect": "地面にいないことになり じめんタイプの技 まきびし どくびし ねばねばネット状態が効かない。"
+    },
+    {
+      "id": 27,
+      "name": "ほうし",
+      "showdownId": "effectspore",
+      "effect": "接触技を受けると ３０％の確率で 相手を どく まひ ねむり状態の いずれかにする。 くさタイプの ポケモンには効かない。"
+    },
+    {
+      "id": 28,
+      "name": "シンクロ",
+      "showdownId": "synchronize",
+      "effect": "相手の技や特性によって どく もうどく まひ やけど状態になると 相手も同じ状態にする。"
+    },
+    {
+      "id": 29,
+      "name": "クリアボディ",
+      "showdownId": "clearbody",
+      "effect": "相手の技や特性で能力を下げられない。"
+    },
+    {
+      "id": 30,
+      "name": "しぜんかいふく",
+      "showdownId": "naturalcure",
+      "effect": "手持ちに戻ると状態異常が治る。"
+    },
+    {
+      "id": 31,
+      "name": "ひらいしん",
+      "showdownId": "lightningrod",
+      "effect": "でんきタイプの技を自分によせつける。 その技は効かずに特攻が１段階上がる。"
+    },
+    {
+      "id": 33,
+      "name": "すいすい",
+      "showdownId": "swiftswim",
+      "effect": "あめ状態の時 素早さが２倍になる。"
+    },
+    {
+      "id": 34,
+      "name": "ようりょくそ",
+      "showdownId": "chlorophyll",
+      "effect": "にほんばれ状態の時 素早さが２倍になる。"
+    },
+    {
+      "id": 35,
+      "name": "はっこう",
+      "showdownId": "illuminate",
+      "effect": "相手の回避率の変化を無視し 命中率も下げられない。"
+    },
+    {
+      "id": 36,
+      "name": "トレース",
+      "showdownId": "trace",
+      "effect": "登場した時 相手の特性と同じ特性になる。"
+    },
+    {
+      "id": 37,
+      "name": "ちからもち",
+      "showdownId": "hugepower",
+      "effect": "物理技の威力が２倍になる。"
+    },
+    {
+      "id": 38,
+      "name": "どくのトゲ",
+      "showdownId": "poisonpoint",
+      "effect": "接触技を受けると ３０％の確率で相手をどく状態にする。"
+    },
+    {
+      "id": 39,
+      "name": "せいしんりょく",
+      "showdownId": "innerfocus",
+      "effect": "相手の攻撃にひるまず いかくも効かない。"
+    },
+    {
+      "id": 40,
+      "name": "マグマのよろい",
+      "showdownId": "magmaarmor",
+      "effect": "こおり状態にならない。"
+    },
+    {
+      "id": 43,
+      "name": "ぼうおん",
+      "showdownId": "soundproof",
+      "effect": "音の技が効かない。"
+    },
+    {
+      "id": 44,
+      "name": "あめうけざら",
+      "showdownId": "raindish",
+      "effect": "あめ状態の時 ターン終わりに 最大ＨＰの１／１６回復する。"
+    },
+    {
+      "id": 45,
+      "name": "すなおこし",
+      "showdownId": "sandstream",
+      "effect": "登場した時から ５ターンの間 すなあらし状態にする。"
+    },
+    {
+      "id": 46,
+      "name": "プレッシャー",
+      "showdownId": "pressure",
+      "effect": "自分に対し 相手の使う技のＰＰを１多く減らす。"
+    },
+    {
+      "id": 47,
+      "name": "あついしぼう",
+      "showdownId": "thickfat",
+      "effect": "ほのおタイプ こおりタイプの技で 受けるダメージが半減する。"
+    },
+    {
+      "id": 48,
+      "name": "はやおき",
+      "showdownId": "earlybird",
+      "effect": "ねむり状態になっても ２倍の早さで目覚める。"
+    },
+    {
+      "id": 49,
+      "name": "ほのおのからだ",
+      "showdownId": "flamebody",
+      "effect": "接触技を受けると ３０％の確率で 相手をやけど状態にする。"
+    },
+    {
+      "id": 50,
+      "name": "にげあし",
+      "showdownId": "runaway",
+      "effect": "交代を邪魔する効果を無視して 手持ちの他のポケモンと 交代することができる。"
+    },
+    {
+      "id": 51,
+      "name": "するどいめ",
+      "showdownId": "keeneye",
+      "effect": "相手の回避率の変化を無視し 命中率も下げられない。"
+    },
+    {
+      "id": 52,
+      "name": "かいりきバサミ",
+      "showdownId": "hypercutter",
+      "effect": "相手の技や特性で攻撃を下げられない。"
+    },
+    {
+      "id": 53,
+      "name": "ものひろい",
+      "showdownId": "pickup",
+      "effect": "自分が道具を持っていない時 自分以外のポケモンが消費した道具を ターン終わりに拾ってくる。"
+    },
+    {
+      "id": 55,
+      "name": "はりきり",
+      "showdownId": "hustle",
+      "effect": "物理技を使用する時 自分の攻撃が１．５倍になるが 命中率が０．８倍になる。"
+    },
+    {
+      "id": 56,
+      "name": "メロメロボディ",
+      "showdownId": "cutecharm",
+      "effect": "異性から接触技を受けると ３０％の確率で相手をメロメロ状態にする。"
+    },
+    {
+      "id": 57,
+      "name": "プラス",
+      "showdownId": "plus",
+      "effect": "プラスかマイナスの特性を持つ味方が 場にいると 自分の特攻が１．５倍になる。"
+    },
+    {
+      "id": 58,
+      "name": "マイナス",
+      "showdownId": "minus",
+      "effect": "プラスかマイナスの特性を持つ味方が 場にいると 自分の特攻が１．５倍になる。"
+    },
+    {
+      "id": 59,
+      "name": "てんきや",
+      "showdownId": "forecast",
+      "effect": "天気の影響を受けて みずタイプ ほのおタイプ こおりタイプのどれかに変わる。"
+    },
+    {
+      "id": 60,
+      "name": "ねんちゃく",
+      "showdownId": "stickyhold",
+      "effect": "持っている道具を相手に奪われず失わない。"
+    },
+    {
+      "id": 61,
+      "name": "だっぴ",
+      "showdownId": "shedskin",
+      "effect": "ターン終わりに３０％の確率で状態異常が治る。"
+    },
+    {
+      "id": 62,
+      "name": "こんじょう",
+      "showdownId": "guts",
+      "effect": "状態異常の時 攻撃が１．５倍になる。 やけど状態による物理技のダメージが 半減される効果は無視する。"
+    },
+    {
+      "id": 63,
+      "name": "ふしぎなうろこ",
+      "showdownId": "marvelscale",
+      "effect": "状態異常の時 防御が１．５倍になる。"
+    },
+    {
+      "id": 64,
+      "name": "ヘドロえき",
+      "showdownId": "liquidooze",
+      "effect": "ＨＰを吸い取る技を受けた時 相手を回復させず その分のダメージを与える。"
+    },
+    {
+      "id": 65,
+      "name": "しんりょく",
+      "showdownId": "overgrow",
+      "effect": "ＨＰが最大ＨＰの１／３以下になると くさタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 66,
+      "name": "もうか",
+      "showdownId": "blaze",
+      "effect": "ＨＰが最大ＨＰの１／３以下になると ほのおタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 67,
+      "name": "げきりゅう",
+      "showdownId": "torrent",
+      "effect": "ＨＰが最大ＨＰの１／３以下になると みずタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 68,
+      "name": "むしのしらせ",
+      "showdownId": "swarm",
+      "effect": "ＨＰが最大ＨＰの１／３以下になると むしタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 69,
+      "name": "いしあたま",
+      "showdownId": "rockhead",
+      "effect": "自分もダメージを受ける技を出しても ＨＰが減らない。"
+    },
+    {
+      "id": 70,
+      "name": "ひでり",
+      "showdownId": "drought",
+      "effect": "登場した時から ５ターンの間 にほんばれ状態にする。"
+    },
+    {
+      "id": 72,
+      "name": "やるき",
+      "showdownId": "vitalspirit",
+      "effect": "ねむり ねむけ状態にならない。"
+    },
+    {
+      "id": 73,
+      "name": "しろいけむり",
+      "showdownId": "whitesmoke",
+      "effect": "相手の技や特性で能力を下げられない。"
+    },
+    {
+      "id": 74,
+      "name": "ヨガパワー",
+      "showdownId": "purepower",
+      "effect": "物理技の威力が２倍になる。"
+    },
+    {
+      "id": 75,
+      "name": "シェルアーマー",
+      "showdownId": "shellarmor",
+      "effect": "相手の攻撃が急所に当たらない。"
+    },
+    {
+      "id": 77,
+      "name": "ちどりあし",
+      "showdownId": "tangledfeet",
+      "effect": "こんらん状態の時 回避率が２倍になる。"
+    },
+    {
+      "id": 78,
+      "name": "でんきエンジン",
+      "showdownId": "motordrive",
+      "effect": "でんきタイプの技が効かず 素早さが１段階上がる。"
+    },
+    {
+      "id": 79,
+      "name": "とうそうしん",
+      "showdownId": "rivalry",
+      "effect": "相手と性別が同じ時 技の威力が１．２５倍に 違うと０．７５倍になる。 性別が不明の場合は通常の威力になる。"
+    },
+    {
+      "id": 80,
+      "name": "ふくつのこころ",
+      "showdownId": "steadfast",
+      "effect": "ひるむと素早さが１段階上がる。"
+    },
+    {
+      "id": 81,
+      "name": "ゆきがくれ",
+      "showdownId": "snowcloak",
+      "effect": "ゆき状態の時 回避率が１．２５倍になる。"
+    },
+    {
+      "id": 82,
+      "name": "くいしんぼう",
+      "showdownId": "gluttony",
+      "effect": "ＨＰが１／４以下の時に食べるきのみを ＨＰが１／２以下の時に食べてしまう。"
+    },
+    {
+      "id": 83,
+      "name": "いかりのつぼ",
+      "showdownId": "angerpoint",
+      "effect": "相手の攻撃が急所に当たると 自分の攻撃が６段階目まで上がる。"
+    },
+    {
+      "id": 84,
+      "name": "かるわざ",
+      "showdownId": "unburden",
+      "effect": "持っていた道具がなくなると 素早さが２倍になる。"
+    },
+    {
+      "id": 85,
+      "name": "たいねつ",
+      "showdownId": "heatproof",
+      "effect": "ほのおタイプの技で受けるダメージが 半減する。やけど状態で受けるダメージも 半減する。"
+    },
+    {
+      "id": 87,
+      "name": "かんそうはだ",
+      "showdownId": "dryskin",
+      "effect": "みずタイプの技が効かず 最大ＨＰの１／４回復する ほのおタイプの技の 受けるダメージが１．２５倍になる あめ状態の時 ターン終わりに最大ＨＰの１／８回復するが にほんばれ状態の時 ターン終わりに最大ＨＰの１／８減る。"
+    },
+    {
+      "id": 89,
+      "name": "てつのこぶし",
+      "showdownId": "ironfist",
+      "effect": "パンチの技の威力が１．２倍になる。"
+    },
+    {
+      "id": 90,
+      "name": "ポイズンヒール",
+      "showdownId": "poisonheal",
+      "effect": "どく もうどく状態になると ターン終わりにＨＰが減らずに 最大ＨＰの１／８回復する。"
+    },
+    {
+      "id": 91,
+      "name": "てきおうりょく",
+      "showdownId": "adaptability",
+      "effect": "自分と同じタイプの技の威力が １．５倍ではなく２倍になる。"
+    },
+    {
+      "id": 92,
+      "name": "スキルリンク",
+      "showdownId": "skilllink",
+      "effect": "連続技を使うと 最高回数まで出せる。"
+    },
+    {
+      "id": 93,
+      "name": "うるおいボディ",
+      "showdownId": "hydration",
+      "effect": "あめ状態の時 ターン終わりに 状態異常が治る。"
+    },
+    {
+      "id": 94,
+      "name": "サンパワー",
+      "showdownId": "solarpower",
+      "effect": "にほんばれ状態だと 特攻が１．５倍になるが ターン終わりに最大ＨＰの１／８減る。"
+    },
+    {
+      "id": 95,
+      "name": "はやあし",
+      "showdownId": "quickfeet",
+      "effect": "状態異常になると素早さが１．５倍になる。 まひ状態の素早さが遅くなる効果も無視する。"
+    },
+    {
+      "id": 97,
+      "name": "スナイパー",
+      "showdownId": "sniper",
+      "effect": "急所に当てた時の威力が １．５倍ではなく２．２５倍になる。"
+    },
+    {
+      "id": 98,
+      "name": "マジックガード",
+      "showdownId": "magicguard",
+      "effect": "攻撃以外ではダメージが効かない。"
+    },
+    {
+      "id": 99,
+      "name": "ノーガード",
+      "showdownId": "noguard",
+      "effect": "お互いの技の命中率が１００％になる。"
+    },
+    {
+      "id": 100,
+      "name": "あとだし",
+      "showdownId": "stall",
+      "effect": "同じ優先度の技の中で 最後に行動する。"
+    },
+    {
+      "id": 101,
+      "name": "テクニシャン",
+      "showdownId": "technician",
+      "effect": "威力が６０以下の技の威力が１．５倍になる。"
+    },
+    {
+      "id": 102,
+      "name": "リーフガード",
+      "showdownId": "leafguard",
+      "effect": "にほんばれ状態の時 状態異常にならない。"
+    },
+    {
+      "id": 103,
+      "name": "ぶきよう",
+      "showdownId": "klutz",
+      "effect": "このポケモンが持っている道具は 効果を発揮しない。"
+    },
+    {
+      "id": 104,
+      "name": "かたやぶり",
+      "showdownId": "moldbreaker",
+      "effect": "相手の特性に関係なく技を出すことができる。 例外となる特性もある。"
+    },
+    {
+      "id": 105,
+      "name": "きょううん",
+      "showdownId": "superluck",
+      "effect": "きゅうしょアップ＋１ になる。"
+    },
+    {
+      "id": 106,
+      "name": "ゆうばく",
+      "showdownId": "aftermath",
+      "effect": "接触技を受けてひんしになると 相手の最大ＨＰの１／４のダメージを与える。"
+    },
+    {
+      "id": 107,
+      "name": "きけんよち",
+      "showdownId": "anticipation",
+      "effect": "登場した時 相手が自分への効果バツグンや 一撃必殺の技を持っていると そのことを察知できる。"
+    },
+    {
+      "id": 108,
+      "name": "よちむ",
+      "showdownId": "forewarn",
+      "effect": "登場した時 相手の技の中から 威力の高い技を １つ読み取る。"
+    },
+    {
+      "id": 109,
+      "name": "てんねん",
+      "showdownId": "unaware",
+      "effect": "相手の能力の変化を無視して攻撃できる。 相手の能力の変化を無視して攻撃を受ける。 素早さは無視できない。"
+    },
+    {
+      "id": 111,
+      "name": "フィルター",
+      "showdownId": "filter",
+      "effect": "効果バツグンの技で 受けるダメージを３／４にする。"
+    },
+    {
+      "id": 113,
+      "name": "きもったま",
+      "showdownId": "scrappy",
+      "effect": "ノーマルタイプ かくとうタイプの技を ゴーストタイプに当てることができる。 いかくも効かない。"
+    },
+    {
+      "id": 115,
+      "name": "アイスボディ",
+      "showdownId": "icebody",
+      "effect": "ゆき状態の時 ターン終わりに 最大ＨＰの１／１６回復する。"
+    },
+    {
+      "id": 116,
+      "name": "ハードロック",
+      "showdownId": "solidrock",
+      "effect": "効果バツグンの技で 受けるダメージを３／４にする。"
+    },
+    {
+      "id": 117,
+      "name": "ゆきふらし",
+      "showdownId": "snowwarning",
+      "effect": "登場した時から ５ターンの間 ゆき状態にする。"
+    },
+    {
+      "id": 119,
+      "name": "おみとおし",
+      "showdownId": "frisk",
+      "effect": "登場した時 相手が持っている道具を 知ることができる。"
+    },
+    {
+      "id": 120,
+      "name": "すてみ",
+      "showdownId": "reckless",
+      "effect": "自分もダメージを受ける 技の威力が１．２倍になる。"
+    },
+    {
+      "id": 124,
+      "name": "わるいてぐせ",
+      "showdownId": "pickpocket",
+      "effect": "自分が道具を持っていない時 接触技を受けると 相手の道具を盗んでしまう。"
+    },
+    {
+      "id": 125,
+      "name": "ちからずく",
+      "showdownId": "sheerforce",
+      "effect": "攻撃の追加効果はなくなるが １．３倍の威力で技を出すことができる。"
+    },
+    {
+      "id": 126,
+      "name": "あまのじゃく",
+      "showdownId": "contrary",
+      "effect": "能力の変化が逆転し 上がる時には下がり 下がる時には上がる。"
+    },
+    {
+      "id": 127,
+      "name": "きんちょうかん",
+      "showdownId": "unnerve",
+      "effect": "相手のきのみを 食べられなくさせる。"
+    },
+    {
+      "id": 128,
+      "name": "まけんき",
+      "showdownId": "defiant",
+      "effect": "相手に能力を下げられると 攻撃が２段階上がる。"
+    },
+    {
+      "id": 130,
+      "name": "のろわれボディ",
+      "showdownId": "cursedbody",
+      "effect": "技のダメージを受けると ３０％の確率で ４ターンの間 相手をわざふうじ状態にする。"
+    },
+    {
+      "id": 131,
+      "name": "いやしのこころ",
+      "showdownId": "healer",
+      "effect": "ターン終わりに 状態異常の味方を ５０％の確率で治す。"
+    },
+    {
+      "id": 132,
+      "name": "フレンドガード",
+      "showdownId": "friendguard",
+      "effect": "味方が受けるダメージを３／４にする。"
+    },
+    {
+      "id": 133,
+      "name": "くだけるよろい",
+      "showdownId": "weakarmor",
+      "effect": "物理技のダメージを受けると 防御が１段階下がり 素早さが２段階上がる。"
+    },
+    {
+      "id": 134,
+      "name": "ヘヴィメタル",
+      "showdownId": "heavymetal",
+      "effect": "自分の重さが２倍になる。"
+    },
+    {
+      "id": 135,
+      "name": "ライトメタル",
+      "showdownId": "lightmetal",
+      "effect": "自分の重さが１／２になる。"
+    },
+    {
+      "id": 136,
+      "name": "マルチスケイル",
+      "showdownId": "multiscale",
+      "effect": "ＨＰが満タンの時に 受けるダメージが半減する。"
+    },
+    {
+      "id": 139,
+      "name": "しゅうかく",
+      "showdownId": "harvest",
+      "effect": "使ったきのみを ターン終わりに ５０％の確率で作りだす。にほんばれ 状態の時 必ず作りだす。"
+    },
+    {
+      "id": 140,
+      "name": "テレパシー",
+      "showdownId": "telepathy",
+      "effect": "味方からの攻撃を回避する。"
+    },
+    {
+      "id": 141,
+      "name": "ムラっけ",
+      "showdownId": "moody",
+      "effect": "ターン終わりに 能力のどれかが２段階上がり 別のどれかが１段階下がる。"
+    },
+    {
+      "id": 142,
+      "name": "ぼうじん",
+      "showdownId": "overcoat",
+      "effect": "すなあらし状態で受けるダメージが効かない。 粉の 技 特性も効かない。"
+    },
+    {
+      "id": 143,
+      "name": "どくしゅ",
+      "showdownId": "poisontouch",
+      "effect": "相手に接触技を当てると ３０％の確率でどく状態にする。"
+    },
+    {
+      "id": 144,
+      "name": "さいせいりょく",
+      "showdownId": "regenerator",
+      "effect": "手持ちに戻ると 最大ＨＰの１／３回復する。"
+    },
+    {
+      "id": 145,
+      "name": "はとむね",
+      "showdownId": "bigpecks",
+      "effect": "相手の技や特性で防御を下げられない。"
+    },
+    {
+      "id": 146,
+      "name": "すなかき",
+      "showdownId": "sandrush",
+      "effect": "すなあらし状態の時 素早さが２倍になる。"
+    },
+    {
+      "id": 148,
+      "name": "アナライズ",
+      "showdownId": "analytic",
+      "effect": "ターンの最後に技を出すと 技の威力が１．３倍になる。"
+    },
+    {
+      "id": 149,
+      "name": "イリュージョン",
+      "showdownId": "illusion",
+      "effect": "手持ちの１番後ろのポケモンの姿で現れる。 技のダメージを受けると元に戻る。"
+    },
+    {
+      "id": 150,
+      "name": "かわりもの",
+      "showdownId": "imposter",
+      "effect": "目の前のポケモンに変身する。 ＨＰ以外のステータスも同じになる。"
+    },
+    {
+      "id": 151,
+      "name": "すりぬけ",
+      "showdownId": "infiltrator",
+      "effect": "相手の ひかりのかべ リフレクター オーロラベール しんぴのまもり みがわりを 無視して技を使うことができる。"
+    },
+    {
+      "id": 152,
+      "name": "ミイラ",
+      "showdownId": "mummy",
+      "effect": "接触技を受けると 相手の特性を ミイラ にする。"
+    },
+    {
+      "id": 153,
+      "name": "じしんかじょう",
+      "showdownId": "moxie",
+      "effect": "攻撃で相手を倒すと 攻撃が１段階上がる。"
+    },
+    {
+      "id": 154,
+      "name": "せいぎのこころ",
+      "showdownId": "justified",
+      "effect": "あくタイプの技のダメージを受けると 攻撃が１段階上がる。"
+    },
+    {
+      "id": 155,
+      "name": "びびり",
+      "showdownId": "rattled",
+      "effect": "あく ゴースト むしタイプの技のダメージや いかくを受けた時 素早さが１段階上がる。"
+    },
+    {
+      "id": 156,
+      "name": "マジックミラー",
+      "showdownId": "magicbounce",
+      "effect": "相手の変化技を受けずに 相手に跳ね返す。"
+    },
+    {
+      "id": 157,
+      "name": "そうしょく",
+      "showdownId": "sapsipper",
+      "effect": "くさタイプの技が効かず 攻撃が１段階上がる。"
+    },
+    {
+      "id": 158,
+      "name": "いたずらごころ",
+      "showdownId": "prankster",
+      "effect": "変化技の優先度が１段階上がる。 代わりに あくタイプの ポケモンには 変化技が効かなくなる。"
+    },
+    {
+      "id": 159,
+      "name": "すなのちから",
+      "showdownId": "sandforce",
+      "effect": "すなあらし状態の時 いわ じめん はがねタイプの 技の威力が１．３倍になる。"
+    },
+    {
+      "id": 165,
+      "name": "アロマベール",
+      "showdownId": "aromaveil",
+      "effect": "自分と味方は メロメロ ちょうはつ 連続不可 わざふうじ かいふくふうじ アンコール状態にならない。"
+    },
+    {
+      "id": 166,
+      "name": "フラワーベール",
+      "showdownId": "flowerveil",
+      "effect": "味方のくさタイプのポケモンは 能力が下がらず 状態異常にもならない。"
+    },
+    {
+      "id": 167,
+      "name": "ほおぶくろ",
+      "showdownId": "cheekpouch",
+      "effect": "きのみを食べると その効果に加えて 最大ＨＰの１／３回復する。"
+    },
+    {
+      "id": 168,
+      "name": "へんげんじざい",
+      "showdownId": "protean",
+      "effect": "登場するたび １回だけ 自分が出す技と同じタイプに変化する。"
+    },
+    {
+      "id": 169,
+      "name": "ファーコート",
+      "showdownId": "furcoat",
+      "effect": "物理技で受けるダメージが半減する。"
+    },
+    {
+      "id": 170,
+      "name": "マジシャン",
+      "showdownId": "magician",
+      "effect": "自分が道具を持っていない時 技でダメージを与えた相手の道具を奪う。"
+    },
+    {
+      "id": 171,
+      "name": "ぼうだん",
+      "showdownId": "bulletproof",
+      "effect": "弾の技が効かない。"
+    },
+    {
+      "id": 172,
+      "name": "かちき",
+      "showdownId": "competitive",
+      "effect": "相手に能力を下げられると 特攻が２段階上がる。"
+    },
+    {
+      "id": 173,
+      "name": "がんじょうあご",
+      "showdownId": "strongjaw",
+      "effect": "噛む技の威力が１．５倍になる。"
+    },
+    {
+      "id": 174,
+      "name": "フリーズスキン",
+      "showdownId": "refrigerate",
+      "effect": "ノーマルタイプの技がこおりタイプになり 威力が１．２倍になる。"
+    },
+    {
+      "id": 175,
+      "name": "スイートベール",
+      "showdownId": "sweetveil",
+      "effect": "自分と味方は ねむり ねむけ状態にならない。"
+    },
+    {
+      "id": 176,
+      "name": "バトルスイッチ",
+      "showdownId": "stancechange",
+      "effect": "攻撃を出すと ブレードフォルムに 技のキングシールドを出すと シールドフォルムに変化する。"
+    },
+    {
+      "id": 177,
+      "name": "はやてのつばさ",
+      "showdownId": "galewings",
+      "effect": "ＨＰが満タンの時 ひこうタイプの技の 優先度が１段階上がる。"
+    },
+    {
+      "id": 178,
+      "name": "メガランチャー",
+      "showdownId": "megalauncher",
+      "effect": "波動の技の威力が１．５倍になる。"
+    },
+    {
+      "id": 179,
+      "name": "くさのけがわ",
+      "showdownId": "grasspelt",
+      "effect": "グラスフィールド状態の時 防御が１．５倍になる。"
+    },
+    {
+      "id": 180,
+      "name": "きょうせい",
+      "showdownId": "symbiosis",
+      "effect": "味方が道具を消費すると 自分の持っている道具を味方に渡す。"
+    },
+    {
+      "id": 181,
+      "name": "かたいツメ",
+      "showdownId": "toughclaws",
+      "effect": "接触技の威力が１．３倍になる。"
+    },
+    {
+      "id": 182,
+      "name": "フェアリースキン",
+      "showdownId": "pixilate",
+      "effect": "ノーマルタイプの技がフェアリータイプになり 威力が１．２倍になる。"
+    },
+    {
+      "id": 183,
+      "name": "ぬめぬめ",
+      "showdownId": "gooey",
+      "effect": "接触技を受けると 相手の素早さを１段階下げる。"
+    },
+    {
+      "id": 184,
+      "name": "スカイスキン",
+      "showdownId": "aerilate",
+      "effect": "ノーマルタイプの技がひこうタイプになり 威力が１．２倍になる。"
+    },
+    {
+      "id": 185,
+      "name": "おやこあい",
+      "showdownId": "parentalbond",
+      "effect": "親と子で２回攻撃できる。 子の攻撃の威力は親の０．２５倍である。"
+    },
+    {
+      "id": 187,
+      "name": "フェアリーオーラ",
+      "showdownId": "fairyaura",
+      "effect": "全員のフェアリータイプの技の 威力が１．３３倍になる。"
+    },
+    {
+      "id": 192,
+      "name": "じきゅうりょく",
+      "showdownId": "stamina",
+      "effect": "技のダメージを受けると 防御が１段階上がる。"
+    },
+    {
+      "id": 194,
+      "name": "ききかいひ",
+      "showdownId": "emergencyexit",
+      "effect": "ＨＰが１／２以下になると 手持ちに戻る。"
+    },
+    {
+      "id": 196,
+      "name": "ひとでなし",
+      "showdownId": "merciless",
+      "effect": "どく もうどく状態の相手を攻撃すると 必ず急所に当たる。"
+    },
+    {
+      "id": 198,
+      "name": "はりこみ",
+      "showdownId": "stakeout",
+      "effect": "交代で出てきた相手に攻撃する時 技の威力が２倍になる。"
+    },
+    {
+      "id": 199,
+      "name": "すいほう",
+      "showdownId": "waterbubble",
+      "effect": "ほのおタイプの技で受けるダメージが 半減する。みずタイプの技の威力が ２倍になる。やけど状態にならない。"
+    },
+    {
+      "id": 201,
+      "name": "ぎゃくじょう",
+      "showdownId": "berserk",
+      "effect": "相手の攻撃でＨＰが１／２以下になると 特攻が１段階上がる。"
+    },
+    {
+      "id": 202,
+      "name": "ゆきかき",
+      "showdownId": "slushrush",
+      "effect": "ゆき状態の時 素早さが２倍になる。"
+    },
+    {
+      "id": 203,
+      "name": "えんかく",
+      "showdownId": "longreach",
+      "effect": "使う技が接触技ではなくなる。"
+    },
+    {
+      "id": 204,
+      "name": "うるおいボイス",
+      "showdownId": "liquidvoice",
+      "effect": "音の技がみずタイプになる。"
+    },
+    {
+      "id": 207,
+      "name": "サーフテール",
+      "showdownId": "surgesurfer",
+      "effect": "エレキフィールド状態の時に 素早さが２倍になる。"
+    },
+    {
+      "id": 209,
+      "name": "ばけのかわ",
+      "showdownId": "disguise",
+      "effect": "ばけたすがた の時に技のダメージを受けると ダメージの代わりに最大ＨＰの１／８を消費し ばれたすがた へと変わる。"
+    },
+    {
+      "id": 212,
+      "name": "ふしょく",
+      "showdownId": "corrosion",
+      "effect": "はがねタイプ どくタイプも どく もうどく状態にすることができる。"
+    },
+    {
+      "id": 214,
+      "name": "じょおうのいげん",
+      "showdownId": "queenlymajesty",
+      "effect": "自分と味方に対し 相手は先制技を使えない。"
+    },
+    {
+      "id": 215,
+      "name": "とびだすなかみ",
+      "showdownId": "innardsout",
+      "effect": "ひんしになる技のダメージを受けると 相手から受けたそのダメージを返す。"
+    },
+    {
+      "id": 218,
+      "name": "もふもふ",
+      "showdownId": "fluffy",
+      "effect": "接触技で受けるダメージが半減する。 ほのおタイプの技で受けるダメージは ２倍になる。"
+    },
+    {
+      "id": 222,
+      "name": "レシーバー",
+      "showdownId": "receiver",
+      "effect": "倒された味方の特性と同じ特性になる。"
+    },
+    {
+      "id": 226,
+      "name": "エレキメイカー",
+      "showdownId": "electricsurge",
+      "effect": "登場した時から ５ターンの間 全体の場を エレキフィールド状態にする。"
+    },
+    {
+      "id": 227,
+      "name": "サイコメイカー",
+      "showdownId": "psychicsurge",
+      "effect": "登場した時から ５ターンの間 全体の場を サイコフィールド状態にする。"
+    },
+    {
+      "id": 229,
+      "name": "グラスメイカー",
+      "showdownId": "grassysurge",
+      "effect": "登場した時から ５ターンの間 全体の場を グラスフィールド状態にする。"
+    },
+    {
+      "id": 236,
+      "name": "リベロ",
+      "showdownId": "libero",
+      "effect": "登場するたび １回だけ 自分が出す技と同じタイプに変化する。"
+    },
+    {
+      "id": 240,
+      "name": "ミラーアーマー",
+      "showdownId": "mirrorarmor",
+      "effect": "自分が受ける能力を下げる効果を受けずに 相手に跳ね返す。"
+    },
+    {
+      "id": 242,
+      "name": "すじがねいり",
+      "showdownId": "stalwart",
+      "effect": "技を引き受ける特性や技の影響を無視する。"
+    },
+    {
+      "id": 244,
+      "name": "パンクロック",
+      "showdownId": "punkrock",
+      "effect": "音の技の威力が１．３倍になり 音の技で受けるダメージが半減する。"
+    },
+    {
+      "id": 245,
+      "name": "すなはき",
+      "showdownId": "sandspit",
+      "effect": "技のダメージを受けた時から ５ターンの間 すなあらし状態にする。"
+    },
+    {
+      "id": 247,
+      "name": "じゅくせい",
+      "showdownId": "ripen",
+      "effect": "食べるきのみの効果が２倍になる。"
+    },
+    {
+      "id": 250,
+      "name": "ぎたい",
+      "showdownId": "mimicry",
+      "effect": "フィールドによってタイプが変わる。"
+    },
+    {
+      "id": 251,
+      "name": "バリアフリー",
+      "showdownId": "screencleaner",
+      "effect": "登場した時に ひかりのかべ リフレクター オーロラベール状態を解除する。"
+    },
+    {
+      "id": 252,
+      "name": "はがねのせいしん",
+      "showdownId": "steelyspirit",
+      "effect": "自分と味方の はがねタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 254,
+      "name": "さまようたましい",
+      "showdownId": "wanderingspirit",
+      "effect": "接触技を受けると 相手と特性を入れ替える。"
+    },
+    {
+      "id": 258,
+      "name": "はらぺこスイッチ",
+      "showdownId": "hungerswitch",
+      "effect": "ターン終わりに まんぷくもよう はらぺこもようと 交互に姿を変える。"
+    },
+    {
+      "id": 259,
+      "name": "クイックドロウ",
+      "showdownId": "quickdraw",
+      "effect": "３０％の確率で 同じ優先度の技の中で最初に行動する。"
+    },
+    {
+      "id": 260,
+      "name": "ふかしのこぶし",
+      "showdownId": "unseenfist",
+      "effect": "接触技を使う時 相手の守りの効果を無視して 本来の１／４のダメージを与える。 相手の守りの効果以外は発動される。"
+    },
+    {
+      "id": 261,
+      "name": "きみょうなくすり",
+      "showdownId": "curiousmedicine",
+      "effect": "登場した時に 味方の能力変化を元に戻す。"
+    },
+    {
+      "id": 269,
+      "name": "こぼれダネ",
+      "showdownId": "seedsower",
+      "effect": "技のダメージを受けた時から ５ターンの間 全体の場を グラスフィールド状態にする。"
+    },
+    {
+      "id": 270,
+      "name": "ねつこうかん",
+      "showdownId": "thermalexchange",
+      "effect": "ほのおタイプの技のダメージを受けると 攻撃が１段階上がる。やけど状態にならない。"
+    },
+    {
+      "id": 272,
+      "name": "きよめのしお",
+      "showdownId": "purifyingsalt",
+      "effect": "状態異常にならない。 ゴーストタイプの技で 受けるダメージが半減する。"
+    },
+    {
+      "id": 275,
+      "name": "ばんけん",
+      "showdownId": "guarddog",
+      "effect": "いかくが効かず 攻撃が１段階上がる。 相手の入れ替えさせる技や道具が効かない。"
+    },
+    {
+      "id": 278,
+      "name": "マイティチェンジ",
+      "showdownId": "zerotohero",
+      "effect": "手持ちに戻ると マイティフォルムに変化する。"
+    },
+    {
+      "id": 280,
+      "name": "でんきにかえる",
+      "showdownId": "electromorphosis",
+      "effect": "技のダメージを受けると でんき威力アップ状態になる。"
+    },
+    {
+      "id": 283,
+      "name": "おうごんのからだ",
+      "showdownId": "goodasgold",
+      "effect": "相手からの変化技が効かない。"
+    },
+    {
+      "id": 290,
+      "name": "びんじょう",
+      "showdownId": "opportunist",
+      "effect": "相手の能力が上がった時 自分も同じように能力が上がる。"
+    },
+    {
+      "id": 291,
+      "name": "はんすう",
+      "showdownId": "cudchew",
+      "effect": "きのみを食べた次のターン終わりに また同じきのみを１度だけ食べる。"
+    },
+    {
+      "id": 292,
+      "name": "きれあじ",
+      "showdownId": "sharpness",
+      "effect": "切る技の威力が１．５倍になる。"
+    },
+    {
+      "id": 293,
+      "name": "そうだいしょう",
+      "showdownId": "supremeoverlord",
+      "effect": "登場した時 その戦闘で倒された手持ちの ポケモン１匹につき 技の威力が１０％上がる。 最大で５０％まで上がる。"
+    },
+    {
+      "id": 295,
+      "name": "どくげしょう",
+      "showdownId": "toxicdebris",
+      "effect": "物理技のダメージを受けると 相手の場を どくびし状態にする。"
+    },
+    {
+      "id": 296,
+      "name": "テイルアーマー",
+      "showdownId": "armortail",
+      "effect": "自分と味方に対し 相手は先制技を使えない。"
+    },
+    {
+      "id": 297,
+      "name": "どしょく",
+      "showdownId": "eartheater",
+      "effect": "じめんタイプの技が効かず 最大ＨＰの１／４回復する。"
+    },
+    {
+      "id": 299,
+      "name": "おもてなし",
+      "showdownId": "hospitality",
+      "effect": "登場した時 味方のＨＰを その味方の最大ＨＰの１／４回復する。"
+    },
+    {
+      "id": 306,
+      "name": "かんろなミツ",
+      "showdownId": "supersweetsyrup",
+      "effect": "登場した時 相手の回避率を１段階下げる。 １回の戦闘で１度しか発動しない。"
+    },
+    {
+      "id": 311,
+      "name": "かんつうドリル",
+      "showdownId": "piercingdrill",
+      "effect": "接触技を使う時 相手の守りの効果を無視して 本来の１／４のダメージを与える。 相手の守りの効果以外は発動される。"
+    },
+    {
+      "id": 312,
+      "name": "ドラゴンスキン",
+      "showdownId": "dragonize",
+      "effect": "ノーマルタイプの技がドラゴンタイプになり 威力が１．２倍になる。"
+    },
+    {
+      "id": 313,
+      "name": "うなぎのぼり",
+      "showdownId": "eelevate",
+      "effect": "地面にいないことになり じめんタイプの技 まきびし どくびし ねばねばネット状態が効かない。 攻撃で相手を倒すと 自分の最も高い能力が１段階上がる。"
+    },
+    {
+      "id": 315,
+      "name": "メガソーラー",
+      "showdownId": "megasol",
+      "effect": "天気が にほんばれ状態でなくても にほんばれ状態として 技を使うことができる。"
+    },
+    {
+      "id": 316,
+      "name": "ほのおのたてがみ",
+      "showdownId": "firemane",
+      "effect": "ほのおタイプの技の威力が１．５倍になる。"
+    },
+    {
+      "id": 318,
+      "name": "とびだすハバネロ",
+      "showdownId": "spicyspray",
+      "effect": "技のダメージを受けると 相手をやけど状態にする。"
+    },
+    {
+      "id": 319,
+      "name": "はどうのぼうご",
+      "showdownId": "auraguard",
+      "effect": "接触技で受けるダメージが半減する。"
+    }
+  ]
+}

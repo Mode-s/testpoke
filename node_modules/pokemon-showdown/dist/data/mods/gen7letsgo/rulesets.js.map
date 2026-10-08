@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../data/mods/gen7letsgo/rulesets.ts"],
+  "sourcesContent": ["export const Rulesets: import('../../../sim/dex-formats').ModdedFormatDataTable = {\n\tstandard: {\n\t\tinherit: true,\n\t\truleset: [\n\t\t\t'Standard AG',\n\t\t\t'LGPE Normal Rules', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause', 'Sleep Clause Mod',\n\t\t],\n\t},\n\tstandarddoubles: {\n\t\tinherit: true,\n\t\truleset: [\n\t\t\t'Standard AG',\n\t\t\t'LGPE Normal Rules', 'Species Clause', 'Nickname Clause', 'OHKO Clause', 'Evasion Moves Clause',\n\t\t],\n\t},\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,WAAqE;AAAA,EACjF,UAAU;AAAA,IACT,SAAS;AAAA,IACT,SAAS;AAAA,MACR;AAAA,MACA;AAAA,MAAqB;AAAA,MAAkB;AAAA,MAAmB;AAAA,MAAe;AAAA,MAAwB;AAAA,IAClG;AAAA,EACD;AAAA,EACA,iBAAiB;AAAA,IAChB,SAAS;AAAA,IACT,SAAS;AAAA,MACR;AAAA,MACA;AAAA,MAAqB;AAAA,MAAkB;AAAA,MAAmB;AAAA,MAAe;AAAA,IAC1E;AAAA,EACD;AACD;",
+  "names": []
+}

@@ -1,0 +1,3361 @@
+{
+  "game": "Pokémon Champions",
+  "asOf": "2026-10-08",
+  "regulation": "M-C",
+  "regulationPeriodUtc": {
+    "start": "2026-09-09T02:00:00Z",
+    "end": "2026-12-02T01:59:00Z"
+  },
+  "source": "Pokémon Champions v1.2.0 masterdata/item.json とゲーム内のアイテム名、効果文",
+  "notes": [
+    "対戦で持たせられるアイテムです。同じ持ち物は1対戦に1つまでです。",
+    "priceVp が null のものは初期から所持しています。",
+    "holders はメガストーンや特定のポケモンにだけ効く持ち物の対象です。",
+    "showdownId は Pokémon Showdown のアイテムidです。id はチャンピオンズのアイテム番号で、Showdown の item.num と同じです。"
+  ],
+  "counts": {
+    "items": 166,
+    "legalInMC": 166,
+    "megaStones": 81,
+    "berries": 28
+  },
+  "items": [
+    {
+      "id": 149,
+      "name": "クラボのみ",
+      "showdownId": "cheriberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "まひ状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 150,
+      "name": "カゴのみ",
+      "showdownId": "chestoberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "ねむり状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 151,
+      "name": "モモンのみ",
+      "showdownId": "pechaberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "どく もうどく状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 152,
+      "name": "チーゴのみ",
+      "showdownId": "rawstberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "やけど状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 153,
+      "name": "ナナシのみ",
+      "showdownId": "aspearberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "こおり状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 154,
+      "name": "ヒメリのみ",
+      "showdownId": "leppaberry",
+      "category": "きのみ",
+      "berryEffect": null,
+      "effect": "ＰＰが０になった技のＰＰを１０回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 155,
+      "name": "オレンのみ",
+      "showdownId": "oranberry",
+      "category": "きのみ",
+      "berryEffect": null,
+      "effect": "残りＨＰが最大ＨＰの１／２以下になった時 １０回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 156,
+      "name": "キーのみ",
+      "showdownId": "persimberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "こんらん状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 157,
+      "name": "ラムのみ",
+      "showdownId": "lumberry",
+      "category": "きのみ",
+      "berryEffect": "状態異常",
+      "effect": "全ての状態異常 こんらん状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 158,
+      "name": "オボンのみ",
+      "showdownId": "sitrusberry",
+      "category": "きのみ",
+      "berryEffect": null,
+      "effect": "残りＨＰが最大ＨＰの１／２以下になった時 最大ＨＰの１／４回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 184,
+      "name": "オッカのみ",
+      "showdownId": "occaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのほのおタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 185,
+      "name": "イトケのみ",
+      "showdownId": "passhoberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのみずタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 186,
+      "name": "ソクノのみ",
+      "showdownId": "wacanberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのでんきタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 187,
+      "name": "リンドのみ",
+      "showdownId": "rindoberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのくさタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 188,
+      "name": "ヤチェのみ",
+      "showdownId": "yacheberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのこおりタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 189,
+      "name": "ヨプのみ",
+      "showdownId": "chopleberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのかくとうタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 190,
+      "name": "ビアーのみ",
+      "showdownId": "kebiaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのどくタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 191,
+      "name": "シュカのみ",
+      "showdownId": "shucaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのじめんタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 192,
+      "name": "バコウのみ",
+      "showdownId": "cobaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのひこうタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 193,
+      "name": "ウタンのみ",
+      "showdownId": "payapaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのエスパータイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 194,
+      "name": "タンガのみ",
+      "showdownId": "tangaberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのむしタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 195,
+      "name": "ヨロギのみ",
+      "showdownId": "chartiberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのいわタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 196,
+      "name": "カシブのみ",
+      "showdownId": "kasibberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのゴーストタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 197,
+      "name": "ハバンのみ",
+      "showdownId": "habanberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのドラゴンタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 198,
+      "name": "ナモのみ",
+      "showdownId": "colburberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのあくタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 199,
+      "name": "リリバのみ",
+      "showdownId": "babiriberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのはがねタイプの技を 受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 200,
+      "name": "ホズのみ",
+      "showdownId": "chilanberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "ノーマルタイプの技を受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 686,
+      "name": "ロゼルのみ",
+      "showdownId": "roseliberry",
+      "category": "きのみ",
+      "berryEffect": "半減",
+      "effect": "効果バツグンのフェアリータイプの 技を受けた時 ダメージが半減する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 400,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 213,
+      "name": "ひかりのこな",
+      "showdownId": "brightpowder",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "自分に対し 相手の使う 技の命中率が０．９倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 217,
+      "name": "せんせいのツメ",
+      "showdownId": "quickclaw",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "２０％の確率で 同じ優先度の技の中で最初に行動する。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 221,
+      "name": "おうじゃのしるし",
+      "showdownId": "kingsrock",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "技でダメージを与えた時 １０％の確率で相手をひるませる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 232,
+      "name": "ピントレンズ",
+      "showdownId": "scopelens",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "きゅうしょアップ＋１ になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 259,
+      "name": "ながねぎ",
+      "showdownId": "leek",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "カモネギ ネギガナイトが きゅうしょアップ＋２ になる。",
+      "megaStone": false,
+      "holders": [
+        {
+          "nationalDex": 83,
+          "name": "カモネギ"
+        },
+        {
+          "nationalDex": 865,
+          "name": "ネギガナイト"
+        }
+      ],
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 265,
+      "name": "こうかくレンズ",
+      "showdownId": "widelens",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "技の命中率が １．１倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 276,
+      "name": "フォーカスレンズ",
+      "showdownId": "zoomlens",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "相手よりも 行動順が遅い時 技の命中率が１．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 278,
+      "name": "くろいてっきゅう",
+      "showdownId": "ironball",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "素早さが１／２になる。地面にいないポケモンは 地面にいることになり じめんタイプの技 まきびし どくびし ねばねばネット状態が 効くようになる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 295,
+      "name": "きれいなぬけがら",
+      "showdownId": "shedshell",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "交代を邪魔する効果を無視して 手持ちの他のポケモンと 交代することができる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 540,
+      "name": "ゴツゴツメット",
+      "showdownId": "rockyhelmet",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "接触技を受けると 相手の最大ＨＰの １／６のダメージを与える。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 541,
+      "name": "ふうせん",
+      "showdownId": "airballoon",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "地面にいないことになり じめんタイプの技 まきびし どくびし ねばねばネット状態が効かない。 技のダメージを受けると その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 542,
+      "name": "レッドカード",
+      "showdownId": "redcard",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "技でダメージを与えてきた相手を交代させる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 547,
+      "name": "だっしゅつボタン",
+      "showdownId": "ejectbutton",
+      "category": "その他",
+      "berryEffect": null,
+      "effect": "技でダメージを受けた時 手持ちに戻る。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 656,
+      "name": "ゲンガナイト",
+      "showdownId": "gengarite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ゲンガーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 94,
+          "name": "ゲンガー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 657,
+      "name": "サーナイトナイト",
+      "showdownId": "gardevoirite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "サーナイトが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 282,
+          "name": "サーナイト"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 658,
+      "name": "デンリュウナイト",
+      "showdownId": "ampharosite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "デンリュウが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 181,
+          "name": "デンリュウ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 659,
+      "name": "フシギバナイト",
+      "showdownId": "venusaurite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "フシギバナが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 3,
+          "name": "フシギバナ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 660,
+      "name": "リザードナイトＸ",
+      "showdownId": "charizarditex",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "リザードンが メガシンカすることができる持ち物。 （メガリザードンＸ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 6,
+          "name": "リザードン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 661,
+      "name": "カメックスナイト",
+      "showdownId": "blastoisinite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "カメックスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 9,
+          "name": "カメックス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 664,
+      "name": "バシャーモナイト",
+      "showdownId": "blazikenite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "バシャーモが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 257,
+          "name": "バシャーモ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 665,
+      "name": "チャーレムナイト",
+      "showdownId": "medichamite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "チャーレムが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 308,
+          "name": "チャーレム"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 666,
+      "name": "ヘルガナイト",
+      "showdownId": "houndoominite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ヘルガーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 229,
+          "name": "ヘルガー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 667,
+      "name": "ボスゴドラナイト",
+      "showdownId": "aggronite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ボスゴドラが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 306,
+          "name": "ボスゴドラ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 668,
+      "name": "ジュペッタナイト",
+      "showdownId": "banettite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ジュペッタが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 354,
+          "name": "ジュペッタ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 669,
+      "name": "バンギラスナイト",
+      "showdownId": "tyranitarite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "バンギラスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 248,
+          "name": "バンギラス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 670,
+      "name": "ハッサムナイト",
+      "showdownId": "scizorite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ハッサムが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 212,
+          "name": "ハッサム"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 671,
+      "name": "カイロスナイト",
+      "showdownId": "pinsirite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "カイロスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 127,
+          "name": "カイロス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 672,
+      "name": "プテラナイト",
+      "showdownId": "aerodactylite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "プテラが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 142,
+          "name": "プテラ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 673,
+      "name": "ルカリオナイト",
+      "showdownId": "lucarionite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ルカリオが メガシンカすることができる持ち物。 （メガルカリオ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 448,
+          "name": "ルカリオ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 674,
+      "name": "ユキノオナイト",
+      "showdownId": "abomasite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ユキノオーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 460,
+          "name": "ユキノオー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 675,
+      "name": "ガルーラナイト",
+      "showdownId": "kangaskhanite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ガルーラが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 115,
+          "name": "ガルーラ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 676,
+      "name": "ギャラドスナイト",
+      "showdownId": "gyaradosite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ギャラドスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 130,
+          "name": "ギャラドス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 677,
+      "name": "アブソルナイト",
+      "showdownId": "absolite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "アブソルが メガシンカすることができる持ち物。 （メガアブソル）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 359,
+          "name": "アブソル"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 678,
+      "name": "リザードナイトＹ",
+      "showdownId": "charizarditey",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "リザードンが メガシンカすることができる持ち物。 （メガリザードンＹ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 6,
+          "name": "リザードン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 679,
+      "name": "フーディナイト",
+      "showdownId": "alakazite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "フーディンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 65,
+          "name": "フーディン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 680,
+      "name": "ヘラクロスナイト",
+      "showdownId": "heracronite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ヘラクロスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 214,
+          "name": "ヘラクロス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 681,
+      "name": "クチートナイト",
+      "showdownId": "mawilite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "クチートが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 303,
+          "name": "クチート"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 682,
+      "name": "ライボルトナイト",
+      "showdownId": "manectite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ライボルトが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 310,
+          "name": "ライボルト"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 683,
+      "name": "ガブリアスナイト",
+      "showdownId": "garchompite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ガブリアスが メガシンカすることができる持ち物。 （メガガブリアス）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 445,
+          "name": "ガブリアス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 752,
+      "name": "ラグラージナイト",
+      "showdownId": "swampertite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ラグラージが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 260,
+          "name": "ラグラージ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 753,
+      "name": "ジュカインナイト",
+      "showdownId": "sceptilite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ジュカインが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 254,
+          "name": "ジュカイン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 754,
+      "name": "ヤミラミナイト",
+      "showdownId": "sablenite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ヤミラミが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 302,
+          "name": "ヤミラミ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 755,
+      "name": "チルタリスナイト",
+      "showdownId": "altarianite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "チルタリスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 334,
+          "name": "チルタリス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 756,
+      "name": "エルレイドナイト",
+      "showdownId": "galladite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "エルレイドが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 475,
+          "name": "エルレイド"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 757,
+      "name": "タブンネナイト",
+      "showdownId": "audinite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "タブンネが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 531,
+          "name": "タブンネ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 758,
+      "name": "メタグロスナイト",
+      "showdownId": "metagrossite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "メタグロスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 376,
+          "name": "メタグロス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 759,
+      "name": "サメハダナイト",
+      "showdownId": "sharpedonite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "サメハダーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 319,
+          "name": "サメハダー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 760,
+      "name": "ヤドランナイト",
+      "showdownId": "slowbronite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ヤドランが メガシンカすることができる持ち物。 ガラルのすがたには効果がない。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 80,
+          "name": "ヤドラン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 761,
+      "name": "ハガネールナイト",
+      "showdownId": "steelixite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ハガネールが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 208,
+          "name": "ハガネール"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 762,
+      "name": "ピジョットナイト",
+      "showdownId": "pidgeotite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ピジョットが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 18,
+          "name": "ピジョット"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 763,
+      "name": "オニゴーリナイト",
+      "showdownId": "glalitite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "オニゴーリが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 362,
+          "name": "オニゴーリ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 767,
+      "name": "バクーダナイト",
+      "showdownId": "cameruptite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "バクーダが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 323,
+          "name": "バクーダ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 768,
+      "name": "ミミロップナイト",
+      "showdownId": "lopunnite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ミミロップが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 428,
+          "name": "ミミロップ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 769,
+      "name": "ボーマンダナイト",
+      "showdownId": "salamencite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ボーマンダが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 373,
+          "name": "ボーマンダ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 770,
+      "name": "スピアナイト",
+      "showdownId": "beedrillite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "スピアーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 15,
+          "name": "スピアー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2559,
+      "name": "ピクシナイト",
+      "showdownId": "clefablite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ピクシーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 36,
+          "name": "ピクシー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2560,
+      "name": "ウツボットナイト",
+      "showdownId": "victreebelite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ウツボットが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 71,
+          "name": "ウツボット"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2561,
+      "name": "スターミナイト",
+      "showdownId": "starminite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "スターミーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 121,
+          "name": "スターミー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2562,
+      "name": "カイリュナイト",
+      "showdownId": "dragoninite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "カイリューが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 149,
+          "name": "カイリュー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2563,
+      "name": "メガニウムナイト",
+      "showdownId": "meganiumite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "メガニウムが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 154,
+          "name": "メガニウム"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2564,
+      "name": "オーダイルナイト",
+      "showdownId": "feraligite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "オーダイルが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 160,
+          "name": "オーダイル"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2565,
+      "name": "エアームドナイト",
+      "showdownId": "skarmorite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "エアームドが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 227,
+          "name": "エアームド"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2566,
+      "name": "ユキメノコナイト",
+      "showdownId": "froslassite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ユキメノコが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 478,
+          "name": "ユキメノコ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2569,
+      "name": "エンブオナイト",
+      "showdownId": "emboarite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "エンブオーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 500,
+          "name": "エンブオー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2570,
+      "name": "ドリュウズナイト",
+      "showdownId": "excadrite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ドリュウズが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 530,
+          "name": "ドリュウズ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2571,
+      "name": "ペンドラナイト",
+      "showdownId": "scolipite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ペンドラーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 545,
+          "name": "ペンドラー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2572,
+      "name": "ズルズキナイト",
+      "showdownId": "scraftinite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ズルズキンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 560,
+          "name": "ズルズキン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2573,
+      "name": "シビルドナイト",
+      "showdownId": "eelektrossite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "シビルドンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 604,
+          "name": "シビルドン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2574,
+      "name": "シャンデラナイト",
+      "showdownId": "chandelurite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "シャンデラが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 609,
+          "name": "シャンデラ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2575,
+      "name": "ブリガロナイト",
+      "showdownId": "chesnaughtite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ブリガロンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 652,
+          "name": "ブリガロン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2576,
+      "name": "マフォクシナイト",
+      "showdownId": "delphoxite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "マフォクシーが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 655,
+          "name": "マフォクシー"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2577,
+      "name": "ゲッコウガナイト",
+      "showdownId": "greninjite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ゲッコウガが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 658,
+          "name": "ゲッコウガ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2578,
+      "name": "カエンジシナイト",
+      "showdownId": "pyroarite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "カエンジシが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 668,
+          "name": "カエンジシ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2579,
+      "name": "フラエッテナイト",
+      "showdownId": "floettite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "フラエッテ えいえんのはな が メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 670,
+          "name": "フラエッテ(えいえんのはな)"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2580,
+      "name": "カラマネナイト",
+      "showdownId": "malamarite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "カラマネロが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 687,
+          "name": "カラマネロ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2581,
+      "name": "ガメノデスナイト",
+      "showdownId": "barbaracite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ガメノデスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 689,
+          "name": "ガメノデス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2582,
+      "name": "ドラミドナイト",
+      "showdownId": "dragalgite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ドラミドロが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 691,
+          "name": "ドラミドロ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2583,
+      "name": "ルチャブルナイト",
+      "showdownId": "hawluchanite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ルチャブルが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 701,
+          "name": "ルチャブル"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2585,
+      "name": "ジジーロナイト",
+      "showdownId": "drampanite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ジジーロンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 780,
+          "name": "ジジーロン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2587,
+      "name": "タイレーツナイト",
+      "showdownId": "falinksite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "タイレーツが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 870,
+          "name": "タイレーツ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2635,
+      "name": "ライチュウナイトＸ",
+      "showdownId": "raichunitex",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ライチュウが メガシンカすることができる持ち物。 アローラのすがたには効果がない。 （メガライチュウＸ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 26,
+          "name": "ライチュウ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2636,
+      "name": "ライチュウナイトＹ",
+      "showdownId": "raichunitey",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ライチュウが メガシンカすることができる持ち物。 アローラのすがたには効果がない。 （メガライチュウＹ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 26,
+          "name": "ライチュウ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2637,
+      "name": "チリーンナイト",
+      "showdownId": "chimechite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "チリーンが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 358,
+          "name": "チリーン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2638,
+      "name": "アブソルナイトＺ",
+      "showdownId": "absolitez",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "アブソルが メガシンカすることができる持ち物。 （メガアブソルＺ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 359,
+          "name": "アブソル"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2639,
+      "name": "ムクホークナイト",
+      "showdownId": "staraptite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ムクホークが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 398,
+          "name": "ムクホーク"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2640,
+      "name": "ガブリアスナイトＺ",
+      "showdownId": "garchompitez",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ガブリアスが メガシンカすることができる持ち物。 （メガガブリアスＺ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 445,
+          "name": "ガブリアス"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2641,
+      "name": "ルカリオナイトＺ",
+      "showdownId": "lucarionitez",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ルカリオが メガシンカすることができる持ち物。 （メガルカリオＺ）",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 448,
+          "name": "ルカリオ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2642,
+      "name": "ゴルーグナイト",
+      "showdownId": "golurkite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ゴルーグが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 623,
+          "name": "ゴルーグ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2643,
+      "name": "ニャオニクスナイト",
+      "showdownId": "meowsticite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ニャオニクスが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 678,
+          "name": "ニャオニクス(オス)"
+        },
+        {
+          "nationalDex": 678,
+          "name": "ニャオニクス(メス)"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2644,
+      "name": "ケケンカニナイト",
+      "showdownId": "crabominite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "ケケンカニが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 740,
+          "name": "ケケンカニ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2645,
+      "name": "グソクムシャナイト",
+      "showdownId": "golisopite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "グソクムシャが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 768,
+          "name": "グソクムシャ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2647,
+      "name": "スコヴィラナイト",
+      "showdownId": "scovillainite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "スコヴィランが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 952,
+          "name": "スコヴィラン"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 2648,
+      "name": "セグレイブナイト",
+      "showdownId": "baxcalibrite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "セグレイブが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 998,
+          "name": "セグレイブ"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2650,
+      "name": "キラフロルナイト",
+      "showdownId": "glimmoranite",
+      "category": "メガストーン",
+      "berryEffect": null,
+      "effect": "キラフロルが メガシンカすることができる持ち物。",
+      "megaStone": true,
+      "holders": [
+        {
+          "nationalDex": 970,
+          "name": "キラフロル"
+        }
+      ],
+      "priceVp": 2000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 219,
+      "name": "メンタルハーブ",
+      "showdownId": "mentalherb",
+      "category": "回復",
+      "berryEffect": null,
+      "effect": "メロメロ ちょうはつ 連続不可 わざふうじ かいふくふうじ アンコール状態を回復する。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 234,
+      "name": "たべのこし",
+      "showdownId": "leftovers",
+      "category": "回復",
+      "berryEffect": null,
+      "effect": "ターン終わりに 最大ＨＰの１／１６回復する。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 253,
+      "name": "かいがらのすず",
+      "showdownId": "shellbell",
+      "category": "回復",
+      "berryEffect": null,
+      "effect": "技でダメージを与えた時 そのダメージの１／８ 自分のＨＰを回復する。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 296,
+      "name": "おおきなねっこ",
+      "showdownId": "bigroot",
+      "category": "回復",
+      "berryEffect": null,
+      "effect": "ＨＰを吸い取る技で回復する量が １．３倍になる。ねをはる ちからをすいとる等も１．３倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 269,
+      "name": "ひかりのねんど",
+      "showdownId": "lightclay",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "ひかりのかべ リフレクター オーロラベール を使った時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 282,
+      "name": "つめたいいわ",
+      "showdownId": "icyrock",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "技や特性で ゆき状態にした時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 283,
+      "name": "さらさらいわ",
+      "showdownId": "smoothrock",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "技や特性で すなあらし状態にした時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 284,
+      "name": "あついいわ",
+      "showdownId": "heatrock",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "技や特性で にほんばれ状態にした時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 285,
+      "name": "しめったいわ",
+      "showdownId": "damprock",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "技や特性で あめ状態にした時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 879,
+      "name": "グランドコート",
+      "showdownId": "terrainextender",
+      "category": "場の持続",
+      "berryEffect": null,
+      "effect": "技や特性でフィールドを張った時 継続時間が３ターン長くなる。 （合計８ターン）",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 222,
+      "name": "ぎんのこな",
+      "showdownId": "silverpowder",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "むしタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 233,
+      "name": "メタルコート",
+      "showdownId": "metalcoat",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "はがねタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 237,
+      "name": "やわらかいすな",
+      "showdownId": "softsand",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "じめんタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 238,
+      "name": "かたいいし",
+      "showdownId": "hardstone",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "いわタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 239,
+      "name": "きせきのタネ",
+      "showdownId": "miracleseed",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "くさタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 240,
+      "name": "くろいメガネ",
+      "showdownId": "blackglasses",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "あくタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 241,
+      "name": "くろおび",
+      "showdownId": "blackbelt",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "かくとうタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 242,
+      "name": "じしゃく",
+      "showdownId": "magnet",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "でんきタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 243,
+      "name": "しんぴのしずく",
+      "showdownId": "mysticwater",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "みずタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 244,
+      "name": "するどいくちばし",
+      "showdownId": "sharpbeak",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ひこうタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 245,
+      "name": "どくバリ",
+      "showdownId": "poisonbarb",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "どくタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 246,
+      "name": "とけないこおり",
+      "showdownId": "nevermeltice",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "こおりタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 247,
+      "name": "のろいのおふだ",
+      "showdownId": "spelltag",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ゴーストタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 248,
+      "name": "まがったスプーン",
+      "showdownId": "twistedspoon",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "エスパータイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 249,
+      "name": "もくたん",
+      "showdownId": "charcoal",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ほのおタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 250,
+      "name": "りゅうのキバ",
+      "showdownId": "dragonfang",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ドラゴンタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 251,
+      "name": "シルクのスカーフ",
+      "showdownId": "silkscarf",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ノーマルタイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 266,
+      "name": "ちからのハチマキ",
+      "showdownId": "muscleband",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "物理技の威力が １．１倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 267,
+      "name": "ものしりメガネ",
+      "showdownId": "wiseglasses",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "特殊技の威力が １．１倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 268,
+      "name": "たつじんのおび",
+      "showdownId": "expertbelt",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "使った技が効果バツグンの時 威力が１．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 270,
+      "name": "いのちのたま",
+      "showdownId": "lifeorb",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "技の威力が１．３倍になるが 攻撃が成功するたび 最大ＨＰの１／１０減る。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 277,
+      "name": "メトロノーム",
+      "showdownId": "metronome",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "同じ技を連続で使った場合 威力が上がる。 ２回目で１．２倍 ３回目で１．４倍と上がり 最大で２倍まで上がる。やめると元に戻る。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 544,
+      "name": "しめつけバンド",
+      "showdownId": "bindingband",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "バインド状態で与えるダメージが 相手の最大ＨＰの１／８ではなく １／６になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 564,
+      "name": "ノーマルジュエル",
+      "showdownId": "normalgem",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "ノーマルタイプの技の威力が１．３倍になる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 2401,
+      "name": "ようせいのハネ",
+      "showdownId": "fairyfeather",
+      "category": "威力",
+      "berryEffect": null,
+      "effect": "フェアリータイプの技の威力が １．２倍になる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 214,
+      "name": "しろいハーブ",
+      "showdownId": "whiteherb",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "能力が下がった時 元に戻す。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 236,
+      "name": "でんきだま",
+      "showdownId": "lightball",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "ピカチュウの 攻撃 特攻が２倍になる。",
+      "megaStone": false,
+      "holders": [
+        {
+          "nationalDex": 25,
+          "name": "ピカチュウ"
+        }
+      ],
+      "priceVp": 1000,
+      "ownedFromStart": false,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 287,
+      "name": "こだわりスカーフ",
+      "showdownId": "choicescarf",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "素早さが１．５倍になるが １度技を出すと 交代するまで その技しか出せなくなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 881,
+      "name": "エレキシード",
+      "showdownId": "electricseed",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "エレキフィールド状態の時に 防御が１段階上がる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 882,
+      "name": "サイコシード",
+      "showdownId": "psychicseed",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "サイコフィールド状態の時に 特防が１段階上がる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 883,
+      "name": "ミストシード",
+      "showdownId": "mistyseed",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "ミストフィールド状態の時に 特防が１段階上がる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 884,
+      "name": "グラスシード",
+      "showdownId": "grassyseed",
+      "category": "特殊",
+      "berryEffect": null,
+      "effect": "グラスフィールド状態の時に 防御が１段階上がる。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": 700,
+      "ownedFromStart": false,
+      "consumed": true,
+      "regulations": [
+        "M-C"
+      ]
+    },
+    {
+      "id": 230,
+      "name": "きあいのハチマキ",
+      "showdownId": "focusband",
+      "category": "耐え",
+      "berryEffect": null,
+      "effect": "ひんしになる技のダメージを受けると １０％の確率でＨＰを１残して耐える。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": false,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    },
+    {
+      "id": 275,
+      "name": "きあいのタスキ",
+      "showdownId": "focussash",
+      "category": "耐え",
+      "berryEffect": null,
+      "effect": "ＨＰ満タンの時 一撃で ひんしになる技のダメージを受けると ＨＰを１残して耐える。 １度使うと その対戦中は 無くなる。",
+      "megaStone": false,
+      "holders": null,
+      "priceVp": null,
+      "ownedFromStart": true,
+      "consumed": true,
+      "regulations": [
+        "M-A",
+        "M-B",
+        "M-C"
+      ]
+    }
+  ]
+}

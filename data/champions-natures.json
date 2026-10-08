@@ -1,0 +1,371 @@
+{
+  "game": "Pokémon Champions",
+  "asOf": "2026-10-08",
+  "regulation": "M-C",
+  "regulationPeriodUtc": {
+    "start": "2026-09-09T02:00:00Z",
+    "end": "2026-12-02T01:59:00Z"
+  },
+  "source": "Pokémon Champions v1.2.0 rom-txt/jpn/seikaku.json。補正は性格IDの並び（上昇 = id // 5、下降 = id % 5）",
+  "notes": [
+    "対戦で選べる性格25種です。",
+    "increased の能力は1.1倍、decreased の能力は0.9倍です。HPは変化しません。",
+    "両方とも null の性格は補正がありません。",
+    "showdownId は Pokémon Showdown の性格idです。上昇・下降する能力も同じです。"
+  ],
+  "counts": {
+    "natures": 25
+  },
+  "natures": [
+    {
+      "id": 0,
+      "name": "がんばりや",
+      "showdownId": "hardy",
+      "increased": null,
+      "decreased": null,
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 1,
+      "name": "さみしがり",
+      "showdownId": "lonely",
+      "increased": "attack",
+      "decreased": "defense",
+      "modifiers": {
+        "attack": 1.1,
+        "defense": 0.9,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 2,
+      "name": "ゆうかん",
+      "showdownId": "brave",
+      "increased": "attack",
+      "decreased": "speed",
+      "modifiers": {
+        "attack": 1.1,
+        "defense": 1,
+        "speed": 0.9,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 3,
+      "name": "いじっぱり",
+      "showdownId": "adamant",
+      "increased": "attack",
+      "decreased": "spAttack",
+      "modifiers": {
+        "attack": 1.1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 0.9,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 4,
+      "name": "やんちゃ",
+      "showdownId": "naughty",
+      "increased": "attack",
+      "decreased": "spDefense",
+      "modifiers": {
+        "attack": 1.1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 0.9
+      }
+    },
+    {
+      "id": 5,
+      "name": "ずぶとい",
+      "showdownId": "bold",
+      "increased": "defense",
+      "decreased": "attack",
+      "modifiers": {
+        "attack": 0.9,
+        "defense": 1.1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 6,
+      "name": "すなお",
+      "showdownId": "docile",
+      "increased": null,
+      "decreased": null,
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 7,
+      "name": "のんき",
+      "showdownId": "relaxed",
+      "increased": "defense",
+      "decreased": "speed",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1.1,
+        "speed": 0.9,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 8,
+      "name": "わんぱく",
+      "showdownId": "impish",
+      "increased": "defense",
+      "decreased": "spAttack",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1.1,
+        "speed": 1,
+        "spAttack": 0.9,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 9,
+      "name": "のうてんき",
+      "showdownId": "lax",
+      "increased": "defense",
+      "decreased": "spDefense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1.1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 0.9
+      }
+    },
+    {
+      "id": 10,
+      "name": "おくびょう",
+      "showdownId": "timid",
+      "increased": "speed",
+      "decreased": "attack",
+      "modifiers": {
+        "attack": 0.9,
+        "defense": 1,
+        "speed": 1.1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 11,
+      "name": "せっかち",
+      "showdownId": "hasty",
+      "increased": "speed",
+      "decreased": "defense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 0.9,
+        "speed": 1.1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 12,
+      "name": "まじめ",
+      "showdownId": "serious",
+      "increased": null,
+      "decreased": null,
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 13,
+      "name": "ようき",
+      "showdownId": "jolly",
+      "increased": "speed",
+      "decreased": "spAttack",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1.1,
+        "spAttack": 0.9,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 14,
+      "name": "むじゃき",
+      "showdownId": "naive",
+      "increased": "speed",
+      "decreased": "spDefense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1.1,
+        "spAttack": 1,
+        "spDefense": 0.9
+      }
+    },
+    {
+      "id": 15,
+      "name": "ひかえめ",
+      "showdownId": "modest",
+      "increased": "spAttack",
+      "decreased": "attack",
+      "modifiers": {
+        "attack": 0.9,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1.1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 16,
+      "name": "おっとり",
+      "showdownId": "mild",
+      "increased": "spAttack",
+      "decreased": "defense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 0.9,
+        "speed": 1,
+        "spAttack": 1.1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 17,
+      "name": "れいせい",
+      "showdownId": "quiet",
+      "increased": "spAttack",
+      "decreased": "speed",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 0.9,
+        "spAttack": 1.1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 18,
+      "name": "てれや",
+      "showdownId": "bashful",
+      "increased": null,
+      "decreased": null,
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    },
+    {
+      "id": 19,
+      "name": "うっかりや",
+      "showdownId": "rash",
+      "increased": "spAttack",
+      "decreased": "spDefense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1.1,
+        "spDefense": 0.9
+      }
+    },
+    {
+      "id": 20,
+      "name": "おだやか",
+      "showdownId": "calm",
+      "increased": "spDefense",
+      "decreased": "attack",
+      "modifiers": {
+        "attack": 0.9,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1.1
+      }
+    },
+    {
+      "id": 21,
+      "name": "おとなしい",
+      "showdownId": "gentle",
+      "increased": "spDefense",
+      "decreased": "defense",
+      "modifiers": {
+        "attack": 1,
+        "defense": 0.9,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1.1
+      }
+    },
+    {
+      "id": 22,
+      "name": "なまいき",
+      "showdownId": "sassy",
+      "increased": "spDefense",
+      "decreased": "speed",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 0.9,
+        "spAttack": 1,
+        "spDefense": 1.1
+      }
+    },
+    {
+      "id": 23,
+      "name": "しんちょう",
+      "showdownId": "careful",
+      "increased": "spDefense",
+      "decreased": "spAttack",
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 0.9,
+        "spDefense": 1.1
+      }
+    },
+    {
+      "id": 24,
+      "name": "きまぐれ",
+      "showdownId": "quirky",
+      "increased": null,
+      "decreased": null,
+      "modifiers": {
+        "attack": 1,
+        "defense": 1,
+        "speed": 1,
+        "spAttack": 1,
+        "spDefense": 1
+      }
+    }
+  ]
+}

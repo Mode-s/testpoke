@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../data/mods/afd/conditions.ts"],
+  "sourcesContent": ["export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDataTable = {\n\tsandstorm: {\n\t\tinherit: true,\n\t\tonWeatherModifyDamage(damage, attacker, defender, move) {\n\t\t\tif (defender.hasItem('utilityumbrella')) return;\n\t\t\tif (move.type === 'Rock') {\n\t\t\t\tthis.debug('Sandstorm rock boost');\n\t\t\t\treturn this.chainModify(1.5);\n\t\t\t}\n\t\t},\n\t},\n\tsnowscape: {\n\t\tinherit: true,\n\t\tonModifySpePriority: 10,\n\t\tonModifySpe(spe, pokemon) {\n\t\t\tif (!pokemon.getTypes(false, true).includes('Ice') && !pokemon.getTypes(false, true).includes('Steel') &&\n\t\t\t\t!pokemon.hasAbility(['slushrush', 'snowcloak', 'iceface', 'icebody']) && pokemon.effectiveWeather() === 'snowscape') {\n\t\t\t\treturn this.modify(spe, 0.5);\n\t\t\t}\n\t\t},\n\t},\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,aAA6E;AAAA,EACzF,WAAW;AAAA,IACV,SAAS;AAAA,IACT,sBAAsB,QAAQ,UAAU,UAAU,MAAM;AACvD,UAAI,SAAS,QAAQ,iBAAiB,EAAG;AACzC,UAAI,KAAK,SAAS,QAAQ;AACzB,aAAK,MAAM,sBAAsB;AACjC,eAAO,KAAK,YAAY,GAAG;AAAA,MAC5B;AAAA,IACD;AAAA,EACD;AAAA,EACA,WAAW;AAAA,IACV,SAAS;AAAA,IACT,qBAAqB;AAAA,IACrB,YAAY,KAAK,SAAS;AACzB,UAAI,CAAC,QAAQ,SAAS,OAAO,IAAI,EAAE,SAAS,KAAK,KAAK,CAAC,QAAQ,SAAS,OAAO,IAAI,EAAE,SAAS,OAAO,KACpG,CAAC,QAAQ,WAAW,CAAC,aAAa,aAAa,WAAW,SAAS,CAAC,KAAK,QAAQ,iBAAiB,MAAM,aAAa;AACrH,eAAO,KAAK,OAAO,KAAK,GAAG;AAAA,MAC5B;AAAA,IACD;AAAA,EACD;AACD;",
+  "names": []
+}

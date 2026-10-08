@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": ["../../../../data/mods/woomod/conditions.ts"],
+  "sourcesContent": ["export const Conditions: import('../../../sim/dex-conditions').ModdedConditionDataTable = {\n\tfrz: {\n\t\tonStart(target, source, sourceEffect) {\n\t\t\tthis.add('-message', `${target.name} was frozen!`);\n\t\t\tthis.hint(`Freeze halves SpA + 1/16 chip, like in Pokemon Legends: Arceus`);\n\t\t\tif (sourceEffect && sourceEffect.effectType === 'Ability') {\n\t\t\t\tthis.add('-status', target, 'frz', '[from] ability: ' + sourceEffect.name, `[of] ${source}`);\n\t\t\t} else {\n\t\t\t\tthis.add('-status', target, 'frz');\n\t\t\t}\n\t\t},\n\t\tonResidualOrder: 10,\n\t\tonResidual(pokemon) {\n\t\t\tthis.damage(pokemon.baseMaxhp / 16);\n\t\t},\n\t\tonModifySpA(spa, pokemon) {\n\t\t\treturn this.chainModify(0.5);\n\t\t},\n\t},\n};\n"],
+  "mappings": ";;;;;;;;;;;;;;;;;;AAAA;AAAA;AAAA;AAAA;AAAA;AAAO,MAAM,aAA6E;AAAA,EACzF,KAAK;AAAA,IACJ,QAAQ,QAAQ,QAAQ,cAAc;AACrC,WAAK,IAAI,YAAY,GAAG,OAAO,IAAI,cAAc;AACjD,WAAK,KAAK,gEAAgE;AAC1E,UAAI,gBAAgB,aAAa,eAAe,WAAW;AAC1D,aAAK,IAAI,WAAW,QAAQ,OAAO,qBAAqB,aAAa,MAAM,QAAQ,MAAM,EAAE;AAAA,MAC5F,OAAO;AACN,aAAK,IAAI,WAAW,QAAQ,KAAK;AAAA,MAClC;AAAA,IACD;AAAA,IACA,iBAAiB;AAAA,IACjB,WAAW,SAAS;AACnB,WAAK,OAAO,QAAQ,YAAY,EAAE;AAAA,IACnC;AAAA,IACA,YAAY,KAAK,SAAS;AACzB,aAAO,KAAK,YAAY,GAAG;AAAA,IAC5B;AAAA,EACD;AACD;",
+  "names": []
+}
