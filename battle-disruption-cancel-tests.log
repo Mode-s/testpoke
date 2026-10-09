@@ -1,0 +1,9 @@
+✔ 比較対戦の再現: 重力・回復封じ・じごくづきで使用中止になる攻撃の予想は0になり、再計算で落ちない (685.4403ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 1
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 863.8904

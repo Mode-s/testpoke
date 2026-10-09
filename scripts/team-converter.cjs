@@ -1,4 +1,8 @@
 const fs = require("node:fs");
+const { Dex } = require('../vendor/pokemon-showdown/dist/sim');
+const { ACTIVE_BATTLE_RULES, assertMoveAllowed } = require('./battle-rules.cjs');
+Dex.includeFormats();
+const battleDex = Dex.forFormat(ACTIVE_BATTLE_RULES.format);
 
 function loadMaster(path) {
   const data = JSON.parse(fs.readFileSync(path, "utf-8"));
@@ -58,7 +62,7 @@ const items = loadMaster("./data/champions-items.json");
 const abilities = loadMaster("./data/champions-abilities.json");
 const natures = loadMaster("./data/champions-natures.json");
 
-const team = loadTeam("./teams/teams-a.json");
+const team = loadTeam("./teams/team-a.json");
 
 function findByName(data, name, type) {
   const found = data.find((entry) => entry.name === name);
@@ -100,6 +104,7 @@ const showdownTeam = team.map((member) => {
       "わざ"
     );
 
+    assertMoveAllowed(battleDex.moves.get(move.showdownId), member.pokemon);
     return move.showdownId;
   });
 
@@ -110,6 +115,14 @@ const showdownTeam = team.map((member) => {
     nature: nature.showdownId,
     moves: showdownMoves,
     level: 100,
+    evs: {
+      hp: member.statPoints?.hp ?? 0,
+      atk: member.statPoints?.attack ?? 0,
+      def: member.statPoints?.defense ?? 0,
+      spa: member.statPoints?.spAttack ?? 0,
+      spd: member.statPoints?.spDefense ?? 0,
+      spe: member.statPoints?.speed ?? 0,
+    },
   };
 });
 

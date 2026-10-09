@@ -1,0 +1,35 @@
+✔ 平均とは別の重大な未公開攻撃だけで、明確に安全なまもるへ変更する (1314.6472ms)
+✔ 小さな不利と通常スコアの大きな利益は、未公開技だけで攻撃を捨てない (761.1183ms)
+✖ 先手・必中・確定KOの攻撃は重大技の評価で捨てず、タスキや同速は確定扱いしない (31.459ms)
+✔ 連続まもるの失敗率とチャンピオンズのふかしのこぶしを別枠の比較でも反映する (88.3406ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2409.4226
+
+✖ failing tests:
+
+test at scripts\test-battle-regressions.cjs:206:1
+✖ 先手・必中・確定KOの攻撃は重大技の評価で捨てず、タスキや同速は確定扱いしない (31.459ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(scored[0].minDamagePercent >= 100)
+  
+      at TestContext.<anonymous> (C:\Users\callt\Desktop\pokesim\scripts\test-battle-regressions.cjs:214:10)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

@@ -1,0 +1,82 @@
+[
+  {
+    "team": "attack",
+    "enabled": false,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 48.1948,
+    "optimizedMedianMs": 50.33,
+    "referenceScenarios": 0,
+    "optimizedScenarios": 0
+  },
+  {
+    "team": "attack",
+    "enabled": true,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 4046.2909,
+    "optimizedMedianMs": 3141.208,
+    "referenceScenarios": 5622,
+    "optimizedScenarios": 4467
+  },
+  {
+    "team": "bulky",
+    "enabled": false,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 86.4147,
+    "optimizedMedianMs": 106.4107,
+    "referenceScenarios": 0,
+    "optimizedScenarios": 0
+  },
+  {
+    "team": "bulky",
+    "enabled": true,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 1665.1618,
+    "optimizedMedianMs": 1578.3784,
+    "referenceScenarios": 7925,
+    "optimizedScenarios": 5913
+  },
+  {
+    "team": "setup",
+    "enabled": false,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 71.3514,
+    "optimizedMedianMs": 139.4103,
+    "referenceScenarios": 0,
+    "optimizedScenarios": 0
+  },
+  {
+    "team": "setup",
+    "enabled": true,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 1749.9198,
+    "optimizedMedianMs": 1114.0679,
+    "referenceScenarios": 5503,
+    "optimizedScenarios": 3385
+  },
+  {
+    "team": "hazard",
+    "enabled": false,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 145.0112,
+    "optimizedMedianMs": 184.6322,
+    "referenceScenarios": 0,
+    "optimizedScenarios": 0
+  },
+  {
+    "team": "hazard",
+    "enabled": true,
+    "actionsIdentical": true,
+    "battleIdentical": true,
+    "referenceMedianMs": 4273.5093,
+    "optimizedMedianMs": 1233.8004,
+    "referenceScenarios": 6494,
+    "optimizedScenarios": 2391
+  }
+]

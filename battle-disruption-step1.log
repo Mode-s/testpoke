@@ -1,0 +1,47 @@
+✔ 未公開重大技は合法な習得技だけを含み、公開4技・ちょうはつ・PP・固定技を尊重する (610.8815ms)
+✔ 重大技の仮説は公開技を残す4技のコピーで、既存の構成を書き換えない (52.7743ms)
+✔ 未公開の致命傷は独立した破綻として検出し、まもるで軽減する (52.1211ms)
+✔ まもるは相手の積み技を止めず、攻撃して削る利益も比較する (65.4933ms)
+✔ 効果のない状態異常と即時解除された状態異常は重大技に数えない (106.5758ms)
+✔ 先手の眠りはこのターンの攻撃を止め、遅い眠りでも直後の状態を残す (83.1324ms)
+✔ 設置はまもるを越え、低HPの控えが入場できなくなる不利を検出する (55.0455ms)
+✔ ほえるは控えのない相手・きゅうばんへは効かず、まもるでも止められない (51.1828ms)
+✔ 自主交代はこのターンの攻撃と入場ダメージを受け、無効特性の有効な逃げ先を区別する (35.1274ms)
+✔ 重大技の評価は公開状態・構成・requestを変更せず、私有相手情報も読まない (34.7585ms)
+✔ 平均とは別の重大な未公開攻撃だけで、明確に安全なまもるへ変更する (1248.87ms)
+✔ 小さな不利と通常スコアの大きな利益は、未公開技だけで攻撃を捨てない (3642.1479ms)
+✔ 先手・必中・確定KOの攻撃は重大技の評価で捨てず、最小ダメージ不足・命中不足は確定扱いしない (4793.0053ms)
+✔ 連続まもるの失敗率とチャンピオンズのふかしのこぶしを別枠の比較でも反映する (134.7981ms)
+✔ 未公開候補の習得数を増やしても、重大な一手の不利は薄まらない (761.662ms)
+✔ 重大な一手の直後評価はp1・p2で対称になり、連続攻撃の分岐でも公開状態を保存する (146.8083ms)
+✔ 未公開のふいうちは攻撃を選んだ時に成功し、まもる・変化技へは失敗する (63.2668ms)
+✖ 候補点検: 特殊な積み・行動制限・攻撃の追加効果を分類し、通常防御を重大技にしない (49.6423ms)
+✔ 候補点検: 追加効果の枝は実際の発動率を一度だけ掛ける (85.8627ms)
+ℹ tests 19
+ℹ suites 0
+ℹ pass 18
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12332.8528
+
+✖ failing tests:
+
+test at scripts\test-battle-regressions.cjs:284:1
+✖ 候補点検: 特殊な積み・行動制限・攻撃の追加効果を分類し、通常防御を重大技にしない (49.6423ms)
+  AssertionError [ERR_ASSERTION]: Venusaur: confuseray
+      at TestContext.<anonymous> (C:\Users\callt\Desktop\pokesim\scripts\test-battle-regressions.cjs:294:12)
+      at Test.runInAsyncScope (node:async_hooks:226:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

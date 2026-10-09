@@ -1,0 +1,4610 @@
+[
+  {
+    "name": "はたく",
+    "id": "pound",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほのおのパンチ",
+    "id": "firepunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "れいとうパンチ",
+    "id": "icepunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かみなりパンチ",
+    "id": "thunderpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハサミギロチン",
+    "id": "guillotine",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つるぎのまい",
+    "id": "swordsdance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ふきとばし",
+    "id": "whirlwind",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "そらをとぶ",
+    "id": "fly",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "しめつける",
+    "id": "bind",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "メガトンキック",
+    "id": "megakick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つのドリル",
+    "id": "horndrill",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "のしかかり",
+    "id": "bodyslam",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "まきつく",
+    "id": "wrap",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あばれる",
+    "id": "thrash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "すてみタックル",
+    "id": "doubleedge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ミサイルばり",
+    "id": "pinmissile",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かみつく",
+    "id": "bite",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほえる",
+    "id": "roar",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "うたう",
+    "id": "sing",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "かなしばり",
+    "id": "disable",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "直前技・PP・行動順から成功と制限の利益を評価",
+    "gaps": []
+  },
+  {
+    "name": "かえんほうしゃ",
+    "id": "flamethrower",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハイドロポンプ",
+    "id": "hydropump",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "なみのり",
+    "id": "surf",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "れいとうビーム",
+    "id": "icebeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふぶき",
+    "id": "blizzard",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はかいこうせん",
+    "id": "hyperbeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドリルくちばし",
+    "id": "drillpeck",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "けたぐり",
+    "id": "lowkick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "カウンター",
+    "id": "counter",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ちきゅうなげ",
+    "id": "seismictoss",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "やどりぎのタネ",
+    "id": "leechseed",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "公開された既存状態を復元し実際の成功・即時解除を評価",
+    "gaps": []
+  },
+  {
+    "name": "せいちょう",
+    "id": "growth",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ソーラービーム",
+    "id": "solarbeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どくのこな",
+    "id": "poisonpowder",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "しびれごな",
+    "id": "stunspore",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "ねむりごな",
+    "id": "sleeppowder",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "はなびらのまい",
+    "id": "petaldance",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いとをはく",
+    "id": "stringshot",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ほのおのうず",
+    "id": "firespin",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "１０まんボルト",
+    "id": "thunderbolt",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "でんじは",
+    "id": "thunderwave",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "かみなり",
+    "id": "thunder",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じしん",
+    "id": "earthquake",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じわれ",
+    "id": "fissure",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あなをほる",
+    "id": "dig",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どくどく",
+    "id": "toxic",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "サイコキネシス",
+    "id": "psychic",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "さいみんじゅつ",
+    "id": "hypnosis",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "こうそくいどう",
+    "id": "agility",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "でんこうせっか",
+    "id": "quickattack",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ナイトヘッド",
+    "id": "nightshade",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いやなおと",
+    "id": "screech",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "かげぶんしん",
+    "id": "doubleteam",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "じこさいせい",
+    "id": "recover",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ちいさくなる",
+    "id": "minimize",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "あやしいひかり",
+    "id": "confuseray",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ひかりのかべ",
+    "id": "lightscreen",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "くろいきり",
+    "id": "haze",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "リフレクター",
+    "id": "reflect",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "きあいだめ",
+    "id": "focusenergy",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "じばく",
+    "id": "selfdestruct",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "だいもんじ",
+    "id": "fireblast",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "たきのぼり",
+    "id": "waterfall",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドわすれ",
+    "id": "amnesia",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とびひざげり",
+    "id": "highjumpkick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "へびにらみ",
+    "id": "glare",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "きゅうけつ",
+    "id": "leechlife",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ゴッドバード",
+    "id": "skyattack",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "へんしん",
+    "id": "transform",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とける",
+    "id": "acidarmor",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "クラブハンマー",
+    "id": "crabhammer",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "だいばくはつ",
+    "id": "explosion",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ねむる",
+    "id": "rest",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "いわなだれ",
+    "id": "rockslide",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "トライアタック",
+    "id": "triattack",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いかりのまえば",
+    "id": "superfang",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きりさく",
+    "id": "slash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みがわり",
+    "id": "substitute",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "わるあがき",
+    "id": "struggle",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どろぼう",
+    "id": "thief",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いびき",
+    "id": "snore",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "のろい",
+    "id": "curse",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "じたばた",
+    "id": "flail",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "わたほうし",
+    "id": "cottonspore",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "きしかいせい",
+    "id": "reversal",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うらみ",
+    "id": "spite",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "まもる",
+    "id": "protect",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "マッハパンチ",
+    "id": "machpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "こわいかお",
+    "id": "scaryface",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "てんしのキッス",
+    "id": "sweetkiss",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "はらだいこ",
+    "id": "bellydrum",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ヘドロばくだん",
+    "id": "sludgebomb",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どろかけ",
+    "id": "mudslap",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "まきびし",
+    "id": "spikes",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "でんじほう",
+    "id": "zapcannon",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みちづれ",
+    "id": "destinybond",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ほろびのうた",
+    "id": "perishsong",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "こごえるかぜ",
+    "id": "icywind",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みきり",
+    "id": "detect",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "ボーンラッシュ",
+    "id": "bonerush",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ロックオン",
+    "id": "lockon",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "げきりん",
+    "id": "outrage",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "すなあらし",
+    "id": "sandstorm",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "天候前後の対面・継続効果と自分の控えを比較",
+    "gaps": []
+  },
+  {
+    "name": "ギガドレイン",
+    "id": "gigadrain",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "こらえる",
+    "id": "endure",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "あまえる",
+    "id": "charm",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いばる",
+    "id": "swagger",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ミルクのみ",
+    "id": "milkdrink",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "はがねのつばさ",
+    "id": "steelwing",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "くろいまなざし",
+    "id": "meanlook",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "メロメロ",
+    "id": "attract",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ねごと",
+    "id": "sleeptalk",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "いやしのすず",
+    "id": "healbell",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しんぴのまもり",
+    "id": "safeguard",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いたみわけ",
+    "id": "painsplit",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ばくれつパンチ",
+    "id": "dynamicpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "メガホーン",
+    "id": "megahorn",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "バトンタッチ",
+    "id": "batonpass",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "アンコール",
+    "id": "encore",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "直前技・PP・行動順から成功と制限の利益を評価",
+    "gaps": []
+  },
+  {
+    "name": "こうそくスピン",
+    "id": "rapidspin",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "あまいかおり",
+    "id": "sweetscent",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "アイアンテール",
+    "id": "irontail",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あさのひざし",
+    "id": "morningsun",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "こうごうせい",
+    "id": "synthesis",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "つきのひかり",
+    "id": "moonlight",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "クロスチョップ",
+    "id": "crosschop",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あまごい",
+    "id": "raindance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "にほんばれ",
+    "id": "sunnyday",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "かみくだく",
+    "id": "crunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ミラーコート",
+    "id": "mirrorcoat",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じこあんじ",
+    "id": "psychup",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しんそく",
+    "id": "extremespeed",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "げんしのちから",
+    "id": "ancientpower",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シャドーボール",
+    "id": "shadowball",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みらいよち",
+    "id": "futuresight",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うずしお",
+    "id": "whirlpool",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふくろだたき",
+    "id": "beatup",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ねこだまし",
+    "id": "fakeout",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "さわぐ",
+    "id": "uproar",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "たくわえる",
+    "id": "stockpile",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "はきだす",
+    "id": "spitup",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "のみこむ",
+    "id": "swallow",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ねっぷう",
+    "id": "heatwave",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いちゃもん",
+    "id": "torment",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おだてる",
+    "id": "flatter",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おにび",
+    "id": "willowisp",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "おきみやげ",
+    "id": "memento",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "からげんき",
+    "id": "facade",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きあいパンチ",
+    "id": "focuspunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "このゆびとまれ",
+    "id": "followme",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "じゅうでん",
+    "id": "charge",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ちょうはつ",
+    "id": "taunt",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "公開された既存状態を復元し実際の成功・即時解除を評価",
+    "gaps": []
+  },
+  {
+    "name": "てだすけ",
+    "id": "helpinghand",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "トリック",
+    "id": "trick",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "なりきり",
+    "id": "roleplay",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ねがいごと",
+    "id": "wish",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ねをはる",
+    "id": "ingrain",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ばかぢから",
+    "id": "superpower",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "リサイクル",
+    "id": "recycle",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "かわらわり",
+    "id": "brickbreak",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あくび",
+    "id": "yawn",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "公開された既存状態を復元し実際の成功・即時解除を評価",
+    "gaps": []
+  },
+  {
+    "name": "はたきおとす",
+    "id": "knockoff",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "がむしゃら",
+    "id": "endeavor",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふんか",
+    "id": "eruption",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "スキルスワップ",
+    "id": "skillswap",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ふういん",
+    "id": "imprison",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ダイビング",
+    "id": "dive",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フェザーダンス",
+    "id": "featherdance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "フラフラダンス",
+    "id": "teeterdance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ブレイズキック",
+    "id": "blazekick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "なまける",
+    "id": "slackoff",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ハイパーボイス",
+    "id": "hypervoice",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どくどくのキバ",
+    "id": "poisonfang",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ブレイククロー",
+    "id": "crushclaw",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ブラストバーン",
+    "id": "blastburn",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハイドロカノン",
+    "id": "hydrocannon",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "コメットパンチ",
+    "id": "meteormash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ウェザーボール",
+    "id": "weatherball",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うそなき",
+    "id": "faketears",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "エアカッター",
+    "id": "aircutter",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "オーバーヒート",
+    "id": "overheat",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "がんせきふうじ",
+    "id": "rocktomb",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きんぞくおん",
+    "id": "metalsound",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "くすぐる",
+    "id": "tickle",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "コスモパワー",
+    "id": "cosmicpower",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しおふき",
+    "id": "waterspout",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シャドーパンチ",
+    "id": "shadowpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じんつうりき",
+    "id": "extrasensory",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "すなじごく",
+    "id": "sandtomb",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ぜったいれいど",
+    "id": "sheercold",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "だくりゅう",
+    "id": "muddywater",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "タネマシンガン",
+    "id": "bulletseed",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つばめがえし",
+    "id": "aerialace",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つららばり",
+    "id": "iciclespear",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "てっぺき",
+    "id": "irondefense",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とおせんぼう",
+    "id": "block",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とおぼえ",
+    "id": "howl",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ドラゴンクロー",
+    "id": "dragonclaw",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハードプラント",
+    "id": "frenzyplant",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ビルドアップ",
+    "id": "bulkup",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とびはねる",
+    "id": "bounce",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "マッドショット",
+    "id": "mudshot",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほしがる",
+    "id": "covet",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ボルテッカー",
+    "id": "volttackle",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "めいそう",
+    "id": "calmmind",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "リーフブレード",
+    "id": "leafblade",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "りゅうのまい",
+    "id": "dragondance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ロックブラスト",
+    "id": "rockblast",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みずのはどう",
+    "id": "waterpulse",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はねやすめ",
+    "id": "roost",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "じゅうりょく",
+    "id": "gravity",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "アームハンマー",
+    "id": "hammerarm",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ジャイロボール",
+    "id": "gyroball",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いやしのねがい",
+    "id": "healingwish",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "フェイント",
+    "id": "feint",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ついばむ",
+    "id": "pluck",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おいかぜ",
+    "id": "tailwind",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "使用後の速度・優先度・トリックルームを比較",
+    "gaps": []
+  },
+  {
+    "name": "つぼをつく",
+    "id": "acupressure",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "メタルバースト",
+    "id": "metalburst",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "とんぼがえり",
+    "id": "uturn",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "インファイト",
+    "id": "closecombat",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しっぺがえし",
+    "id": "payback",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ダメおし",
+    "id": "assurance",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "なげつける",
+    "id": "fling",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "パワートリック",
+    "id": "powertrick",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いえき",
+    "id": "gastroacid",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "まねっこ",
+    "id": "copycat",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "公開された直前の技を呼び出して評価",
+    "gaps": []
+  },
+  {
+    "name": "パワースワップ",
+    "id": "powerswap",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ガードスワップ",
+    "id": "guardswap",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "とっておき",
+    "id": "lastresort",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "なやみのタネ",
+    "id": "worryseed",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ふいうち",
+    "id": "suckerpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どくびし",
+    "id": "toxicspikes",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "アクアリング",
+    "id": "aquaring",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "でんじふゆう",
+    "id": "magnetrise",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "フレアドライブ",
+    "id": "flareblitz",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はどうだん",
+    "id": "aurasphere",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ロックカット",
+    "id": "rockpolish",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "どくづき",
+    "id": "poisonjab",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "あくのはどう",
+    "id": "darkpulse",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つじぎり",
+    "id": "nightslash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクアテール",
+    "id": "aquatail",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "タネばくだん",
+    "id": "seedbomb",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "エアスラッシュ",
+    "id": "airslash",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シザークロス",
+    "id": "xscissor",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "むしのさざめき",
+    "id": "bugbuzz",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "りゅうのはどう",
+    "id": "dragonpulse",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドラゴンダイブ",
+    "id": "dragonrush",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "パワージェム",
+    "id": "powergem",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドレインパンチ",
+    "id": "drainpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "しんくうは",
+    "id": "vacuumwave",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きあいだま",
+    "id": "focusblast",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "エナジーボール",
+    "id": "energyball",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ブレイブバード",
+    "id": "bravebird",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "だいちのちから",
+    "id": "earthpower",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "すりかえ",
+    "id": "switcheroo",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ギガインパクト",
+    "id": "gigaimpact",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "わるだくみ",
+    "id": "nastyplot",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "バレットパンチ",
+    "id": "bulletpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ゆきなだれ",
+    "id": "avalanche",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "こおりのつぶて",
+    "id": "iceshard",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シャドークロー",
+    "id": "shadowclaw",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かみなりのキバ",
+    "id": "thunderfang",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "こおりのキバ",
+    "id": "icefang",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほのおのキバ",
+    "id": "firefang",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かげうち",
+    "id": "shadowsneak",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "サイコカッター",
+    "id": "psychocut",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "しねんのずつき",
+    "id": "zenheadbutt",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ラスターカノン",
+    "id": "flashcannon",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きりばらい",
+    "id": "defog",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "トリックルーム",
+    "id": "trickroom",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "りゅうせいぐん",
+    "id": "dracometeor",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ほうでん",
+    "id": "discharge",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふんえん",
+    "id": "lavaplume",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "リーフストーム",
+    "id": "leafstorm",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "パワーウィップ",
+    "id": "powerwhip",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "がんせきほう",
+    "id": "rockwrecker",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "クロスポイズン",
+    "id": "crosspoison",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ダストシュート",
+    "id": "gunkshot",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アイアンヘッド",
+    "id": "ironhead",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ストーンエッジ",
+    "id": "stoneedge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ステルスロック",
+    "id": "stealthrock",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "くさむすび",
+    "id": "grassknot",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "むしくい",
+    "id": "bugbite",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "チャージビーム",
+    "id": "chargebeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ウッドハンマー",
+    "id": "woodhammer",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクアジェット",
+    "id": "aquajet",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "もろはのずつき",
+    "id": "headsmash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ダブルアタック",
+    "id": "doublehit",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ワイドガード",
+    "id": "wideguard",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ガードシェア",
+    "id": "guardsplit",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "パワーシェア",
+    "id": "powersplit",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ワンダールーム",
+    "id": "wonderroom",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "サイコショック",
+    "id": "psyshock",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ベノムショック",
+    "id": "venoshock",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いかりのこな",
+    "id": "ragepowder",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "マジックルーム",
+    "id": "magicroom",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "うちおとす",
+    "id": "smackdown",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "やまあらし",
+    "id": "stormthrow",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ヘドロウェーブ",
+    "id": "sludgewave",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ちょうのまい",
+    "id": "quiverdance",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ヘビーボンバー",
+    "id": "heavyslam",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "エレキボール",
+    "id": "electroball",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みずびたし",
+    "id": "soak",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ニトロチャージ",
+    "id": "flamecharge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "とぐろをまく",
+    "id": "coil",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ローキック",
+    "id": "lowsweep",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アシッドボム",
+    "id": "acidspray",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "イカサマ",
+    "id": "foulplay",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シンプルビーム",
+    "id": "simplebeam",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "なかまづくり",
+    "id": "entrainment",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おさきにどうぞ",
+    "id": "afteryou",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "りんしょう",
+    "id": "round",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "クリアスモッグ",
+    "id": "clearsmog",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "アシストパワー",
+    "id": "storedpower",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ファストガード",
+    "id": "quickguard",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "サイドチェンジ",
+    "id": "allyswitch",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "ねっとう",
+    "id": "scald",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "からをやぶる",
+    "id": "shellsmash",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いやしのはどう",
+    "id": "healpulse",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "たたりめ",
+    "id": "hex",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ギアチェンジ",
+    "id": "shiftgear",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ともえなげ",
+    "id": "circlethrow",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "さきおくり",
+    "id": "quash",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "アクロバット",
+    "id": "acrobatics",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ミラータイプ",
+    "id": "reflecttype",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "いのちがけ",
+    "id": "finalgambit",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "れんごく",
+    "id": "inferno",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ボルトチェンジ",
+    "id": "voltswitch",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "むしのていこう",
+    "id": "strugglebug",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じならし",
+    "id": "bulldoze",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "こおりのいぶき",
+    "id": "frostbreath",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドラゴンテール",
+    "id": "dragontail",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "エレキネット",
+    "id": "electroweb",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ワイルドボルト",
+    "id": "wildcharge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドリルライナー",
+    "id": "drillrun",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ウッドホーン",
+    "id": "hornleech",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "せいなるつるぎ",
+    "id": "sacredsword",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シェルブレード",
+    "id": "razorshell",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ヒートスタンプ",
+    "id": "heatcrash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "コットンガード",
+    "id": "cottonguard",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ナイトバースト",
+    "id": "nightdaze",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "スイープビンタ",
+    "id": "tailslap",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ぼうふう",
+    "id": "hurricane",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほのおのまい",
+    "id": "fierydance",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "バークアウト",
+    "id": "snarl",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つららおとし",
+    "id": "iciclecrash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フライングプレス",
+    "id": "flyingpress",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ゲップ",
+    "id": "belch",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ねばねばネット",
+    "id": "stickyweb",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "とどめばり",
+    "id": "fellstinger",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ゴーストダイブ",
+    "id": "phantomforce",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハロウィン",
+    "id": "trickortreat",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おたけび",
+    "id": "nobleroar",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "パラボラチャージ",
+    "id": "paraboliccharge",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "もりののろい",
+    "id": "forestscurse",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "はなふぶき",
+    "id": "petalblizzard",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フリーズドライ",
+    "id": "freezedry",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "すてゼリフ",
+    "id": "partingshot",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ひっくりかえす",
+    "id": "topsyturvy",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ドレインキッス",
+    "id": "drainingkiss",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "グラスフィールド",
+    "id": "grassyterrain",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "ミストフィールド",
+    "id": "mistyterrain",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "そうでん",
+    "id": "electrify",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "じゃれつく",
+    "id": "playrough",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ムーンフォース",
+    "id": "moonblast",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ばくおんぱ",
+    "id": "boomburst",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フェアリーロック",
+    "id": "fairylock",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "キングシールド",
+    "id": "kingsshield",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "みずしゅりけん",
+    "id": "watershuriken",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "マジカルフレイム",
+    "id": "mysticalfire",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ニードルガード",
+    "id": "spikyshield",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "アロマミスト",
+    "id": "aromaticmist",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "かいでんぱ",
+    "id": "eerieimpulse",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "じばそうさ",
+    "id": "magneticflux",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "エレキフィールド",
+    "id": "electricterrain",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "マジカルシャイン",
+    "id": "dazzlinggleam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つぶらなひとみ",
+    "id": "babydolleyes",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ほっぺすりすり",
+    "id": "nuzzle",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "まとわりつく",
+    "id": "infestation",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はめつのひかり",
+    "id": "lightofruin",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "であいがしら",
+    "id": "firstimpression",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "トーチカ",
+    "id": "banefulbunker",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "連続成功率・防げる被害・接触時の効果を評価",
+    "gaps": []
+  },
+  {
+    "name": "かげぬい",
+    "id": "spiritshackle",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ＤＤラリアット",
+    "id": "darkestlariat",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うたかたのアリア",
+    "id": "sparklingaria",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "アイスハンマー",
+    "id": "icehammer",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "１０まんばりき",
+    "id": "highhorsepower",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ちからをすいとる",
+    "id": "strengthsap",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ソーラーブレード",
+    "id": "solarblade",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "どくのいと",
+    "id": "toxicthread",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "状態異常後の火力・速度・行動可能性・継続効果を比較",
+    "gaps": []
+  },
+  {
+    "name": "じごくづき",
+    "id": "throatchop",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かふんだんご",
+    "id": "pollenpuff",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "シングルの対象・分類変化をエンジンで計算",
+    "gaps": []
+  },
+  {
+    "name": "サイコフィールド",
+    "id": "psychicterrain",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "とびかかる",
+    "id": "lunge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほのおのムチ",
+    "id": "firelash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "つけあがる",
+    "id": "powertrip",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "もえつきる",
+    "id": "burnup",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "スピードスワップ",
+    "id": "speedswap",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "スマートホーン",
+    "id": "smartstrike",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "トロピカルキック",
+    "id": "tropkick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "さいはい",
+    "id": "instruct",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "くちばしキャノン",
+    "id": "beakblast",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "スケイルノイズ",
+    "id": "clangingscales",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ぶんまわす",
+    "id": "brutalswing",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "オーロラベール",
+    "id": "auroraveil",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "サイコファング",
+    "id": "psychicfangs",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "じだんだ",
+    "id": "stompingtantrum",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクセルロック",
+    "id": "accelerock",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクアブレイク",
+    "id": "liquidation",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "なみだめ",
+    "id": "tearfullook",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "びりびりちくちく",
+    "id": "zingzap",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ねらいうち",
+    "id": "snipeshot",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "くらいつく",
+    "id": "jawlock",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ほおばる",
+    "id": "stuffcheeks",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "はいすいのじん",
+    "id": "noretreat",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "まほうのこな",
+    "id": "magicpowder",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ドラゴンアロー",
+    "id": "dragondarts",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "おちゃかい",
+    "id": "teatime",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "たこがため",
+    "id": "octolock",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "コートチェンジ",
+    "id": "courtchange",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ソウルビート",
+    "id": "clangoroussoul",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ボディプレス",
+    "id": "bodypress",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "デコレーション",
+    "id": "decorate",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ドラムアタック",
+    "id": "drumbeating",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "トラバサミ",
+    "id": "snaptrap",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "かえんボール",
+    "id": "pyroball",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "オーラぐるま",
+    "id": "aurawheel",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ワイドブレイカー",
+    "id": "breakingswipe",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "オーバードライブ",
+    "id": "overdrive",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "りんごさん",
+    "id": "appleacid",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "Ｇのちから",
+    "id": "gravapple",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ソウルクラッシュ",
+    "id": "spiritbreak",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "いのちのしずく",
+    "id": "lifedew",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "個別ルール",
+    "gaps": []
+  },
+  {
+    "name": "スターアサルト",
+    "id": "meteorassault",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "てっていこうせん",
+    "id": "steelbeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ワイドフォース",
+    "id": "expandingforce",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アイアンローラー",
+    "id": "steelroller",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "スケイルショット",
+    "id": "scaleshot",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "メテオビーム",
+    "id": "meteorbeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シェルアームズ",
+    "id": "shellsidearm",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "シングルの対象・分類変化をエンジンで計算",
+    "gaps": []
+  },
+  {
+    "name": "ミストバースト",
+    "id": "mistyexplosion",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "グラススライダー",
+    "id": "grassyglide",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ライジングボルト",
+    "id": "risingvoltage",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "だいちのはどう",
+    "id": "terrainpulse",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はいよるいちげき",
+    "id": "skittersmack",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "しっとのほのお",
+    "id": "burningjealousy",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋公開履歴・行動順に応じた追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うっぷんばらし",
+    "id": "lashout",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ポルターガイスト",
+    "id": "poltergeist",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふしょくガス",
+    "id": "corrosivegas",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "コーチング",
+    "id": "coaching",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "クイックターン",
+    "id": "flipturn",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "トリプルアクセル",
+    "id": "tripleaxel",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ダブルウイング",
+    "id": "dualwingbeat",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ねっさのだいち",
+    "id": "scorchingsands",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ぶきみなじゅもん",
+    "id": "eeriespell",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋公開履歴・行動順に応じた追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フェイタルクロー",
+    "id": "direclaw",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "バリアーラッシュ",
+    "id": "psyshieldbash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "がんせきアックス",
+    "id": "stoneaxe",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "だいふんげき",
+    "id": "ragingfury",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ウェーブタックル",
+    "id": "wavecrash",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ひょうざんおろし",
+    "id": "mountaingale",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ぶちかまし",
+    "id": "headlongrush",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "どくばりセンボン",
+    "id": "barbbarrage",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "うらみつらみ",
+    "id": "bittermalice",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "たてこもる",
+    "id": "shelter",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "３ぼんのや",
+    "id": "triplearrows",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ひゃっきやこう",
+    "id": "infernalparade",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ひけん・ちえなみ",
+    "id": "ceaselessedge",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "かかとおとし",
+    "id": "axekick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "おはかまいり",
+    "id": "lastrespects",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ルミナコリジョン",
+    "id": "luminacrash",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ジェットパンチ",
+    "id": "jetpunch",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハバネロエキス",
+    "id": "spicyextract",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ネズミざん",
+    "id": "populationbomb",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アイススピナー",
+    "id": "icespinner",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "きょけんとつげき",
+    "id": "glaiverush",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "さいきのいのり",
+    "id": "revivalblessing",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しおづけ",
+    "id": "saltcure",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "キラースピン",
+    "id": "mortalspin",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ドゲザン",
+    "id": "kowtowcleave",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "トリックフラワー",
+    "id": "flowertrick",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "フレアソング",
+    "id": "torchsong",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクアステップ",
+    "id": "aquastep",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "レイジングブル",
+    "id": "ragingbull",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ゴールドラッシュ",
+    "id": "makeitrain",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "しっぽきり",
+    "id": "shedtail",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "さむいギャグ",
+    "id": "chillyreception",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "おかたづけ",
+    "id": "tidyup",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "ゆきげしき",
+    "id": "snowscape",
+    "category": "Status",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "天候前後の対面・継続効果と自分の控えを比較",
+    "gaps": []
+  },
+  {
+    "name": "とびつく",
+    "id": "pounce",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "くさわけ",
+    "id": "trailblaze",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ひやみず",
+    "id": "chillingwater",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ツインビーム",
+    "id": "twinbeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ふんどのこぶし",
+    "id": "ragefist",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アーマーキャノン",
+    "id": "armorcannon",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "むねんのつるぎ",
+    "id": "bitterblade",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "でんこうそうげき",
+    "id": "doubleshock",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "効果前後の対面を比較",
+    "gaps": []
+  },
+  {
+    "name": "デカハンマー",
+    "id": "gigatonhammer",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ほうふく",
+    "id": "comeuppance",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "アクアカッター",
+    "id": "aquacutter",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "シャカシャカほう",
+    "id": "matchagotcha",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "みずあめボム",
+    "id": "syrupbomb",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "エレクトロビーム",
+    "id": "electroshot",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "きまぐレーザー",
+    "id": "ficklebeam",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ハードプレス",
+    "id": "hardpress",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "ドラゴンエール",
+    "id": "dragoncheer",
+    "category": "Status",
+    "allowed": false,
+    "restriction": "シングルでは使えないダブル向けの技",
+    "evaluation": "シングルの利用制限で登録・選択対象外",
+    "gaps": []
+  },
+  {
+    "name": "みわくのボイス",
+    "id": "alluringvoice",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋公開履歴・行動順に応じた追加効果",
+    "gaps": []
+  },
+  {
+    "name": "やけっぱち",
+    "id": "temperflare",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "サンダーダイブ",
+    "id": "supercellslam",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "サイコノイズ",
+    "id": "psychicnoise",
+    "category": "Special",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  },
+  {
+    "name": "はやてがえし",
+    "id": "upperhand",
+    "category": "Physical",
+    "allowed": true,
+    "restriction": null,
+    "evaluation": "主ダメージ＋対応済み追加効果",
+    "gaps": []
+  }
+]

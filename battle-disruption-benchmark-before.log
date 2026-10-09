@@ -1,0 +1,8 @@
+attack/bulky 無効: 23ターン Subject 変更0 中央値48.2ms
+attack/bulky 有効: 12ターン Subject 変更2 中央値4046.3ms
+bulky/setup 無効: 23ターン Subject 変更0 中央値86.4ms
+bulky/setup 有効: 30ターン Subject 変更5 中央値1665.2ms
+setup/hazard 無効: 14ターン Subject 変更0 中央値71.4ms
+setup/hazard 有効: 19ターン Subject 変更2 中央値1749.9ms
+hazard/attack 無効: 9ターン Control 変更0 中央値145.0ms
+hazard/attack 有効: 10ターン Control 変更2 中央値4273.5ms

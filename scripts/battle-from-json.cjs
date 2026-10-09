@@ -1,10 +1,11 @@
 const fs = require('node:fs');
+const { ACTIVE_BATTLE_RULES, moveRestriction, isMoveAllowed, assertMoveAllowed, createBattleTeamValidator, assertRequestSupported } = require('./battle-rules.cjs');
 
 const { Battle, BattleStream, Dex, Side, Teams, TeamValidator } = require('../vendor/pokemon-showdown/dist/sim');
 
 Dex.includeFormats();
 
-const FORMAT = 'gen9championsbssregmc';
+const FORMAT = ACTIVE_BATTLE_RULES.format;
 const BATTLE_LEVEL = 50;
 const STEALTH_ROCK_TEST_MODE = false;
 const battleDex = Dex.forFormat(FORMAT);
@@ -83,7 +84,11 @@ function convertTeam(path) {
 
     const item = member.item ? findByName(items, member.item, 'もちもの') : null;
 
-    const showdownMoves = member.moves.map((moveName) => findByName(moves, moveName, 'わざ').showdownId);
+    const showdownMoves = member.moves.map((moveName) => {
+      const move = findByName(moves, moveName, 'わざ');
+      assertMoveAllowed(battleDex.moves.get(move.showdownId), member.pokemon);
+      return move.showdownId;
+    });
 
     return {
       species: pokemon.showdownId,
@@ -117,7 +122,7 @@ const teamB = convertTeam('./teams/team-b.json');
 // 合法性チェック
 // ========================================
 
-const validator = new TeamValidator(FORMAT);
+const validator = createBattleTeamValidator(TeamValidator, Dex);
 
 const problemsA = validator.validateTeam(teamA);
 
@@ -181,13 +186,23 @@ const battleState = {
     revealedMoves: {},
     previewSpecies: [],
     faintedSpecies: new Set(),
+    selectedSpecies: new Set(),
+    activeMoveActions: 0,
+    lastActionTurn: null,
     item: null,
     ability: null,
     revealedAbilities: {},
+    revealedItems: {},
     unburden: false,
     toxicCounter: 0,
     lastChoice: null,
     statusAge: 0,
+    sleepSource: null,
+    sleepHistory: {},
+    freezeHistory: {},
+    publicPokemon: {},
+    publicNames: {},
+    yawnDueTurn: null,
     recentSpecies: [],
     gender: null,
     volatiles: {},
@@ -202,13 +217,23 @@ const battleState = {
     revealedMoves: {},
     previewSpecies: [],
     faintedSpecies: new Set(),
+    selectedSpecies: new Set(),
+    activeMoveActions: 0,
+    lastActionTurn: null,
     item: null,
     ability: null,
     revealedAbilities: {},
+    revealedItems: {},
     unburden: false,
     toxicCounter: 0,
     lastChoice: null,
     statusAge: 0,
+    sleepSource: null,
+    sleepHistory: {},
+    freezeHistory: {},
+    publicPokemon: {},
+    publicNames: {},
+    yawnDueTurn: null,
     recentSpecies: [],
     gender: null,
     volatiles: {},
@@ -225,6 +250,14 @@ const latestRequests = {
   p1: null,
   p2: null,
 };
+
+const publicEffectHistory = { lastMove: null };
+for (const state of Object.values(battleState)) {
+  state.ppUsed = {};
+  state.consumedItems = {};
+  state.statsRaisedThisTurn = false;
+  state.transformed = false;
+}
 
 // observer -> opponent species -> 候補となる素早さ実数値
 const speedKnowledge = {
@@ -453,6 +486,7 @@ function syncFieldStateFromBattle() {
     side.tailwind = Boolean(conditions.tailwind);
 
     side.stickyWeb = Boolean(conditions.stickyweb);
+    side.safeguard = Boolean(conditions.safeguard);
 
     side.reflectTurns = conditions.reflect?.duration ?? null;
 
@@ -469,9 +503,10 @@ function syncFieldStateFromBattle() {
     battleState[sideId].magnetRise = Boolean(active?.volatiles?.magnetrise);
 
     // プロトコルに出た状態だけ。ねむりの残りターンは非公開なので写さない。
-    const publicVolatileIds = ['focusenergy', 'laserfocus', 'taunt', 'encore', 'disable', 'attract', 'confusion', 'throatchop', 'saltcure', 'curse', 'leechseed', 'substitute', 'yawn'];
+    const publicVolatileIds = ['focusenergy', 'laserfocus', 'taunt', 'encore', 'disable', 'attract', 'confusion', 'throatchop', 'saltcure', 'curse', 'leechseed', 'substitute', 'yawn', 'healblock', 'mustrecharge', 'torment', 'imprison', 'trapped', 'lockon'];
 
     const nextVolatiles = {};
+    if (battleState[sideId].volatiles.stockpile) nextVolatiles.stockpile = battleState[sideId].volatiles.stockpile;
 
     for (const id of publicVolatileIds) {
       const volatile = active?.volatiles?.[id];
@@ -1167,7 +1202,33 @@ function rememberStatus(player, status, preserveToxicWhenOmitted = false) {
 
   if (status !== previous) {
     state.statusAge = 0;
+    state.sleepSource = null;
+    if (state.species) delete state.sleepHistory[baseSpeciesName(state.species)];
+    if (state.species) delete state.freezeHistory[baseSpeciesName(state.species)];
   }
+}
+
+function rememberPublicSleep(player) {
+  const state = battleState[player];
+  if (state?.species && state.status === 'slp') {
+    state.sleepHistory[baseSpeciesName(state.species)] = { source: state.sleepSource, age: state.statusAge };
+  }
+}
+
+function rememberPublicFreeze(player) {
+  const state = battleState[player];
+  if (state?.species && state.status === 'frz') {
+    state.freezeHistory[baseSpeciesName(state.species)] = state.statusAge;
+  }
+}
+
+function publicSpeciesFor(player, ident) {
+  return battleState[player]?.publicNames[ident] || battleState[player]?.species;
+}
+
+function rememberPublicPokemon(player) {
+  const state = battleState[player];
+  if (state?.species) state.publicPokemon[baseSpeciesName(state.species)] = { hpPercent: state.hpPercent, status: state.status };
 }
 
 // ========================================
@@ -1261,13 +1322,13 @@ function rememberRevealedMove(player, moveName) {
 }
 
 function getRevealedMoves(player, species) {
-  const revealed = battleState[player].revealedMoves[species];
+  const revealed = battleState[player]?.revealedMoves[species];
 
   if (!revealed) {
     return [];
   }
 
-  return [...revealed];
+  return [...revealed].filter((id) => isMoveAllowed(battleDex.moves.get(id)));
 }
 
 // ========================================
@@ -1450,6 +1511,25 @@ function updateBattleState(output) {
   for (const line of lines) {
     const parts = line.split('|');
 
+    // 無効・回復・反動などの原因欄に現れた特性・持ち物も公開情報。
+    for (const kind of ['ability', 'item']) {
+      const cause = parts.find((part) => part.startsWith(`[from] ${kind}: `)) || (['-activate', 'cant', '-immune'].includes(parts[1]) ? parts.find((part) => part.startsWith(`${kind}: `)) : null);
+      if (!cause) continue;
+      const holder = parts.find((part) => part.startsWith('[of] '))?.slice(5) || parts[2];
+      const player = holder?.slice(0, 2);
+      const state = battleState[player];
+      const species = publicSpeciesFor(player, holder);
+      if (!state || !species) continue;
+      const id = normalizeBattleEffect(cause.replace(/^\[from\] /, ''));
+      if (kind === 'ability') {
+        state.revealedAbilities[species] = id;
+        if (species === state.species) state.ability = id;
+      } else {
+        state.revealedItems[baseSpeciesName(species)] = id;
+        if (species === state.species) state.item = id;
+      }
+    }
+
     // ====================================
     // Team Preview の公開情報
     // ====================================
@@ -1459,6 +1539,30 @@ function updateBattleState(output) {
       battleState.p2.previewSpecies = [];
       battleState.p1.faintedSpecies.clear();
       battleState.p2.faintedSpecies.clear();
+      battleState.p1.selectedSpecies.clear();
+      battleState.p2.selectedSpecies.clear();
+      for (const state of Object.values(battleState)) {
+        state.sleepHistory = {};
+        state.freezeHistory = {};
+        state.publicPokemon = {};
+        state.publicNames = {};
+        state.yawnDueTurn = null;
+        state.revealedMoves = {};
+        state.revealedAbilities = {};
+        state.revealedItems = {};
+        state.ability = null;
+        state.item = null;
+        state.volatiles = {};
+        state.sleepSource = null;
+        state.statusAge = 0;
+        state.ppUsed = {};
+        state.consumedItems = {};
+        state.statsRaisedThisTurn = false;
+        state.transformed = false;
+        state.protectionChain = null;
+      }
+      publicEffectHistory.lastMove = null;
+      fieldState.fairyLockUntil = null;
     }
 
     if (parts[1] === 'poke') {
@@ -1487,6 +1591,7 @@ function updateBattleState(output) {
       speedLearningState.moveEvents = [];
 
       for (const sideId of ['p1', 'p2']) {
+        battleState[sideId].statsRaisedThisTurn = false;
         if (battleState[sideId].status === 'tox') {
           battleState[sideId].toxicCounter = Math.min((battleState[sideId].toxicCounter || 1) + 1, 15);
         }
@@ -1496,9 +1601,75 @@ function updateBattleState(output) {
     if (parts[1] === 'cant') {
       const player = parts[2]?.slice(0, 2);
       const reason = normalizeBattleEffect(parts[3]);
+      rememberPublicMoveAction(player);
+      if (battleState[player]) battleState[player].protectionChain = null;
 
       if (battleState[player] && (reason === 'slp' || reason === 'frz' || reason === 'par')) {
         battleState[player].statusAge = (battleState[player].statusAge || 0) + 1;
+        if (reason === 'slp') rememberPublicSleep(player);
+        if (reason === 'frz') rememberPublicFreeze(player);
+      }
+    }
+
+    if ((parts[1] === '-start' || parts[1] === '-end') && normalizeBattleEffect(parts[3]) === 'yawn') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      if (state) {
+        if (parts[1] === '-start') {
+          state.volatiles.yawn = true;
+          state.yawnDueTurn = speedLearningState.turn + 1;
+        } else {
+          delete state.volatiles.yawn;
+          state.yawnDueTurn = null;
+        }
+      }
+    }
+
+    if (parts[1] === '-start' || parts[1] === '-end') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      const id = normalizeBattleEffect(parts[3]);
+      if (state && /^stockpile[123]$/.test(id)) {
+        const old = state.volatiles.stockpile;
+        state.volatiles.stockpile = { layers: Number(id.slice(-1)), def: old?.def || 0, spd: old?.spd || 0, pending: { def: true, spd: true } };
+      } else if (state && id === 'stockpile') {
+        delete state.volatiles.stockpile;
+      } else if (state && ['torment', 'imprison', 'trapped', 'lockon', 'taunt', 'leechseed', 'yawn', 'confusion', 'attract', 'saltcure', 'curse', 'throatchop'].includes(id)) {
+        if (parts[1] === '-start') state.volatiles[id] = true;
+        else delete state.volatiles[id];
+      }
+    }
+    if (parts[1] === '-singleturn') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      if (state && battleDex.moves.get(normalizeBattleEffect(parts[3])).stallingMove) {
+        const previous = state.protectionChain;
+        if (previous?.turn !== speedLearningState.turn) state.protectionChain = {
+          count: previous?.turn === speedLearningState.turn - 1 ? previous.count + 1 : 1, turn: speedLearningState.turn,
+        };
+      }
+    }
+    if (parts[1] === '-fail') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      if (state && battleDex.moves.get(state.lastMove).stallingMove) state.protectionChain = null;
+    }
+    if (parts[1] === '-transform') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      if (state) state.transformed = true;
+    }
+    if (parts[1] === '-fieldactivate' && normalizeBattleEffect(parts[2]) === 'fairylock') fieldState.fairyLockUntil = speedLearningState.turn + 1;
+    if (parts[1] === '-activate' && ['spite', 'eeriespell'].includes(normalizeBattleEffect(parts[3]))) {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      const id = battleDex.moves.get(parts[4]).id;
+      if (state && id) {
+        const key = baseSpeciesName(state.species);
+        state.ppUsed[key] ||= {};
+        state.ppUsed[key][id] = (state.ppUsed[key][id] || 0) + (Number(parts[5]) || 0);
+      }
+    }
+    if (parts[1] === '-activate' && normalizeBattleEffect(parts[3]) === 'leppaberry') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      const id = battleDex.moves.get(parts[4]).id;
+      if (state?.ppUsed[baseSpeciesName(state.species)] && id) {
+        const used = state.ppUsed[baseSpeciesName(state.species)];
+        used[id] = Math.max(0, (used[id] || 0) - (state.ability === 'ripen' ? 20 : 10));
       }
     }
 
@@ -1599,6 +1770,8 @@ function updateBattleState(output) {
           side.auroraVeil = true;
         } else if (effectId === 'stickyweb') {
           side.stickyWeb = true;
+        } else if (effectId === 'safeguard') {
+          side.safeguard = true;
         }
 
         console.log(`${player} 場の状態更新: ` + `岩${side.stealthRock ? '有' : '無'} ` + `まきびし${side.spikes} ` + `どくびし${side.toxicSpikes} ` + `ねばねば${side.stickyWeb ? '有' : '無'} ` + `リフレクター${side.reflect ? '有' : '無'} ` + `光の壁${side.lightScreen ? '有' : '無'} ` + `オーロラベール${side.auroraVeil ? '有' : '無'}`);
@@ -1627,6 +1800,8 @@ function updateBattleState(output) {
           side.auroraVeil = false;
         } else if (effectId === 'stickyweb') {
           side.stickyWeb = false;
+        } else if (effectId === 'safeguard') {
+          side.safeguard = false;
         }
 
         console.log(`${player} 場の状態更新: ` + `岩${side.stealthRock ? '有' : '無'} ` + `まきびし${side.spikes} ` + `どくびし${side.toxicSpikes} ` + `ねばねば${side.stickyWeb ? '有' : '無'} ` + `リフレクター${side.reflect ? '有' : '無'} ` + `光の壁${side.lightScreen ? '有' : '無'} ` + `オーロラベール${side.auroraVeil ? '有' : '無'}`);
@@ -1651,6 +1826,7 @@ function updateBattleState(output) {
       if (state?.species) {
         state.faintedSpecies.add(baseSpeciesName(state.species));
         state.hpPercent = 0;
+        rememberPublicPokemon(player);
       }
     }
 
@@ -1663,11 +1839,25 @@ function updateBattleState(output) {
 
       const condition = parseCondition(parts[4]);
 
+      rememberPublicSleep(player);
+      rememberPublicFreeze(player);
+      if (Object.values(battleState[player].publicNames).includes(battleState[player].species)) rememberPublicPokemon(player);
+      const outgoing = battleState[player].publicPokemon[baseSpeciesName(battleState[player].species)];
+      if (outgoing && outgoing.hpPercent > 0) outgoing.switchedOut = true;
       battleState[player].species = parts[3]?.split(',')[0].trim();
+      battleState[player].publicNames[parts[2]] = battleState[player].species;
+      const sleep = battleState[player].sleepHistory[baseSpeciesName(battleState[player].species)];
+      const frozenAge = battleState[player].freezeHistory[baseSpeciesName(battleState[player].species)];
+      battleState[player].selectedSpecies.add(baseSpeciesName(battleState[player].species));
+      battleState[player].activeMoveActions = 0;
+      battleState[player].lastActionTurn = null;
 
       battleState[player].gender = genderOf(parts[3]);
 
       battleState[player].volatiles = {};
+      battleState[player].statsRaisedThisTurn = false;
+      battleState[player].transformed = false;
+      battleState[player].yawnDueTurn = null;
 
       // 復活して再登場した場合は、再び交代候補にできる。
       if (condition.hpPercent > 0) {
@@ -1676,15 +1866,21 @@ function updateBattleState(output) {
 
       battleState[player].hpPercent = condition.hpPercent;
 
-      battleState[player].ability = null;
+      battleState[player].ability = battleState[player].revealedAbilities[battleState[player].species] || null;
 
       battleState[player].unburden = false;
 
       rememberStatus(player, condition.status);
+      battleState[player].statusAge = condition.status === 'slp' ? sleep?.age || 0 : condition.status === 'frz' ? frozenAge || 0 : 0;
+      battleState[player].sleepSource = condition.status === 'slp' ? sleep?.source || null : null;
+      rememberPublicSleep(player);
+      rememberPublicFreeze(player);
 
       resetBoosts(player);
       battleState[player].lastMove = null;
-      battleState[player].item = null;
+      battleState[player].protectionChain = null;
+      battleState[player].item = battleState[player].revealedItems[baseSpeciesName(battleState[player].species)] || null;
+      rememberPublicPokemon(player);
     }
 
     if (parts[1] === '-item' || parts[1] === '-enditem') {
@@ -1696,12 +1892,16 @@ function updateBattleState(output) {
 
       if (state && itemId) {
         if (parts[1] === '-item') {
+          if (parts.includes('[from] move: Recycle')) delete state.consumedItems[baseSpeciesName(state.species)];
+          state.revealedItems[baseSpeciesName(state.species)] = itemId;
           if (state.item !== itemId) {
             state.item = itemId;
 
             console.log(`${player} 持ち物公開: ${itemLabel(itemId)}`);
           }
-        } else if (state.item === itemId) {
+        } else {
+          if (parts.includes('[eat]') || !parts.some((part) => part.startsWith('[from]'))) state.consumedItems[baseSpeciesName(state.species)] = itemId;
+          state.revealedItems[baseSpeciesName(state.species)] = null;
           state.item = null;
 
           if (itemId === 'airballoon') {
@@ -1714,6 +1914,15 @@ function updateBattleState(output) {
             console.log(`${player} かるわざ`);
           }
         }
+      }
+    }
+
+    if (parts[1] === '-mega') {
+      const state = battleState[parts[2]?.slice(0, 2)];
+      const item = normalizeBattleEffect(parts[4]);
+      if (state && item) {
+        state.item = item;
+        state.revealedItems[baseSpeciesName(state.species)] = item;
       }
     }
 
@@ -1749,10 +1958,15 @@ function updateBattleState(output) {
       }
 
       const condition = parseCondition(parts[3]);
-
+      const species = publicSpeciesFor(player, parts[2]);
+      if (species && species !== battleState[player].species) {
+        battleState[player].publicPokemon[baseSpeciesName(species)] = { hpPercent: condition.hpPercent, status: condition.status };
+        continue;
+      }
       battleState[player].hpPercent = condition.hpPercent;
 
       rememberStatus(player, condition.status, true);
+      rememberPublicPokemon(player);
     }
 
     if (parts[1] === '-status') {
@@ -1763,6 +1977,12 @@ function updateBattleState(output) {
       }
 
       rememberStatus(player, parts[3]);
+      if (parts[3] === 'slp') {
+        battleState[player].sleepSource = parts.includes('[from] move: Rest') ? 'rest' : null;
+        rememberPublicSleep(player);
+      }
+      if (parts[3] === 'frz') rememberPublicFreeze(player);
+      rememberPublicPokemon(player);
 
       console.log(`${player} 状態異常: ${parts[3]}`);
     }
@@ -1774,7 +1994,16 @@ function updateBattleState(output) {
         continue;
       }
 
+      const species = publicSpeciesFor(player, parts[2]);
+      if (species && species !== battleState[player].species) {
+        const key = baseSpeciesName(species);
+        if (battleState[player].publicPokemon[key]) battleState[player].publicPokemon[key].status = null;
+        delete battleState[player].sleepHistory[key];
+        delete battleState[player].freezeHistory[key];
+        continue;
+      }
       rememberStatus(player, null);
+      rememberPublicPokemon(player);
 
       console.log(`${player} 状態異常が治りました`);
     }
@@ -1787,10 +2016,22 @@ function updateBattleState(output) {
       }
 
       const move = battleDex.moves.get(parts[3]);
+      if (!move.stallingMove) battleState[player].protectionChain = null;
+      for (const state of Object.values(battleState)) if (state.volatiles.stockpile) state.volatiles.stockpile.pending = {};
+      if (!parts.some((part) => part.startsWith('[from]'))) rememberPublicMoveAction(player);
 
       recordMoveForSpeedLearning(player, parts[3]);
 
       battleState[player].lastMove = move.id;
+      publicEffectHistory.lastMove = { id: move.id, player, turn: speedLearningState.turn };
+      if (!parts.some((part) => part.startsWith('[from]')) || parts.includes('[from] move: Instruct')) {
+        const state = battleState[player];
+        const key = baseSpeciesName(state.species);
+        state.ppUsed[key] ||= {};
+        const foe = player === 'p1' ? 'p2' : 'p1';
+        const pressure = battleState[foe].ability === 'pressure' && targetsOpponent(move) ? 2 : 1;
+        state.ppUsed[key][move.id] = (state.ppUsed[key][move.id] || 0) + pressure;
+      }
 
       rememberRevealedMove(player, parts[3]);
     }
@@ -1807,6 +2048,11 @@ function updateBattleState(output) {
       }
 
       battleState[player].boosts[stat] = clampBoost(battleState[player].boosts[stat] + amount);
+      if (amount > 0) battleState[player].statsRaisedThisTurn = true;
+      if (battleState[player].volatiles.stockpile?.pending?.[stat]) {
+        battleState[player].volatiles.stockpile[stat]--;
+        battleState[player].volatiles.stockpile.pending[stat] = false;
+      }
 
       console.log(`${player} 能力変化: ` + `${stat} +${amount} → ` + `${battleState[player].boosts[stat]}`);
     }
@@ -1823,6 +2069,10 @@ function updateBattleState(output) {
       }
 
       battleState[player].boosts[stat] = clampBoost(battleState[player].boosts[stat] - amount);
+      if (battleState[player].volatiles.stockpile?.pending?.[stat]) {
+        battleState[player].volatiles.stockpile[stat]--;
+        battleState[player].volatiles.stockpile.pending[stat] = false;
+      }
 
       console.log(`${player} 能力変化: ` + `${stat} -${amount} → ` + `${battleState[player].boosts[stat]}`);
     }
@@ -1838,6 +2088,7 @@ function updateBattleState(output) {
         continue;
       }
 
+      if (amount > battleState[player].boosts[stat]) battleState[player].statsRaisedThisTurn = true;
       battleState[player].boosts[stat] = clampBoost(amount);
     }
 
@@ -1894,7 +2145,7 @@ function updateBattleState(output) {
       }
     }
 
-    if (parts[1] === '-formechange') {
+    if (parts[1] === '-formechange' || parts[1] === 'detailschange') {
       const player = parts[2]?.slice(0, 2);
 
       if (!battleState[player]) {
@@ -1903,13 +2154,26 @@ function updateBattleState(output) {
 
       const oldSpecies = battleState[player].species;
 
-      const newSpecies = parts[3];
+      const newSpecies = parts[3]?.split(',')[0].trim();
 
       if (oldSpecies && battleState[player].revealedMoves[oldSpecies]) {
         battleState[player].revealedMoves[newSpecies] = battleState[player].revealedMoves[oldSpecies];
       }
 
       battleState[player].species = newSpecies;
+      for (const ident of Object.keys(battleState[player].publicNames)) {
+        if (battleState[player].publicNames[ident] === oldSpecies) battleState[player].publicNames[ident] = newSpecies;
+      }
+      rememberPublicPokemon(player);
+
+      // メガシンカ後の特性は公開されたフォルムから一意に決まる。
+      const form = battleDex.species.get(newSpecies);
+      if (form.isMega) {
+        const ability = normalizeBattleEffect(form.abilities[0]);
+        battleState[player].ability = ability;
+        battleState[player].revealedAbilities[newSpecies] = ability;
+        battleState[player].previewSpecies = battleState[player].previewSpecies.map((name) => baseSpeciesName(name) === form.baseSpecies ? newSpecies : name);
+      }
     }
   }
 }
@@ -2016,6 +2280,9 @@ function knownCombatant(pokemon, boosts) {
       ...(boosts ?? {}),
     },
     hpPercent: condition.hpPercent,
+    level: pokemon.level || Number(pokemon.details?.match(/(?:^|, )L(\d+)/)?.[1]) || currentBattleLevel(),
+    moves: pokemon.moves,
+    active: pokemon.active,
     exact:
       stats && condition.maxHp
         ? {
@@ -2051,28 +2318,33 @@ function revealedAbilityFor(player, speciesName) {
 function revealedItemFor(player, speciesName) {
   const state = player ? battleState[player] : null;
 
-  if (!state?.item || !state.species) {
+  if (!state) {
     return '';
   }
 
-  return battleDex.species.get(state.species).name === speciesName ? state.item : '';
+  if (state.species && battleDex.species.get(state.species).name === speciesName) {
+    return state.item || '';
+  }
+  return state.revealedItems[baseSpeciesName(speciesName)] || '';
 }
 
 function rangedCombatant(species, statName, endpoint, boosts, player) {
   const spread = spreadForEndpoint(statName, endpoint);
 
   const state = player ? battleState[player] : null;
+  const isActive = state?.species === species.name;
 
   return {
     species: species.name,
     ability: revealedAbilityFor(player, species.name),
     item: revealedItemFor(player, species.name),
-    status: state?.status ?? null,
+    status: isActive ? state.status : state?.publicPokemon[baseSpeciesName(species.name)]?.status || null,
     boosts: {
       ...createEmptyBoosts(),
       ...(boosts ?? {}),
     },
-    hpPercent: state?.hpPercent ?? 100,
+    hpPercent: isActive ? state.hpPercent : state?.publicPokemon[baseSpeciesName(species.name)]?.hpPercent ?? 100,
+    canRegenerate: !isActive && !!state?.publicPokemon[baseSpeciesName(species.name)]?.switchedOut,
     exact: null,
     evs: spread.evs,
     nature: spread.nature,
@@ -2084,10 +2356,10 @@ function toCalcSet(combatant) {
     species: combatant.species,
     ability: combatant.ability || '',
     item: combatant.item || '',
-    moves: ['Tackle'],
+    moves: combatant.moves?.length ? combatant.moves : ['Tackle'],
     nature: combatant.nature || 'Serious',
     evs: combatant.evs || emptyEvs(),
-    level: currentBattleLevel(),
+    level: combatant.level || currentBattleLevel(),
   };
 }
 
@@ -2116,15 +2388,19 @@ function applyCombatant(mon, combatant) {
     mon.setSpecies(mon.species, null);
   }
 
-  const percent = combatant.hpPercent ?? 100;
+  // 最後に見えたHPを保持し、交代時の再生力は候補の特性ごとに適用する。
+  const percent = Math.min(100, (combatant.hpPercent ?? 100) + (combatant.canRegenerate && combatant.ability === 'regenerator' ? 100 / 3 : 0));
 
   mon.hp = Math.max(1, Math.round((mon.maxhp * percent) / 100));
 }
 
-function copyLiveField(calc, source) {
-  const live = stream?.battle;
+function copyLiveField(calc, source, publicOnly = false) {
+  const live = publicOnly ? null : stream?.battle;
 
   if (!live?.field) {
+    useWeather(calc, fieldState.weather, source);
+    if (fieldState.terrain) calc.field.setTerrain(`${fieldState.terrain}terrain`, source);
+    if (fieldState.gravity) calc.field.addPseudoWeather('gravity', source);
     return;
   }
 
@@ -2135,6 +2411,7 @@ function copyLiveField(calc, source) {
   if (live.field.terrain) {
     calc.field.setTerrain(live.field.terrain, source);
   }
+  if (fieldState.gravity) calc.field.addPseudoWeather('gravity', source);
 
   for (let i = 0; i < 2; i++) {
     const from = live.sides[i];
@@ -2183,7 +2460,7 @@ function useWeather(calc, weatherLabel, source) {
   }
 }
 
-function hitSpread(move, attacker) {
+function hitSpread(move, attacker, hitChance = move.accuracy === true ? 1 : move.accuracy / 100) {
   const spec = move.multihit;
 
   if (!spec) {
@@ -2198,7 +2475,12 @@ function hitSpread(move, attacker) {
   const max = typeof spec === 'number' ? spec : spec[1];
   const min = typeof spec === 'number' ? spec : spec[0];
 
-  if (attacker?.ability === 'skilllink') {
+  const skillLink = attacker?.hasAbility ? attacker.hasAbility('skilllink') : attacker?.ability === 'skilllink';
+  const loadedDice = attacker?.hasItem ? attacker.hasItem('loadeddice') : attacker?.item === 'loadeddice';
+  if (typeof spec === 'number' && spec === 10 && loadedDice) {
+    return [4, 5, 6, 7, 8, 9, 10].map((hits) => ({ hits, probability: 1 / 7 }));
+  }
+  if (skillLink) {
     return [
       {
         hits: max,
@@ -2207,8 +2489,8 @@ function hitSpread(move, attacker) {
     ];
   }
 
-  if (move.multiaccuracy) {
-    const accuracy = move.accuracy === true ? 1 : move.accuracy / 100;
+  if (move.multiaccuracy && !loadedDice) {
+    const accuracy = hitChance;
     const rows = [];
     let reached = 1;
 
@@ -2230,7 +2512,7 @@ function hitSpread(move, attacker) {
   }
 
   if (min === 2 && max === 5) {
-    if (attacker?.item === 'loadeddice') {
+    if (loadedDice) {
       return [
         { hits: 4, probability: 0.5 },
         { hits: 5, probability: 0.5 },
@@ -2243,13 +2525,6 @@ function hitSpread(move, attacker) {
       { hits: 4, probability: 0.15 },
       { hits: 5, probability: 0.15 },
     ];
-  }
-
-  if (typeof spec === 'number' && spec === 10 && attacker?.item === 'loadeddice') {
-    return [4, 5, 6, 7, 8, 9, 10].map((hits) => ({
-      hits,
-      probability: 1 / 7,
-    }));
   }
 
   if (typeof spec === 'number') {
@@ -2332,76 +2607,181 @@ function readCritChance(calc, attacker, defender, move) {
   return [0, 1 / 24, 1 / 8, 1 / 2, 1][ratio] || 0;
 }
 
-function showdownDamagePercent(calc, attacker, defender, move, roll) {
+function prepareDamageMove(calc, attacker, defender, move) {
+  let activeMove = calc.dex.getActiveMove(move.id);
+  calc.setActiveMove(activeMove, attacker, defender);
+  calc.singleEvent('ModifyType', activeMove, null, attacker, defender, activeMove, activeMove);
+  calc.singleEvent('ModifyMove', activeMove, null, attacker, defender, activeMove, activeMove);
+  activeMove = calc.runEvent('ModifyType', attacker, defender, activeMove, activeMove);
+  if (!activeMove) return false;
+  activeMove = calc.runEvent('ModifyMove', attacker, defender, activeMove, activeMove);
+  if (!activeMove) return false;
+  if (move.id === 'struggle') activeMove.type = '???';
+  calc.setActiveMove(activeMove, attacker, defender);
+  return activeMove;
+}
+
+function readMoveHitChance(calc, attacker, defender, activeMove) {
+  if (!activeMove) return 0;
+  const randomChance = calc.randomChance;
+  let chance = 1;
+  try {
+    calc.randomChance = (numerator, denominator) => {
+      chance = Math.max(0, Math.min(1, numerator / denominator));
+      return true;
+    };
+    return calc.actions.hitStepAccuracy([defender], attacker, activeMove)[0] ? chance : 0;
+  } finally {
+    calc.randomChance = randomChance;
+  }
+}
+
+function applyPublicCalcState(mon, player, spec, substituteEndpoint = 'max') {
+  const state = battleState[player];
+  if (!state || state.species !== spec.species || spec.active === false) return;
+  mon.activeMoveActions = state.activeMoveActions + 1;
+  applyPublicCritVolatiles(mon, player);
+  if (state.magnetRise) mon.addVolatile('magnetrise');
+  if (state.smackDown) mon.addVolatile('smackdown');
+  if (state.volatiles.healblock) mon.addVolatile('healblock');
+  if (state.volatiles.substitute) {
+    mon.addVolatile('substitute');
+    // みがわりの残りHPは非公開。1HPから最大HPの1/4の間で幅を持たせる。
+    mon.volatiles.substitute.hp = substituteEndpoint === 'min' ? 1 : Math.max(1, Math.floor(mon.maxhp / 4));
+  }
+}
+
+function showdownDamagePercent(calc, attacker, defender, move, roll, createSession, exchangeMove = null) {
   calc.randomChance = () => false;
 
   calc.random = (n = 2) => (n === 16 ? roll : 0);
 
-  const berryHalve = resistBerryHalve(defender.item, move.type, defender.getTypes?.() ?? []);
-
-  if (berryHalve) {
-    defender.item = '';
-  }
-
-  const spread = hitSpread(move, attacker);
-  const maxHits = spread.reduce((highest, row) => Math.max(highest, row.hits), 1);
-  const minHits = spread.reduce((lowest, row) => Math.min(lowest, row.hits), maxHits);
-
-  function hitDamage(hit, willCrit, parentalBond) {
-    const activeMove = calc.dex.getActiveMove(move.id);
-
-    if (move.id === 'struggle') {
-      activeMove.type = '???';
-    }
-
-    activeMove.hit = parentalBond ? 2 : hit;
-    activeMove.willCrit = willCrit;
-
-    if (parentalBond) {
-      activeMove.multihitType = 'parentalbond';
-    }
-
-    const damage = calc.actions.getDamage(attacker, defender, activeMove, true);
-
-    if (damage === false || damage == null) {
-      return null;
-    }
-
-    return damage;
-  }
-
   function collect(willCrit) {
-    const damages = [];
+    // 通常・急所は独立した盤面で計算する。実の消費やHP減少を共有しない。
+    const session = createSession();
+    const { calc, attacker, defender } = session;
+    try {
+      calc.randomChance = () => false;
+      calc.random = (n = 2) => (n === 16 ? roll : 0);
+      let triggerHitChance = 1;
+      if (exchangeMove) {
+        // 反撃技を先に構え、相手の攻撃を実行する。生存・最後の打撃・みがわりもエンジンで判定。
+        attacker.addVolatile(move.id);
+        const incoming = prepareDamageMove(calc, defender, attacker, exchangeMove);
+        triggerHitChance = readMoveHitChance(calc, defender, attacker, incoming);
+        if (!triggerHitChance) return null;
+        calc.randomChance = (n, d) => d === 100 || n >= d;
+        calc.random = (n = 2) => n === 16 ? roll : n === 100 ? 99 : 0;
+        if (exchangeMove.beforeTurnCallback) exchangeMove.beforeTurnCallback.call(calc, defender, attacker, incoming);
+        calc.queue.push({ choice: 'move', pokemon: attacker, move: calc.dex.getActiveMove(move.id) });
+        calc.actions.useMove(exchangeMove.id, defender, attacker);
+        if (attacker.hp <= 0 || defender.hp <= 0) return null;
+        calc.randomChance = () => false;
+        calc.random = (n = 2) => n === 16 ? roll : 0;
+      }
+      const activeMove = prepareDamageMove(calc, attacker, defender, move);
+      if (!activeMove || !calc.runEvent('TryHit', defender, attacker, activeMove)) return null;
+      if (['fakeout', 'firstimpression', 'counter', 'mirrorcoat'].includes(move.id) && !calc.singleEvent('Try', activeMove, null, attacker, defender, activeMove)) return null;
+      const hitChance = readMoveHitChance(calc, attacker, defender, activeMove) * triggerHitChance;
+      if (hitChance === 0) return null;
+      const spreadMove = activeMove.multihitType === 'parentalbond' ? { ...activeMove, multihit: move.multihit } : activeMove;
+      const spread = hitSpread(spreadMove, attacker, hitChance);
+      const maxHits = Math.max(...spread.map((row) => row.hits));
+      const minHits = Math.min(...spread.map((row) => row.hits));
+      const damages = [];
+      const actualDamages = [];
+      const drainChanges = [];
+      const substituteDamages = [];
+      const bodyHits = [];
+      const breaks = [];
 
-    for (let hit = 1; hit <= maxHits; hit++) {
-      const damage = hitDamage(hit, willCrit, false);
-
-      if (damage == null) {
-        if (hit === 1) {
-          return null;
+      function hitDamage(hit, parentalBond = false) {
+        if (defender.hp <= 0 || attacker.hp <= 0) return 0;
+        activeMove.hit = parentalBond ? 2 : hit;
+        activeMove.willCrit = willCrit;
+        if (parentalBond) activeMove.multihitType = 'parentalbond';
+        const substituteHp = defender.volatiles.substitute?.hp || 0;
+        const beforeHeal = attacker.hp;
+        // みがわりの処理はエンジンへ委ねる。反動だけは全打撃の合計から別途計算する。
+        const recoil = activeMove.recoil;
+        activeMove.recoil = undefined;
+        let primary;
+        try {
+          primary = calc.runEvent('TryPrimaryHit', defender, attacker, activeMove);
+        } finally {
+          activeMove.recoil = recoil;
         }
-
-        break;
+        if (primary === calc.HIT_SUBSTITUTE) {
+          const dealt = substituteHp - (defender.volatiles.substitute?.hp || 0);
+          actualDamages.push(dealt);
+          substituteDamages.push(dealt);
+          bodyHits.push(0);
+          breaks.push(defender.volatiles.substitute ? 0 : 1);
+          drainChanges.push(attacker.hp - beforeHeal);
+          return 0;
+        }
+        if (!primary) return null;
+        const raw = calc.actions.getDamage(attacker, defender, activeMove, true);
+        if (raw === false || raw == null) return null;
+        // Damageイベントでがんじょう・タスキなどを適用し、連続技の次の一撃にHPを引き継ぐ。
+        const adjusted = calc.runEvent('Damage', defender, attacker, activeMove, raw, true);
+        const actual = Math.max(0, Math.min(defender.hp, Number(adjusted) || 0));
+        defender.hp -= actual;
+        actualDamages.push(actual);
+        substituteDamages.push(0);
+        bodyHits.push(1);
+        breaks.push(0);
+        if (activeMove.drain && actual > 0) {
+          calc.heal(Math.round(actual * activeMove.drain[0] / activeMove.drain[1]), attacker, defender, 'drain');
+        }
+        drainChanges.push(attacker.hp - beforeHeal);
+        return adjusted === false || adjusted == null ? 0 : adjusted;
       }
 
-      damages.push(damage);
+      for (let hit = 1; hit <= maxHits; hit++) {
+        const damage = hitDamage(hit);
+
+        if (damage == null) {
+          if (hit === 1) {
+            return null;
+          }
+
+          break;
+        }
+
+        damages.push(damage);
+      }
+
+      let bond = 0;
+
+      if (attacker.ability === 'parentalbond' && !move.multihit && damages.length) {
+        bond = hitDamage(1, true) || 0;
+      }
+
+      const sumTo = (hits) => damages.slice(0, hits).reduce((sum, damage) => sum + damage, 0) + bond;
+
+      const expected = spread.reduce((sum, row) => sum + sumTo(Math.min(row.hits, damages.length)) * row.probability, 0);
+      const expectedActual = (amounts) => spread.reduce((sum, row) => {
+        const primary = amounts.slice(0, row.hits).reduce((a, b) => a + b, 0);
+        return sum + (primary + (bond ? amounts[damages.length] || 0 : 0)) * row.probability;
+      }, 0);
+
+      return {
+        expected,
+        min: sumTo(Math.min(minHits, damages.length)),
+        max: sumTo(damages.length),
+        actual: expectedActual(actualDamages),
+        drain: expectedActual(drainChanges),
+        substitute: expectedActual(substituteDamages),
+        breaks: expectedActual(breaks),
+        bodyHits: expectedActual(bodyHits),
+        bodyHitChance: spread.reduce((sum, row) => sum + (bodyHits.slice(0, row.hits + (bond ? 1 : 0)).some(Boolean) ? row.probability : 0), 0),
+        expectedHits: spread.reduce((sum, row) => sum + row.hits * row.probability, 0),
+        hitChance,
+      };
+    } finally {
+      calc.destroy();
     }
-
-    let bond = 0;
-
-    if (attacker.ability === 'parentalbond' && !move.multihit && damages.length) {
-      bond = hitDamage(1, willCrit, true) || 0;
-    }
-
-    const sumTo = (hits) => damages.slice(0, hits).reduce((sum, damage) => sum + damage, 0) + bond;
-
-    const expected = spread.reduce((sum, row) => sum + sumTo(Math.min(row.hits, damages.length)) * row.probability, 0);
-
-    return {
-      expected,
-      min: sumTo(Math.min(minHits, damages.length)),
-      max: sumTo(damages.length),
-    };
   }
 
   const normal = collect(false);
@@ -2423,8 +2803,8 @@ function showdownDamagePercent(calc, attacker, defender, move, roll) {
   const critChance = readCritChance(calc, attacker, defender, move);
   const crit = critChance > 0 ? collect(true) || normal : normal;
 
-  const scale = (amount) => (berryHalve ? amount * 0.5 : amount);
-  const expected = scale(normal.expected);
+  const expected = normal.expected;
+  const actualExpected = normal.actual * (1 - critChance) + crit.actual * critChance;
 
   let recoilHp = 0;
 
@@ -2433,44 +2813,37 @@ function showdownDamagePercent(calc, attacker, defender, move, roll) {
   } else if (move.mindBlownRecoil || move.chloroblastRecoil) {
     recoilHp = Math.round(attacker.maxhp / 2);
   } else if (move.recoil && attacker.ability !== 'rockhead' && attacker.ability !== 'magicguard') {
-    recoilHp = Math.max(1, Math.round((expected * move.recoil[0]) / move.recoil[1]));
+    recoilHp = Math.max(1, Math.round((actualExpected * move.recoil[0]) / move.recoil[1]));
   }
 
-  let drainHp = 0;
-
-  if (move.drain) {
-    drainHp = Math.round((expected * move.drain[0]) / move.drain[1]);
-
-    if (defender.ability === 'liquidooze') {
-      recoilHp += drainHp;
-      drainHp = 0;
-    }
-  }
+  // 各一撃の実回復量。HP上限、おおきなねっこ、ヘドロえきもエンジンで処理済み。
+  const drainHp = normal.drain * (1 - critChance) + crit.drain * critChance;
 
   if (attacker.item === 'lifeorb' && attacker.ability !== 'magicguard' && attacker.ability !== 'sheerforce' && expected > 0) {
     recoilHp += Math.round(attacker.maxhp / 10);
   }
 
-  if (move.hasCrashDamage && attacker.ability !== 'magicguard') {
-    const accuracy = move.accuracy === true ? 1 : move.accuracy / 100;
-
-    recoilHp += (1 - accuracy) * (attacker.maxhp / 2);
-  }
+  const crashHp = move.hasCrashDamage && attacker.ability !== 'magicguard' ? (1 - normal.hitChance) * attacker.maxhp / 2 : 0;
 
   return {
     immune: false,
     percent: (expected / defender.maxhp) * 100,
-    minPercent: (scale(normal.min) / defender.maxhp) * 100,
-    maxPercent: (scale(normal.max) / defender.maxhp) * 100,
-    critPercent: (scale(crit.expected) / defender.maxhp) * 100,
-    critMinPercent: (scale(crit.min) / defender.maxhp) * 100,
-    critMaxPercent: (scale(crit.max) / defender.maxhp) * 100,
+    minPercent: (normal.min / defender.maxhp) * 100,
+    maxPercent: (normal.max / defender.maxhp) * 100,
+    critPercent: (crit.expected / defender.maxhp) * 100,
+    critMinPercent: (crit.min / defender.maxhp) * 100,
+    critMaxPercent: (crit.max / defender.maxhp) * 100,
     critChance,
-    recoilPercent: ((recoilHp - drainHp) / attacker.maxhp) * 100,
+    hitChance: normal.hitChance,
+    substituteScore: ((normal.substitute * (1 - critChance) + crit.substitute * critChance) / defender.maxhp * 60 + (normal.breaks * (1 - critChance) + crit.breaks * critChance) * 10) * normal.hitChance,
+    bodyHitChance: normal.bodyHitChance * (1 - critChance) + crit.bodyHitChance * critChance,
+    bodyHits: normal.bodyHits * (1 - critChance) + crit.bodyHits * critChance,
+    expectedHits: normal.expectedHits,
+    recoilPercent: (((recoilHp - drainHp) * normal.hitChance + crashHp) / attacker.maxhp) * 100,
   };
 }
 
-function createDamageBattle(attackerSpec, defenderSpec, defenderPlayer) {
+function createDamageBattle(attackerSpec, defenderSpec, defenderPlayer, publicOnly = false) {
   const calc = new Battle({
     formatid: FORMAT,
     send() {},
@@ -2481,8 +2854,8 @@ function createDamageBattle(attackerSpec, defenderSpec, defenderPlayer) {
   const attackerIndex = defenderIndex === 0 ? 1 : 0;
 
   const sets = [];
-  sets[attackerIndex] = toCalcSet(attackerSpec);
-  sets[defenderIndex] = toCalcSet(defenderSpec);
+  sets[attackerIndex] = toCalcSet(publicOnly ? { ...attackerSpec, level: attackerSpec.level || BATTLE_LEVEL } : attackerSpec);
+  sets[defenderIndex] = toCalcSet(publicOnly ? { ...defenderSpec, level: defenderSpec.level || BATTLE_LEVEL } : defenderSpec);
 
   calc.sides[0] = new Side('Calc1', calc, 0, [sets[0]]);
 
@@ -2508,7 +2881,7 @@ function createDamageBattle(attackerSpec, defenderSpec, defenderPlayer) {
 
   const source = !mons[attackerIndex].ability ? mons[attackerIndex] : mons[defenderIndex];
 
-  copyLiveField(calc, source);
+  copyLiveField(calc, source, publicOnly);
 
   return {
     calc,
@@ -2538,14 +2911,17 @@ function applyPublicCritVolatiles(mon, player) {
   }
 }
 
-function measureShowdownDamage(attackerSpec, defenderSpec, move, weather, defenderPlayer, roll, attackerPlayer = null) {
-  const session = createDamageBattle(attackerSpec, defenderSpec, defenderPlayer);
-
-  try {
+function measureShowdownDamage(attackerSpec, defenderSpec, move, weather, defenderPlayer, roll, attackerPlayer = null, exchangeMove = null) {
+  const createSession = () => {
+    const session = createDamageBattle(attackerSpec, defenderSpec, defenderPlayer);
     useWeather(session.calc, weather, session.source);
-    applyPublicCritVolatiles(session.attacker, attackerPlayer);
-
-    return showdownDamagePercent(session.calc, session.attacker, session.defender, move, roll);
+    applyPublicCalcState(session.attacker, attackerPlayer, attackerSpec);
+    applyPublicCalcState(session.defender, defenderPlayer, defenderSpec, roll === 0 ? 'min' : 'max');
+    return session;
+  };
+  const session = createSession();
+  try {
+    return showdownDamagePercent(session.calc, session.attacker, session.defender, move, roll, createSession, exchangeMove);
   } finally {
     session.calc.destroy?.();
   }
@@ -2580,7 +2956,124 @@ function describeSimDamage(move, attackerStatus, attackerGrounded, defenderGroun
   };
 }
 
-function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attackerPokemon = null, defenderPokemon = null, attackerBoosts = null, defenderBoosts = null, attackerPlayer = null, defenderPlayer = null, weather = fieldState.weather }) {
+function publicActionModel(player, speciesName, pokemon = null) {
+  const state = battleState[player];
+  const active = state?.species === speciesName;
+  const locked = active ? state.volatiles.encoreMove || choiceLockedMove(player) : null;
+  if (active && state.volatiles.mustrecharge) return [{ move: null, weight: 1, unable: true }];
+  if (locked && !isMoveAllowed(battleDex.moves.get(locked))) return [{ move: null, weight: 1, unable: true }];
+  if (locked) return [{ move: publicPPExhausted(player, speciesName, battleDex.moves.get(locked)) ? battleDex.moves.get('struggle') : battleDex.moves.get(locked), weight: 1 }];
+  const known = pokemon?.moves?.length ? pokemon.moves : null;
+  const ids = known || (player ? getRevealedMoves(player, speciesName) : []);
+  const moves = [...new Set(ids)].map((id) => battleDex.moves.get(id))
+    .filter((move) => move.exists && isMoveAllowed(move) && !publicPPExhausted(player, speciesName, move) && !(active && moveBlockedByVolatile(player, move)));
+  const slots = known ? moves.length : Math.max(4 - ids.length, 0) + moves.length;
+  if (!slots) return ids.length ? [{ move: battleDex.moves.get('struggle'), weight: 1 }] : [{ move: null, weight: 1, unable: true }];
+  const model = moves.map((move) => ({ move, weight: 1 / slots }));
+  if (!known && ids.length < 4) model.push({ move: null, weight: (4 - ids.length) / slots });
+  return model;
+}
+
+function publicPPExhausted(player, speciesName, move) {
+  const maxpp = move.noPPBoosts ? move.pp : Math.floor(move.pp * 8 / 5);
+  return (battleState[player]?.ppUsed?.[baseSpeciesName(speciesName)]?.[move.id] || 0) >= maxpp;
+}
+
+function publicMoveOrder(move, response, context) {
+  const { attackerPokemon, defenderPokemon, attackerSpecies, defenderSpecies, attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer } = context;
+  if (attackerPokemon?.stats && defenderPokemon?.stats) {
+    const ownSpeed = getEffectiveSpeed(attackerPokemon.stats.spe, attackerBoosts.spe, parseCondition(attackerPokemon.condition).status, getPublicSpeedModifiers(attackerPlayer, attackerPokemon));
+    const foeSpeed = getEffectiveSpeed(defenderPokemon.stats.spe, defenderBoosts.spe, parseCondition(defenderPokemon.condition).status, getPublicSpeedModifiers(defenderPlayer, defenderPokemon));
+    return compareEstimatedMoveOrder(move, response, ownSpeed, foeSpeed, foeSpeed, attackerPlayer, attackerPokemon);
+  }
+  if (attackerPokemon?.stats) {
+    const speed = getSpeedEstimate(attackerPlayer, attackerPokemon, attackerBoosts, parseCondition(attackerPokemon.condition).status, defenderSpecies.name, defenderBoosts, battleState[defenderPlayer]?.status, false, context.defenderAssumption);
+    return compareEstimatedMoveOrder(move, response, speed.ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, attackerPlayer, attackerPokemon, context.defenderAssumption);
+  }
+  if (defenderPokemon?.stats) {
+    const speed = getSpeedEstimate(defenderPlayer, defenderPokemon, defenderBoosts, parseCondition(defenderPokemon.condition).status, attackerSpecies.name, attackerBoosts, battleState[attackerPlayer]?.status);
+    const order = compareEstimatedMoveOrder(response, move, speed.ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, defenderPlayer, defenderPokemon);
+    return order === 'own' ? 'opponent' : order === 'opponent' ? 'own' : order;
+  }
+  // 両側の実数値が不明な選出評価でも、優先度が異なれば順序を確定できる。
+  const ownPriority = effectiveMovePriority(move, attackerPlayer, attackerPokemon);
+  const foePriority = effectiveMovePriority(response, defenderPlayer, defenderPokemon);
+  return ownPriority > foePriority ? 'own' : ownPriority < foePriority ? 'opponent' : 'uncertain';
+}
+
+function responseActions(context) {
+  return context.responseMove
+    ? [{ move: battleDex.moves.get(context.responseMove), weight: 1 }]
+    : publicActionModel(context.defenderPlayer, context.defenderSpecies.name, context.defenderPokemon);
+}
+
+function suckerPunchChance(context) {
+  return responseActions(context).reduce((sum, action) => {
+    if (action.unable || action.move?.category === 'Status' && action.move.id !== 'mefirst') return sum;
+    const response = action.move || battleDex.moves.get('tackle');
+    const order = publicMoveOrder(context.move, response, context);
+    const before = order === 'own' ? 1 : order === 'uncertain' ? 0.5 : 0;
+    // 未公開枠は攻撃/変化を半々と仮定し、成功を確定とは扱わない。
+    return sum + action.weight * (action.move ? 1 : 0.5) * before;
+  }, 0);
+}
+
+function estimateCounterDamage(context, empty) {
+  const category = context.move.id === 'counter' ? 'Physical' : 'Special';
+  const model = responseActions(context);
+  const scenarios = [];
+  for (const action of model) {
+    if (action.unable) continue;
+    if (action.move) { scenarios.push(action); continue; }
+    // 相手の構築・requestは参照しない。未公開枠は公開の習得可能技から推定する。
+    const learned = getLearnedDamagingMoveIds(context.defenderSpecies.name).map((id) => battleDex.moves.get(id))
+      .filter((move) => !['counter', 'mirrorcoat', 'suckerpunch'].includes(move.id))
+      .sort((a, b) => b.basePower - a.basePower);
+    const candidates = ['Physical', 'Special'].flatMap((kind) => learned.filter((move) => move.category === kind).slice(0, 2));
+    for (const move of candidates) scenarios.push({ move, weight: action.weight * 0.5 / candidates.length });
+  }
+  const outcomes = scenarios.filter((action) => action.move.category === category && isDamagingMove(action.move)).map((action) => {
+    const order = publicMoveOrder(context.move, action.move, context);
+    const after = order === 'opponent' ? 1 : order === 'uncertain' ? 0.5 : 0;
+    const status = context.defenderPokemon ? parseCondition(context.defenderPokemon.condition).status : battleState[context.defenderPlayer]?.status;
+    const canAct = cantMoveFactor(status, context.defenderPlayer, context.defenderPokemon?.ability || battleState[context.defenderPlayer]?.ability);
+    const weight = action.weight * after * canAct;
+    const damage = weight ? estimateBattleDamage({ ...context, exchangeMove: action.move }) : empty;
+    return { weight, damage: damage.immune ? empty : damage };
+  });
+  const weighted = (key) => outcomes.reduce((sum, row) => sum + row.weight * (row.damage[key] || 0), 0);
+  const chance = weighted('hitChance');
+  const min = outcomes.length && outcomes.reduce((sum, row) => sum + row.weight, 0) >= 1 - 1e-9
+    ? Math.min(...outcomes.map((row) => row.damage.minDamagePercent)) : 0;
+  return {
+    ...empty,
+    minDamagePercent: min,
+    maxDamagePercent: Math.max(0, ...outcomes.map((row) => row.weight ? row.damage.maxDamagePercent : 0)),
+    score: weighted('score'),
+    hitChance: chance,
+    recoilPercent: weighted('recoilPercent'),
+    substituteScore: weighted('substituteScore'),
+    bodyHitChance: 1,
+    bodyHits: 1,
+    critChance: 0,
+    conditionalChance: chance,
+    fieldReason: `反撃成立見込み${Math.round(chance * 100)}%${model.some((row) => !row.move && !row.unable) ? ' / 未公開技を推定' : ''}`,
+    failReason: chance ? null : '対応する攻撃を受けて生存する条件を満たさない',
+  };
+}
+
+function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attackerPokemon = null, defenderPokemon = null, attackerBoosts = null, defenderBoosts = null, attackerPlayer = null, defenderPlayer = null, weather = fieldState.weather, responseMove = null, exchangeMove = null, attackerAssumption = null, defenderAssumption = null, shellRangeChecked = false }) {
+  if (move.id === 'shellsidearm' && !shellRangeChecked) {
+    const outcomes = ['Physical', 'Special'].map((category) => estimateBattleDamage({ ...arguments[0], move: { ...move, category }, shellRangeChecked: true }));
+    const result = { ...outcomes[0], immune: outcomes.every((row) => row.immune) };
+    result.minDamagePercent = Math.min(...outcomes.map((row) => row.minDamagePercent));
+    result.maxDamagePercent = Math.max(...outcomes.map((row) => row.maxDamagePercent));
+    for (const field of ['score', 'recoilPercent', 'hitChance', 'critChance', 'critFactor', 'substituteScore', 'bodyHitChance', 'bodyHits', 'critMaxDamagePercent']) {
+      if (outcomes.some((row) => typeof row[field] === 'number')) result[field] = outcomes.reduce((sum, row) => sum + (row[field] || 0), 0) / outcomes.length;
+    }
+    result.fieldReason = [result.fieldReason, 'シェルアームズの分類をエンジンで選択'].filter(Boolean).join(' / ');
+    return result;
+  }
   const empty = {
     immune: false,
     minDamagePercent: 0,
@@ -2607,15 +3100,18 @@ function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attacker
 
   const attackBoostTable = attackerBoosts ?? createEmptyBoosts();
 
-  const defenseBoostTable = defenderBoosts ?? (defenderPlayer ? battleState[defenderPlayer].boosts : createEmptyBoosts());
+  const defenderIsActive = defenderPokemon?.active !== false && defenderPlayer && battleState[defenderPlayer].species === defenderSpecies.name;
+  const defenseBoostTable = defenderBoosts ?? (defenderIsActive ? battleState[defenderPlayer].boosts : createEmptyBoosts());
 
   const resolvedAttacker = attackerPlayer ?? (defenderPlayer === 'p1' ? 'p2' : defenderPlayer === 'p2' ? 'p1' : null);
 
-  const attackerGrounded = attackerPokemon ? isPokemonGrounded(attackerPokemon) : isActiveGrounded(resolvedAttacker, attackerSpecies);
+  const assumedAttackerPokemon = attackerAssumption ? { details: attackerSpecies.name, active: battleState[resolvedAttacker]?.species === attackerSpecies.name, condition: `${battleState[resolvedAttacker]?.hpPercent ?? 100}/100`, ...attackerAssumption } : attackerPokemon;
+  const assumedDefenderPokemon = defenderAssumption ? { details: defenderSpecies.name, active: battleState[defenderPlayer]?.species === defenderSpecies.name, ...defenderAssumption } : defenderPokemon;
+  const attackerGrounded = assumedAttackerPokemon ? isPokemonGrounded(assumedAttackerPokemon) : isActiveGrounded(resolvedAttacker, attackerSpecies);
 
-  const defenderGrounded = defenderPokemon ? isPokemonGrounded(defenderPokemon) : isActiveGrounded(defenderPlayer, defenderSpecies);
+  const defenderGrounded = assumedDefenderPokemon ? isPokemonGrounded(assumedDefenderPokemon) : isActiveGrounded(defenderPlayer, defenderSpecies);
 
-  const failReason = getTerrainFailReason(move, defenderGrounded, resolvedAttacker, attackerPokemon);
+  const failReason = getTerrainFailReason(move, defenderGrounded, resolvedAttacker, assumedAttackerPokemon);
 
   if (failReason) {
     return {
@@ -2625,26 +3121,33 @@ function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attacker
     };
   }
 
-  const lowAttacker = attackerPokemon ? knownCombatant(attackerPokemon, attackBoostTable) : rangedCombatant(attackerSpecies, attackStatName, 'min', attackBoostTable, resolvedAttacker);
+  const conditionalContext = { move, attackerSpecies, defenderSpecies, attackerPokemon, defenderPokemon, attackerBoosts: attackBoostTable, defenderBoosts: defenseBoostTable, attackerPlayer: resolvedAttacker, defenderPlayer, weather, responseMove };
+  if (['counter', 'mirrorcoat'].includes(move.id) && !exchangeMove) return estimateCounterDamage(conditionalContext, empty);
 
-  const highAttacker = attackerPokemon ? lowAttacker : rangedCombatant(attackerSpecies, attackStatName, 'max', attackBoostTable, resolvedAttacker);
+  const lowAttacker = { ...(attackerPokemon ? knownCombatant(attackerPokemon, attackBoostTable) : rangedCombatant(attackerSpecies, exchangeMove ? defenseStatName : attackStatName, exchangeMove ? 'max' : 'min', attackBoostTable, resolvedAttacker)), ...attackerAssumption };
 
-  const bulkyDefender = defenderPokemon ? knownCombatant(defenderPokemon, defenseBoostTable) : rangedCombatant(defenderSpecies, defenseStatName, 'max', defenseBoostTable, defenderPlayer);
+  const highAttacker = attackerPokemon ? lowAttacker : { ...rangedCombatant(attackerSpecies, exchangeMove ? defenseStatName : attackStatName, exchangeMove ? 'min' : 'max', attackBoostTable, resolvedAttacker), ...attackerAssumption };
 
-  const frailDefender = defenderPokemon ? bulkyDefender : rangedCombatant(defenderSpecies, defenseStatName, 'min', defenseBoostTable, defenderPlayer);
+  const bulkyDefender = { ...(defenderPokemon ? knownCombatant(defenderPokemon, defenseBoostTable) : rangedCombatant(defenderSpecies, exchangeMove ? attackStatName : defenseStatName, exchangeMove ? 'min' : 'max', defenseBoostTable, defenderPlayer)), ...defenderAssumption };
 
-  const low = measureShowdownDamage(lowAttacker, bulkyDefender, move, weather, defenderPlayer, 15, resolvedAttacker);
+  const frailDefender = defenderPokemon ? bulkyDefender : { ...rangedCombatant(defenderSpecies, exchangeMove ? attackStatName : defenseStatName, exchangeMove ? 'max' : 'min', defenseBoostTable, defenderPlayer), ...defenderAssumption };
 
-  const high = measureShowdownDamage(highAttacker, frailDefender, move, weather, defenderPlayer, 0, resolvedAttacker);
+  let low = measureShowdownDamage(lowAttacker, bulkyDefender, move, weather, defenderPlayer, 15, resolvedAttacker, exchangeMove);
 
-  if (low.immune || high.immune) {
+  let high = measureShowdownDamage(highAttacker, frailDefender, move, weather, defenderPlayer, 0, resolvedAttacker, exchangeMove);
+
+  if (exchangeMove && !(low.immune && high.immune)) {
+    const failed = { percent: 0, minPercent: 0, maxPercent: 0, critPercent: 0, critMinPercent: 0, critMaxPercent: 0, critChance: 0, hitChance: 0, recoilPercent: 0 };
+    if (low.immune) low = failed;
+    if (high.immune) high = failed;
+  } else if (low.immune || high.immune) {
     return {
       ...empty,
       immune: true,
     };
   }
 
-  const accuracy = move.accuracy === true ? 100 : move.accuracy;
+  const hitChance = exchangeMove ? ((low.hitChance || 0) + (high.hitChance || 0)) / 2 : low.hitChance ?? (move.accuracy === true ? 1 : move.accuracy / 100);
 
   const context = describeSimDamage(move, lowAttacker.status, attackerGrounded, defenderGrounded, defenderPlayer);
 
@@ -2654,15 +3157,19 @@ function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attacker
   const expectedHigh = high.percent * (1 - critChance) + high.critPercent * critChance;
   const critFactor = high.percent > 0 ? high.critPercent / high.percent : 1.5;
 
-  const hits = hitBounds(move, lowAttacker);
+  const hits = { expected: low.expectedHits || 1 };
 
-  const fieldParts = [context.fieldReason, hits.expected > 1 ? `連続${hits.expected.toFixed(1)}回` : null, critChance >= 1 / 8 ? `急所${Math.round(critChance * 100)}%` : null].filter(Boolean);
+  const fieldParts = [context.fieldReason, move.ohko ? `一撃必殺 命中${Math.round(hitChance * 100)}%` : null, hits.expected > 1 ? `連続${hits.expected.toFixed(1)}回` : null, critChance >= 1 / 8 ? `急所${Math.round(critChance * 100)}%` : null].filter(Boolean);
 
-  return {
+  const result = {
     immune: false,
-    minDamagePercent: alwaysCrit ? low.critMinPercent : low.minPercent,
-    maxDamagePercent: alwaysCrit ? high.critMaxPercent : high.maxPercent,
-    score: ((expectedLow + expectedHigh) / 2) * (accuracy / 100),
+    minDamagePercent: exchangeMove ? Math.min(low.minPercent, high.minPercent) : move.ohko && hitChance < 1 ? 0 : alwaysCrit ? low.critMinPercent : low.minPercent,
+    maxDamagePercent: exchangeMove ? Math.max(low.maxPercent, high.maxPercent) : alwaysCrit ? high.critMaxPercent : high.maxPercent,
+    score: exchangeMove ? (expectedLow * (low.hitChance || 0) + expectedHigh * (high.hitChance || 0)) / 2 : ((expectedLow + expectedHigh) / 2) * hitChance,
+    substituteScore: ((low.substituteScore || 0) + (high.substituteScore || 0)) / 2,
+    bodyHitChance: ((low.bodyHitChance ?? 1) + (high.bodyHitChance ?? 1)) / 2,
+    bodyHits: ((low.bodyHits ?? 1) + (high.bodyHits ?? 1)) / 2,
+    hitChance,
     recoilPercent: (low.recoilPercent + high.recoilPercent) / 2,
     weatherReason: context.weatherReason,
     fieldReason: fieldParts.join(' / ') || null,
@@ -2671,6 +3178,18 @@ function estimateBattleDamage({ move, attackerSpecies, defenderSpecies, attacker
     critFactor,
     critMaxDamagePercent: high.critMaxPercent,
   };
+  if (move.id === 'suckerpunch') {
+    const chance = suckerPunchChance(conditionalContext);
+    result.conditionalChance = chance;
+    result.score *= chance;
+    result.hitChance *= chance;
+    result.substituteScore *= chance;
+    result.recoilPercent *= chance;
+    if (chance < 1) result.minDamagePercent = 0;
+    if (!chance) { result.maxDamagePercent = 0; result.critMaxDamagePercent = 0; result.failReason = '相手の攻撃より先に動く条件を満たさない'; }
+    result.fieldReason = [result.fieldReason, `ふいうち成立見込み${Math.round(chance * 100)}%`].filter(Boolean).join(' / ');
+  }
+  return result;
 }
 
 // ========================================
@@ -2711,33 +3230,70 @@ function evaluateSleepStatusMove(move, activePokemon, opponentSpecies, opponentB
   };
 }
 
-function evaluateProtectMove(activePokemon, attackerPlayer, opponentSpeciesName, opponentBoosts, ownBoosts, ownStatus, opponentStatus) {
-  if (!attackerPlayer) {
-    return null;
-  }
-
-  const opponent = attackerPlayer === 'p1' ? 'p2' : 'p1';
-
-  const threat = evaluatePreMoveThreat(attackerPlayer, activePokemon, { id: 'tackle' }, opponentSpeciesName, getRevealedMoves(opponent, opponentSpeciesName), opponentBoosts, ownBoosts, ownStatus, opponentStatus);
-
-  if (!threat.threat) {
-    return {
-      score: 10,
-      minDamagePercent: 0,
-      maxDamagePercent: 0,
-      reason: '先に倒される危険なし',
+function evaluateProtectMove(move, pokemon, ownPlayer, foePlayer, speciesName, foeBoosts, ownBoosts, request, assumption = null) {
+  if (!ownPlayer) return { score: 0, reason: '相手の行動を判断できない' };
+  const responses = publicEffectResponses(move, pokemon, ownBoosts, foeBoosts, ownPlayer, foePlayer, speciesName, assumption);
+  const session = createPublicMoveSession(pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, 'max', assumption);
+  try {
+    const { calc, attacker, defender } = session;
+    applyEffectPublicField(session, ownPlayer, foePlayer);
+    seedPublicEffectState(session, pokemon, ownPlayer, foePlayer, request);
+    const chain = battleState[ownPlayer].protectionChain;
+    if (chain?.count && chain.turn === speedLearningState.turn - 1) {
+      const condition = calc.dex.conditions.get('stall');
+      attacker.addVolatile('stall');
+      for (let i = 1; i < chain.count && attacker.volatiles.stall.counter < (condition.counterMax || Infinity); i++) attacker.addVolatile('stall');
+    }
+    let successChance = 1;
+    // 成功率も同梱フォーマットのStallMoveイベントから取得する。
+    calc.randomChance = (n, d) => { successChance *= n / d; return true; };
+    calc.runEvent('StallMove', attacker);
+    const initial = snapshotEffectSession(session);
+    const branchValue = (action, protectedTurn) => {
+      restoreEffectSession(session, snapshotEffectCopy(initial));
+      calc.queue.clear();
+      calc.faintQueue = [];
+      calc.randomChance = (n, d) => d === 100 || n >= d;
+      calc.random = (n = 2) => n === 16 ? 7 : n === 100 ? 99 : 0;
+      calc.sample = (values) => values[Math.floor(values.length / 2)];
+      const prepared = prepareDamageMove(calc, defender, attacker, action.move);
+      const hitChance = readMoveHitChance(calc, defender, attacker, prepared);
+      if (protectedTurn) {
+        calc.queue.push({ choice: 'move', pokemon: defender, move: calc.dex.getActiveMove(action.move) });
+        // 成功した分岐。連続使用の確率は最後に一度だけ掛ける。
+        calc.randomChance = () => true;
+        calc.setActiveMove(move, attacker, attacker);
+        if (!calc.actions.useMove(move, attacker, { target: attacker })) return null;
+      }
+      calc.randomChance = (n, d) => d === 100 || n >= d;
+      prepared.accuracy = true;
+      prepared.willCrit = false;
+      calc.setActiveMove(prepared, defender, attacker);
+      calc.actions.useMove(prepared, defender, { target: attacker });
+      calc.runEvent('Update', attacker);
+      calc.runEvent('Update', defender);
+      const hpValue = (attacker.hp - initial[0].hp) / attacker.maxhp * 100 - (defender.hp - initial[1].hp) / defender.maxhp * 100;
+      const residual = projectedResidualBalance(session);
+      // 一回の被害と将来の能力・状態異常の損益を重複して数えないよう、HPを揃える。
+      attacker.hp = initial[0].hp; defender.hp = initial[1].hp;
+      for (const mon of [attacker, defender]) {
+        for (const id of Object.keys(mon.volatiles)) if (calc.dex.moves.get(id).stallingMove) delete mon.volatiles[id];
+        delete mon.volatiles.stall;
+      }
+      const position = projectedAilmentPosition(session, pokemon, speciesName, foePlayer, pokemon.moves, false);
+      return { value: hpValue + residual + position.value, hitChance };
     };
-  }
-
-  const koLabel = threat.threat.guaranteedKo ? '確定KO' : '乱数KO';
-  const protectScale = threat.threat.guaranteedKo && threat.threat.order === 'opponent' && !String(threat.threat.moveName).startsWith('予想:') ? 0.65 : 0.35;
-
-  return {
-    score: Math.round(threat.threat.penalty * protectScale),
-    minDamagePercent: 0,
-    maxDamagePercent: 0,
-    reason: `相手の${threat.threat.moveName}が先に` + `${koLabel}するためまもる`,
-  };
+    let score = 0;
+    for (const action of responses) {
+      if (!action.move || !action.actionChance || action.beforeOrder === 1) continue;
+      const baseline = branchValue(action, false);
+      const protectedResult = branchValue(action, true);
+      if (!protectedResult) continue;
+      score += action.weight * action.actionChance * (1 - action.beforeOrder) * baseline.hitChance * (protectedResult.value - baseline.value);
+    }
+    return { score: score * successChance, failed: false, successChance, minDamagePercent: 0, maxDamagePercent: 0,
+      reason: `防げる被害・接触時の効果・継続効果を比較 / 成功${Math.round(successChance * 100)}%` };
+  } finally { session.calc.destroy(); }
 }
 
 const STANDARD_FIELD_TURNS = 5;
@@ -2752,7 +3308,16 @@ function benchSpeciesNames(defenderPlayer) {
   const state = battleState[defenderPlayer];
   const active = state?.species ? baseSpeciesName(state.species) : null;
 
-  return (state?.previewSpecies ?? []).filter((name) => name && baseSpeciesName(name) !== active && !state.faintedSpecies.has(baseSpeciesName(name)));
+  const pickedSize = battleDex.formats.getRuleTable(battleDex.formats.get(FORMAT)).pickedTeamSize || 3;
+  const selectionKnown = state?.selectedSpecies.size >= pickedSize;
+  return (state?.previewSpecies ?? []).filter((name) => name && baseSpeciesName(name) !== active && !state.faintedSpecies.has(baseSpeciesName(name)) && (!selectionKnown || state.selectedSpecies.has(baseSpeciesName(name))));
+}
+
+function rememberPublicMoveAction(player) {
+  const state = battleState[player];
+  if (!state || state.lastActionTurn === speedLearningState.turn) return;
+  state.activeMoveActions++;
+  state.lastActionTurn = speedLearningState.turn;
 }
 
 function resistSwitchIn(opponentPlayer, move) {
@@ -3059,77 +3624,41 @@ function evaluateTrickRoomMove(attackerPlayer, activePokemon, opponentSpeciesNam
   };
 }
 
-function evaluateSandSnowSetup(move, activePokemon) {
-  const turns = heldFieldTurns(move.id, activePokemon?.item);
-
-  if (move.id === 'sandstorm') {
-    return {
-      score: 6.25 * turns,
-      reason: `砂嵐ダメージ 約${turns}ターン`,
-    };
-  }
-
-  if (move.id === 'snowscape' || move.id === 'hail') {
-    return {
-      score: 8 * turns,
-      reason: `雪で防御上昇 約${turns}ターン`,
-    };
-  }
-
-  return null;
+function evaluateSandSnowSetup(move, pokemon, speciesName, ownBoosts, foeBoosts, request, ownPlayer, foePlayer, assumption = null) {
+  if (!['sandstorm', 'snowscape', 'hail'].includes(move.id)) return null;
+  const weather = move.id === 'sandstorm' ? 'sand' : 'snow';
+  const turns = heldFieldTurns(move.id, pokemon.item);
+  const compare = (mon, boosts) => {
+    const session = createPublicMoveSession(mon, speciesName, boosts, foeBoosts, ownPlayer, foePlayer, 'max', assumption);
+    try {
+      applyEffectPublicField(session, ownPlayer, foePlayer);
+      const before = projectedEffectPosition(session, mon, speciesName, foePlayer, mon.moves);
+      const residualBefore = projectedResidualBalance(session, before);
+      useWeather(session.calc, weather, session.attacker);
+      const after = projectedEffectPosition(session, mon, speciesName, foePlayer, mon.moves);
+      const residualAfter = projectedResidualBalance(session, after);
+      // 将来の居座りは確定しないため、2ターン目以降を半分の重みで見積もる。
+      return after.value - before.value + (residualAfter - residualBefore) * (1 + (turns - 1) * 0.5);
+    } finally { session.calc.destroy(); }
+  };
+  const activeScore = compare(pokemon, ownBoosts);
+  const bench = (request?.side?.pokemon || []).filter((mon) => !mon.active && !mon.condition.includes('fnt'));
+  const benchScore = bench.length ? bench.reduce((sum, mon) => sum + compare(mon, createEmptyBoosts()), 0) / bench.length : 0;
+  return { score: activeScore + benchScore * 0.35,
+    reason: `${weather === 'sand' ? '砂嵐' : '雪'}の火力・防御・速度・継続効果を比較 約${turns}ターン${bench.length ? ' / 控えも考慮' : ''}` };
 }
 
-function evaluateFieldSetupMove(move, activePokemon, opponentSpecies, opponentBoosts, opponentStatus, attackerPlayer, defenderPlayer) {
+function evaluateFieldSetupMove(move, activePokemon, opponentSpecies, opponentBoosts, opponentStatus, attackerPlayer, defenderPlayer, ownBoosts, request, defenderAssumption) {
   if (move.id === 'trickroom') {
     return evaluateTrickRoomMove(attackerPlayer, activePokemon, opponentSpecies.name, opponentBoosts, opponentStatus);
   }
 
-  return evaluateHazardSetupMove(move, defenderPlayer) || evaluateScreenSetupMove(move, activePokemon, opponentSpecies, opponentBoosts, attackerPlayer, defenderPlayer) || evaluateTerrainSetupMove(move, activePokemon, attackerPlayer) || evaluateSandSnowSetup(move, activePokemon);
+  return evaluateHazardSetupMove(move, defenderPlayer) || evaluateScreenSetupMove(move, activePokemon, opponentSpecies, opponentBoosts, attackerPlayer, defenderPlayer) || evaluateTerrainSetupMove(move, activePokemon, attackerPlayer) || evaluateSandSnowSetup(move, activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, defenderAssumption);
 }
 
 // ========================================
 // 技評価
 // ========================================
-
-function statusBlockedByAbility(status, abilityId) {
-  if (!abilityId) {
-    return null;
-  }
-
-  if (['comatose', 'shieldsdown', 'goodasgold'].includes(abilityId)) {
-    return '特性で変化技無効';
-  }
-
-  if (abilityId === 'leafguard' && fieldState.weather === 'sun') {
-    return 'リーフガード';
-  }
-
-  if (status === 'par' && abilityId === 'limber') {
-    return 'じゅうなん';
-  }
-
-  if (status === 'brn' && ['waterveil', 'waterbubble', 'thermalexchange'].includes(abilityId)) {
-    return 'やけど無効';
-  }
-
-  if ((status === 'psn' || status === 'tox') && ['immunity', 'pastelveil'].includes(abilityId)) {
-    return 'どく無効';
-  }
-
-  if ((status === 'slp' || status === 'confusion') && ['insomnia', 'vitalspirit', 'sweetveil'].includes(abilityId)) {
-    return 'ねむり無効';
-  }
-
-  if (status === 'frz' && abilityId === 'magmaarmor') {
-    return 'こおり無効';
-  }
-
-  if (status === 'confusion' && abilityId === 'owntempo') {
-    return 'こんらん無効';
-  }
-
-  return null;
-}
 
 function choiceLockedMove(player) {
   const item = battleState[player]?.item;
@@ -3141,38 +3670,11 @@ function choiceLockedMove(player) {
   return battleState[player].lastMove || null;
 }
 
-function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoosts, defenderPlayer = null, attackerPlayer = null, opponentBoosts = null, opponentStatus = null) {
+function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoosts, defenderPlayer = null, attackerPlayer = null, opponentBoosts = null, opponentStatus = null, request = null, defenderAssumption = null) {
+  if (!isMoveAllowed(move)) return { score: -100, reason: moveRestriction(move) };
   const accuracy = move.accuracy === true ? 100 : move.accuracy;
 
   const opponentAbility = defenderPlayer ? battleState[defenderPlayer]?.ability : null;
-
-  const blocked = statusBlockedByAbility(move.status || move.id, opponentAbility);
-
-  if (blocked && move.target !== 'self' && move.target !== 'allySide' && move.target !== 'all') {
-    return {
-      score: -100,
-      reason: blocked,
-    };
-  }
-
-  if (move.heal) {
-    const hp = parseCondition(activePokemon.condition).hpPercent;
-    const healPercent = (100 * move.heal[0]) / move.heal[1];
-
-    if (hp >= 95) {
-      return {
-        score: -15,
-        reason: '体力が満タン',
-      };
-    }
-
-    const restored = Math.min(healPercent, 100 - hp);
-
-    return {
-      score: restored * 0.8,
-      reason: `回復${restored.toFixed(0)}%`,
-    };
-  }
 
   if (move.id === 'batonpass') {
     const stages = Object.values(ownBoosts)
@@ -3195,6 +3697,10 @@ function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoos
   if (move.id === 'substitute') {
     const hp = parseCondition(activePokemon.condition).hpPercent;
 
+    if (attackerPlayer && battleState[attackerPlayer].volatiles.substitute) {
+      return { score: -100, reason: 'すでにみがわりがある' };
+    }
+
     if (hp <= 25) {
       return {
         score: -30,
@@ -3208,86 +3714,14 @@ function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoos
     };
   }
 
-  if (move.id === 'yawn') {
-    return {
-      score: 24,
-      reason: 'あくび',
-    };
-  }
+  if (['taunt', 'leechseed', 'yawn'].includes(move.id)) return evaluatePersistentStatusMove(move, activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, defenderAssumption);
 
   if (move.id === 'tailwind') {
-    if (attackerPlayer && fieldState.sides[attackerPlayer]?.tailwind) {
-      return {
-        score: -100,
-        reason: 'すでにおいかぜ',
-      };
-    }
-
-    if (attackerPlayer && activePokemon) {
-      const estimate = getSpeedEstimate(attackerPlayer, activePokemon, ownBoosts, battleState[attackerPlayer]?.status ?? null, opponentSpecies.name, opponentBoosts ?? createEmptyBoosts(), opponentStatus);
-
-      if (estimate.relation === 'opponent') {
-        return {
-          score: 36,
-          reason: 'おいかぜで先に動く',
-        };
-      }
-
-      if (estimate.relation === 'own') {
-        return {
-          score: 8,
-          reason: 'おいかぜ すでに速い',
-        };
-      }
-    }
-
-    return {
-      score: 18,
-      reason: 'おいかぜ',
-    };
+    return evaluateTailwindMove(activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, request, defenderAssumption);
   }
 
-  if (move.id === 'leechseed') {
-    if (opponentSpecies.types?.includes('Grass')) {
-      return {
-        score: -100,
-        reason: 'やどりぎ無効',
-      };
-    }
-
-    return {
-      score: 26,
-      reason: 'やどりぎのタネ',
-    };
-  }
-
-  if (move.id === 'taunt') {
-    return {
-      score: 22,
-      reason: 'ちょうはつ',
-    };
-  }
-
-  if (move.id === 'encore') {
-    return {
-      score: 20,
-      reason: 'アンコール',
-    };
-  }
-
-  if (move.id === 'disable') {
-    return {
-      score: 18,
-      reason: 'かなしばり',
-    };
-  }
-
-  if (move.id === 'trick' || move.id === 'switcheroo') {
-    return {
-      score: 16,
-      reason: '持ち物を入れ替える',
-    };
-  }
+  if (['encore', 'disable'].includes(move.id)) return evaluateControlMove(move, activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, defenderAssumption);
+  if (['trick', 'switcheroo'].includes(move.id)) return evaluateProjectedStateEffect(move, activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, null, 7, 'max', false, defenderAssumption);
 
   if (move.id === 'whirlwind' || move.id === 'roar' || move.id === 'dragontail') {
     const boosted = Object.values(opponentBoosts ?? {}).some((value) => value > 0);
@@ -3337,48 +3771,7 @@ function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoos
   }
 
   if (move.status && move.target !== 'self') {
-    const types = opponentSpecies.types ?? [];
-
-    if (move.status === 'par' && types.includes('Electric')) {
-      return {
-        score: -100,
-        reason: 'まひ無効',
-      };
-    }
-
-    if (move.status === 'brn' && types.includes('Fire')) {
-      return {
-        score: -100,
-        reason: 'やけど無効',
-      };
-    }
-
-    if ((move.status === 'psn' || move.status === 'tox') && (types.includes('Poison') || types.includes('Steel'))) {
-      return {
-        score: -100,
-        reason: 'どく無効',
-      };
-    }
-
-    const values = {
-      par: 36,
-      brn: 32,
-      tox: 28,
-      psn: 16,
-      slp: 40,
-    };
-
-    return {
-      score: (values[move.status] ?? 12) * (accuracy / 100),
-      reason: '状態異常',
-    };
-  }
-
-  if (move.id === 'helpinghand') {
-    return {
-      score: -100,
-      reason: 'シングルではてだすけ不可',
-    };
+    return evaluateAilmentMove(move, activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, defenderAssumption);
   }
 
   if (move.id === 'attract') {
@@ -3424,14 +3817,7 @@ function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoos
   }
 
   if (move.id === 'painsplit' && defenderPlayer) {
-    const ownHp = parseCondition(activePokemon.condition).hpPercent;
-    const foeHp = battleState[defenderPlayer].hpPercent ?? 100;
-    const gained = (ownHp + foeHp) / 2 - ownHp;
-
-    return {
-      score: gained * 0.8,
-      reason: `いたみわけ ${gained >= 0 ? '+' : ''}${gained.toFixed(0)}%`,
-    };
+    return evaluatePainSplit(activePokemon, opponentSpecies.name, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer);
   }
 
   if (move.id === 'strengthsap') {
@@ -3465,42 +3851,10 @@ function evaluateUtilityStatusMove(move, activePokemon, opponentSpecies, ownBoos
     };
   }
 
-  if (move.boosts && move.target !== 'self') {
-    if (opponentAbility === 'mirrorarmor') {
-      return {
-        score: -18,
-        reason: 'ミラーアーマーで跳ね返る',
-      };
-    }
-
-    const weights = {
-      atk: 25,
-      spa: 25,
-      def: 10,
-      spd: 10,
-      spe: 18,
-    };
-
-    let score = 0;
-
-    for (const [stat, stages] of Object.entries(move.boosts)) {
-      if (stages < 0) {
-        score += Math.abs(stages) * (weights[stat] || 8);
-      }
-    }
-
-    if (score > 0) {
-      return {
-        score: score * (accuracy / 100),
-        reason: '能力を下げる',
-      };
-    }
-  }
-
   return null;
 }
 
-function addedEffectScore(move, activePokemon, opponentStatus, attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName) {
+function addedEffectScore(move, activePokemon, opponentStatus, attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName, ownMoveIds = null, defenderAssumption = null) {
   if (normalizeBattleEffect(activePokemon?.ability) === 'sheerforce') {
     return {
       score: 0,
@@ -3508,136 +3862,149 @@ function addedEffectScore(move, activePokemon, opponentStatus, attackerBoosts, d
     };
   }
 
-  const effects = [move.secondary, ...(move.secondaries ?? [])].filter(Boolean);
+  if (!move.secondary && !move.secondaries?.length && !move.status) return { score: 0, selfScore: 0, reason: null };
+  const session = createPublicMoveSession(activePokemon, opponentSpeciesName, attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer, 'max', defenderAssumption);
+  try {
+    const { calc, attacker, defender } = session;
+    const prepared = prepareDamageMove(calc, attacker, defender, move);
+    const secondaryEffects = prepared.secondaries ?? (prepared.secondary ? [prepared.secondary] : []);
+    const effects = calc.runEvent('ModifySecondaries', defender, attacker, prepared, secondaryEffects.slice());
 
-  if (move.status && move.category !== 'Status') {
-    effects.push({
-      chance: 100,
-      status: move.status,
-    });
-  }
+    if (move.status && move.category !== 'Status') {
+      effects.push({
+        chance: 100,
+        status: move.status,
+      });
+    }
 
-  if (!effects.length) {
+    if (!effects.length) {
+      return {
+        score: 0,
+        reason: null,
+      };
+    }
+
+    let score = 0;
+    let selfScore = 0;
+    const reasons = [];
+
+    for (const effect of effects) {
+      // ModifyMoveでてんのめぐみ等を適用済み。状態異常・一時効果の可否もエンジンに問い合わせる。
+      const chance = Math.min(100, effect.chance ?? 100) / 100;
+      const statusEffect = effect.status && !opponentStatus
+        ? projectedStatusEffect(session, prepared, activePokemon, opponentSpeciesName, defenderPlayer, ownMoveIds,
+          () => defender.setStatus(effect.status, attacker, prepared)) : { applied: false, score: 0 };
+      let volatileAllowed = false;
+      if (effect.volatileStatus && !defender.volatiles[effect.volatileStatus]) {
+        volatileAllowed = !!defender.addVolatile(effect.volatileStatus, attacker, prepared);
+        if (volatileAllowed) defender.removeVolatile(effect.volatileStatus);
+      }
+
+      if (statusEffect.applied && statusEffect.score) {
+        score += chance * statusEffect.score;
+        reasons.push({ brn: 'やけど', par: 'まひ', tox: 'もうどく', psn: 'どく', frz: 'こおり', slp: 'ねむり' }[effect.status] || '状態異常');
+      }
+
+      const volatileValue = {
+        confusion: [16, 'こんらん'],
+        attract: [18, 'メロメロ'],
+        saltcure: [22, 'しおづけ'],
+        curse: [16, 'のろい'],
+        throatchop: [14, 'じごくづき'],
+        yawn: [12, 'あくび'],
+        healblock: [10, 'かいふくふうじ'],
+      };
+
+      if (volatileAllowed && volatileValue[effect.volatileStatus]) {
+        const [value, label] = volatileValue[effect.volatileStatus];
+
+        score += chance * value;
+        reasons.push(label);
+      }
+
+      if (volatileAllowed && (effect.volatileStatus === 'partiallytrapped' || effect.volatileStatus === 'leechseed')) {
+        score += chance * 14;
+        reasons.push(effect.volatileStatus === 'leechseed' ? 'やどりぎ' : 'まきつく');
+      }
+
+      if (volatileAllowed && effect.volatileStatus === 'syrupbomb') {
+        const snapshot = snapshotEffectSession(session);
+        const before = projectedEffectPosition(session, activePokemon, opponentSpeciesName, defenderPlayer, ownMoveIds);
+        defender.addVolatile('syrupbomb', attacker, prepared);
+        calc.singleEvent('Residual', calc.dex.conditions.get('syrupbomb'), defender.volatiles.syrupbomb, defender);
+        const after = projectedEffectPosition(session, activePokemon, opponentSpeciesName, defenderPlayer, ownMoveIds);
+        score += chance * (after.value - before.value);
+        if (after.value !== before.value) reasons.push('みずあめで素早さ変化');
+        restoreEffectSession(session, snapshot);
+      }
+
+      if (volatileAllowed && effect.volatileStatus === 'flinch' && attackerPlayer) {
+        const context = {
+          attackerPokemon: activePokemon, defenderPokemon: null,
+          attackerSpecies: battleDex.species.get(getPokemonSpeciesName(activePokemon)), defenderSpecies: battleDex.species.get(opponentSpeciesName),
+          attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer,
+        };
+        const before = publicActionModel(defenderPlayer, opponentSpeciesName).reduce((sum, action) => {
+          if (action.unable) return sum;
+          const order = publicMoveOrder(move, action.move || battleDex.moves.get('tackle'), context);
+          return sum + action.weight * (order === 'own' ? 1 : order === 'uncertain' ? 0.5 : 0);
+        }, 0);
+        if (before > 0) {
+          score += chance * 24 * before;
+          reasons.push('ひるみ');
+        }
+      }
+
+      if (effect.onHit) {
+        const value = callbackEffectScore(session, prepared, effect, move, activePokemon, attackerBoosts, defenderBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName);
+        score += chance * value;
+        if (value) reasons.push(move.id === 'eeriespell' ? '相手のPP減少（公開履歴から推定）' : '追加効果');
+      }
+
+      // boostイベントを通すことで反射・無効・あまのじゃく・まけんき・上限も反映する。
+      for (const [target, boosts, label] of [[defender, effect.boosts, '能力変化'], [attacker, effect.self?.boosts, '追加で能力上昇']]) {
+        if (!boosts) continue;
+        const snapshot = snapshotEffectSession(session);
+        const before = projectedEffectPosition(session, activePokemon, opponentSpeciesName, defenderPlayer, ownMoveIds);
+        calc.setActiveMove(prepared, attacker, defender);
+        calc.boost(boosts, target, attacker, prepared);
+        const after = projectedEffectPosition(session, activePokemon, opponentSpeciesName, defenderPlayer, ownMoveIds);
+        const delta = after.value - before.value;
+        score += chance * delta;
+        if (target === attacker) selfScore += chance * delta;
+        if (Math.abs(delta) > 0.01) reasons.push(label);
+        restoreEffectSession(session, snapshot);
+      }
+    }
+
     return {
-      score: 0,
-      reason: null,
+      score,
+      selfScore,
+      reason: reasons.length ? reasons[0] : null,
     };
-  }
-
-  const serene = normalizeBattleEffect(activePokemon?.ability) === 'serenegrace' ? 2 : 1;
-  let score = 0;
-  const reasons = [];
-
-  for (const effect of effects) {
-    const chance = Math.min(100, (effect.chance ?? 100) * serene) / 100;
-
-    const abilityBlock = statusBlockedByAbility(effect.status, defenderPlayer ? battleState[defenderPlayer]?.ability : null);
-
-    if (!abilityBlock && !opponentStatus && effect.status === 'brn') {
-      score += chance * 28;
-      reasons.push('やけど');
-    } else if (!abilityBlock && !opponentStatus && effect.status === 'par') {
-      score += chance * 22;
-      reasons.push('まひ');
-    } else if (!abilityBlock && !opponentStatus && effect.status === 'tox') {
-      score += chance * 18;
-      reasons.push('もうどく');
-    } else if (!abilityBlock && !opponentStatus && effect.status === 'psn') {
-      score += chance * 12;
-      reasons.push('どく');
-    } else if (!abilityBlock && !opponentStatus && effect.status === 'frz') {
-      score += chance * 20;
-      reasons.push('こおり');
-    }
-
-    const volatileValue = {
-      confusion: [16, 'こんらん'],
-      attract: [18, 'メロメロ'],
-      saltcure: [22, 'しおづけ'],
-      curse: [16, 'のろい'],
-      throatchop: [14, 'じごくづき'],
-      yawn: [12, 'あくび'],
-      healblock: [10, 'かいふくふうじ'],
-    };
-
-    if (effect.volatileStatus === 'confusion' && statusBlockedByAbility('confusion', defenderPlayer ? battleState[defenderPlayer]?.ability : null)) {
-      // こんらん無効のときは点数を足さない。
-    } else if (volatileValue[effect.volatileStatus]) {
-      const [value, label] = volatileValue[effect.volatileStatus];
-
-      score += chance * value;
-      reasons.push(label);
-    }
-
-    if (effect.volatileStatus === 'partiallytrapped' || effect.volatileStatus === 'leechseed') {
-      score += chance * 14;
-      reasons.push(effect.volatileStatus === 'leechseed' ? 'やどりぎ' : 'まきつく');
-    }
-
-    if (effect.volatileStatus === 'flinch' && attackerPlayer) {
-      const order = getSpeedEstimate(attackerPlayer, activePokemon, attackerBoosts, battleState[attackerPlayer]?.status ?? null, opponentSpeciesName, defenderBoosts, opponentStatus);
-
-      if (order.relation !== 'opponent') {
-        score += chance * 24;
-        reasons.push('ひるみ');
-      }
-    }
-
-    const boosts = effect.boosts ?? {};
-
-    for (const [stat, stages] of Object.entries(boosts)) {
-      if (stages < 0) {
-        score += chance * Math.abs(stages) * 8;
-        reasons.push('能力下降');
-      }
-    }
-
-    for (const [stat, stages] of Object.entries(effect.self?.boosts ?? {})) {
-      if (stages > 0) {
-        score += chance * stages * 8;
-        reasons.push('追加で能力上昇');
-      }
-    }
-  }
-
-  return {
-    score,
-    reason: reasons.length ? reasons[0] : null,
-  };
+  } finally { session.calc.destroy(); }
 }
 
-function focusSashHolds(item, hpPercent, move) {
-  if (normalizeBattleEffect(item) !== 'focussash' || hpPercent < 100) {
-    return false;
-  }
-
-  const hits = move?.multihit;
-
-  if (!hits) {
-    return true;
-  }
-
-  if (typeof hits === 'number') {
-    return hits <= 1;
-  }
-
-  return hits[1] <= 1;
+function sleepWakeChance(player, ability = battleState[player]?.ability) {
+  const age = battleState[player]?.statusAge || 0;
+  const earlyBird = normalizeBattleEffect(ability) === 'earlybird';
+  const decrement = earlyBird ? 2 : 1;
+  // 公開された睡眠行動数の時点で、既に起きているはずの初期カウントを除く。
+  const initialTimes = battleState[player]?.sleepSource === 'rest' ? [3] : [2, 3, 3];
+  const remaining = initialTimes.map((time) => time - age * decrement).filter((time) => time > 0);
+  return remaining.length ? remaining.filter((time) => time <= decrement).length / remaining.length : 1;
 }
 
-function cantMoveFactor(status, player = null) {
-  const age = player ? battleState[player]?.statusAge || 0 : 0;
+function cantMoveFactor(status, player = null, ability = battleState[player]?.ability) {
   let factor = 1;
 
-  // ねむりの内部残りターンは非公開。動けなかった回数だけを使う。こおりは毎ターン20%で溶ける。
+  // Championsの状態異常。内部カウントは参照せず、公開された行動不能回数だけを使う。
   if (status === 'slp') {
-    const earlyBird = player && battleState[player]?.ability === 'earlybird';
-    const asleep = earlyBird ? [2 / 3, 1 / 3, 0][Math.min(age, 2)] : [1, 2 / 3, 1 / 3, 0][Math.min(age, 3)];
-
-    factor = 1 - (asleep ?? 0);
+    factor = sleepWakeChance(player, ability);
   } else if (status === 'frz') {
-    factor = 0.2;
+    factor = (battleState[player]?.statusAge || 0) >= 2 ? 1 : 1 / 4;
   } else if (status === 'par') {
-    factor = 0.75;
+    factor = 7 / 8;
   }
 
   const volatiles = player ? battleState[player]?.volatiles : null;
@@ -3745,11 +4112,990 @@ function moveBlockedByVolatile(player, move) {
   if (volatiles.encore && volatiles.encoreMove && move.id !== volatiles.encoreMove) {
     return true;
   }
+  if (volatiles.torment && battleState[player].lastMove === move.id && move.id !== 'struggle') return true;
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  if (battleState[foe]?.volatiles.imprison && getRevealedMoves(foe, battleState[foe].species).includes(move.id) && move.id !== 'struggle') return true;
 
   return false;
 }
 
-function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer = null, defenderPlayer = null) {
+function createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, hpEndpoint = 'max', defenderAssumption = null, publicOnly = false) {
+  const spec = knownCombatant(publicOnly ? { ...activePokemon, level: activePokemon.level || BATTLE_LEVEL } : activePokemon, ownBoosts);
+  const defenderSpec = { ...rangedCombatant(battleDex.species.get(opponentSpeciesName), 'def', hpEndpoint, opponentBoosts, defenderPlayer), ...defenderAssumption };
+  const session = createDamageBattle(spec, defenderSpec, defenderPlayer, publicOnly);
+  session.effectAssumption = defenderAssumption;
+  useWeather(session.calc, fieldState.weather, session.source);
+  applyPublicCalcState(session.attacker, attackerPlayer, spec);
+  applyPublicCalcState(session.defender, defenderPlayer, defenderSpec);
+  seedPublicEffectState(session, activePokemon, attackerPlayer, defenderPlayer);
+  return session;
+}
+
+function seedPublicEffectState(session, pokemon, attackerPlayer, defenderPlayer, request = null) {
+  for (const [mon, player, own] of [[session.attacker, attackerPlayer, true], [session.defender, defenderPlayer, false]]) {
+    const state = battleState[player];
+    const species = own ? getPokemonSpeciesName(pokemon) : mon.species.name;
+    const active = state?.species === species && (!own || pokemon.active !== false);
+    const ids = !own && session.effectAssumption?.moves ? session.effectAssumption.moves : own ? pokemon.moves || request?.active?.[0]?.moves?.map((entry) => entry.id) || mon.moveSlots.map((slot) => slot.id)
+      : !state ? mon.moveSlots.map((slot) => slot.id) : getRevealedMoves(player, species).length >= 4 ? getRevealedMoves(player, species) : predictOpponentSets(player, species)[0]?.moves || getRevealedMoves(player, species);
+    mon.moveSlots = [...new Set(ids)].map((id) => {
+      const move = battleDex.moves.get(id);
+      const maxpp = session.calc.calculatePP(move, move.noPPBoosts ? 0 : 3);
+      const exact = own && request?.active?.[0]?.moves?.find((slot) => slot.id === id);
+      const used = state?.ppUsed?.[baseSpeciesName(species)]?.[id] || 0;
+      return { id: move.id, move: move.name, target: move.target, pp: exact?.pp ?? Math.max(0, maxpp - used), maxpp: exact?.maxpp ?? maxpp, disabled: !!exact?.disabled, disabledSource: '', used: !!used };
+    });
+    if (active) {
+      mon.lastMove = state.lastMove ? session.calc.dex.getActiveMove(state.lastMove) : null;
+      mon.lastItem = state.consumedItems?.[baseSpeciesName(species)] || '';
+      mon.statsRaisedThisTurn = !!state.statsRaisedThisTurn;
+      mon.transformed = !!state.transformed;
+      const source = mon === session.attacker ? session.defender : session.attacker;
+      for (const id of ['torment', 'imprison', 'trapped', 'taunt', 'leechseed', 'yawn', 'confusion', 'attract', 'saltcure', 'curse', 'throatchop']) {
+        if (state.volatiles[id] && !mon.volatiles[id]) {
+          // 公開された既存状態を復元。onStartの再実行や非公開の残りターンの参照はしない。
+          mon.volatiles[id] = { id, target: mon, source, sourceSlot: source.getSlot(), duration: 2 };
+        }
+      }
+      if (mon.status === 'tox') mon.statusState.stage = state.toxicCounter || 1;
+      for (const id of ['encore', 'disable']) {
+        if (state.volatiles[id]) mon.volatiles[id] = { id, target: mon, source: mon === session.attacker ? session.defender : session.attacker, move: state.volatiles[`${id}Move`], duration: 2 };
+      }
+      if (state.volatiles.stockpile) {
+        const condition = state.volatiles.stockpile;
+        // onStartの能力上昇は公開ランクに含まれるので再実行しない。
+        mon.volatiles.stockpile = { id: 'stockpile', target: mon, source: mon, ...condition };
+      }
+      if (state.volatiles.lockon) mon.addVolatile('lockon', mon === session.attacker ? session.defender : session.attacker);
+    }
+  }
+}
+
+// 推定用バトルの変更だけを保存する。実戦の非公開情報は読み込まない。
+function snapshotEffectSession(session) {
+  return [session.attacker, session.defender].map((mon) => ({
+    hp: mon.hp, boosts: { ...mon.boosts }, storedStats: { ...mon.storedStats },
+    types: mon.types.slice(), addedType: mon.addedType,
+    status: mon.status, statusState: { ...mon.statusState },
+    item: mon.item, itemState: { ...mon.itemState }, ability: mon.ability, abilityState: { ...mon.abilityState },
+    volatiles: Object.fromEntries(Object.entries(mon.volatiles).map(([id, state]) => [id, { ...state }])),
+    switchFlag: mon.switchFlag, forceSwitchFlag: mon.forceSwitchFlag,
+    moveSlots: mon.moveSlots.map((slot) => ({ ...slot })), lastMove: mon.lastMove, lastItem: mon.lastItem,
+    statsRaisedThisTurn: mon.statsRaisedThisTurn, transformed: mon.transformed, species: mon.species,
+    trapped: mon.trapped, fainted: mon.fainted,
+  }));
+}
+
+function snapshotEffectCopy(snapshot) {
+  return snapshot.map((state) => ({ ...state, boosts: { ...state.boosts }, storedStats: { ...state.storedStats },
+    types: state.types.slice(), moveSlots: state.moveSlots.map((slot) => ({ ...slot })), statusState: { ...state.statusState }, itemState: { ...state.itemState }, abilityState: { ...state.abilityState },
+    volatiles: Object.fromEntries(Object.entries(state.volatiles).map(([id, value]) => [id, { ...value }])) }));
+}
+
+function effectStatusValue(mon) {
+  return ({ brn: 28, par: 22, tox: 18, psn: 12, frz: 20, slp: 40 })[mon.status] || 0;
+}
+
+function effectConditionValue(mon) {
+  const volatile = { confusion: 16, attract: 18, saltcure: 22, curse: 16, throatchop: 14, yawn: 12, healblock: 10,
+    trapped: 14, partiallytrapped: 14, leechseed: 14, octolock: 18 };
+  return effectStatusValue(mon) + Object.entries(volatile).reduce((sum, [id, value]) => sum + (mon.volatiles[id] ? value : 0), 0);
+}
+
+function projectedResidualBalance(session, nextAttack = null) {
+  const snapshot = snapshotEffectSession(session);
+  const faintQueue = session.calc.faintQueue.slice();
+  const randomChance = session.calc.randomChance;
+  try {
+    const { calc, attacker, defender } = session;
+    if (nextAttack) {
+      // 満タンでも次の攻撃後に回復が働く。倒される見込みなら回復は付けない。
+      attacker.hp = Math.max(0, attacker.hp - Math.floor(attacker.maxhp * nextAttack.incoming / 100));
+      defender.hp = Math.max(0, defender.hp - Math.floor(defender.maxhp * nextAttack.outgoing / 100));
+    }
+    const ownHp = attacker.hp;
+    const foeHp = defender.hp;
+    calc.randomChance = (n, d) => n >= d;
+    // ターン終了時の実際のHP増減を一回分比較する。状態の残り時間は進めない。
+    if (calc.field.weather) calc.eachEvent('Weather');
+    for (const mon of [attacker, defender]) {
+      if (mon.hp <= 0) continue;
+      calc.singleEvent('Residual', mon.getStatus(), mon.statusState, mon);
+      for (const id of ['saltcure', 'curse', 'leechseed', 'partiallytrapped', 'aquaring', 'ingrain']) {
+        if (mon.volatiles[id]) calc.singleEvent('Residual', calc.dex.conditions.get(id), mon.volatiles[id], mon);
+      }
+      calc.singleEvent('Residual', mon.getAbility(), mon.abilityState, mon);
+      if (!mon.ignoringItem()) calc.singleEvent('Residual', mon.getItem(), mon.itemState, mon);
+      calc.runEvent('Update', mon);
+    }
+    return (attacker.hp - ownHp) / attacker.maxhp * 100 - (defender.hp - foeHp) / defender.maxhp * 100;
+  } finally {
+    restoreEffectSession(session, snapshot);
+    session.calc.faintQueue = faintQueue;
+    session.calc.randomChance = randomChance;
+  }
+}
+
+function projectedAilmentPosition(session, pokemon, speciesName, foePlayer, ownMoves, includeResidual = true) {
+  const position = projectedEffectPosition(session, pokemon, speciesName, foePlayer, ownMoves);
+  const ownPlayer = foePlayer === 'p1' ? 'p2' : 'p1';
+  const chance = (mon, player, moveId) => {
+    if (mon.status === 'slp') {
+      // 新規の眠りは初回行動を止める。既存の眠りだけ公開履歴から起床を予測する。
+      const wake = battleState[player]?.status === 'slp' ? sleepWakeChance(player, mon.ability) : 0;
+      const usable = mon.moveSlots.some((slot) => slot.pp > 0 && (slot.id === 'snore' || slot.id === 'sleeptalk'));
+      return usable ? 1 : wake;
+    }
+    if (mon.status === 'frz') {
+      if (session.calc.dex.moves.get(moveId).flags.defrost) return 1;
+      return battleState[player]?.status === 'frz' ? cantMoveFactor('frz', player, mon.ability) : 1 / 4;
+    }
+    return mon.status === 'par' ? 7 / 8 : 1;
+  };
+  const ownChance = chance(session.attacker, ownPlayer, position.outgoingMove);
+  const foeChance = chance(session.defender, foePlayer, position.incomingMove);
+  const orderValue = position.value - position.outgoing + position.incoming;
+  return { ...position, value: position.outgoing * ownChance - position.incoming * foeChance
+    + orderValue * Math.min(ownChance, foeChance) + (includeResidual ? projectedResidualBalance(session, position) : 0) };
+}
+
+function projectedStatusEffect(session, prepared, pokemon, speciesName, foePlayer, ownMoves, apply) {
+  const snapshot = snapshotEffectSession(session);
+  try {
+    const before = projectedAilmentPosition(session, pokemon, speciesName, foePlayer, ownMoves);
+    const applied = !!apply();
+    if (!applied) return { applied: false, score: 0 };
+    session.calc.runEvent('Update', session.attacker);
+    session.calc.runEvent('Update', session.defender);
+    const after = projectedAilmentPosition(session, pokemon, speciesName, foePlayer, ownMoves);
+    return { applied: true, score: after.value - before.value };
+  } finally { restoreEffectSession(session, snapshot); }
+}
+
+function evaluateAilmentMove(move, pokemon, speciesName, ownBoosts, foeBoosts, request, ownPlayer, foePlayer, assumption) {
+  const session = createPublicMoveSession(pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, 'max', assumption);
+  try {
+    applyEffectPublicField(session, ownPlayer, foePlayer);
+    const prepared = session.calc.dex.getActiveMove(move);
+    prepared.accuracy = true;
+    session.calc.randomChance = (n, d) => d === 100 || n >= d;
+    const result = projectedStatusEffect(session, prepared, pokemon, speciesName, foePlayer, pokemon.moves,
+      () => session.calc.actions.useMove(prepared, session.attacker, { target: session.defender }));
+    return { score: result.applied ? result.score * (move.accuracy === true ? 1 : move.accuracy / 100) : -100,
+      failed: !result.applied, reason: result.applied ? '状態異常後の火力・速度・行動可能性・継続効果を比較' : '状態異常技が失敗' };
+  } finally { session.calc.destroy(); }
+}
+
+function evaluatePersistentStatusMove(move, pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, assumption) {
+  const session = createPublicMoveSession(pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, 'max', assumption);
+  try {
+    applyEffectPublicField(session, ownPlayer, foePlayer);
+    const prepared = session.calc.dex.getActiveMove(move);
+    prepared.accuracy = true;
+    session.calc.randomChance = (n, d) => d === 100 || n >= d;
+    const acted = session.calc.actions.useMove(prepared, session.attacker, { target: session.defender });
+    session.calc.runEvent('Update', session.defender);
+    const persists = !!session.defender.volatiles[move.volatileStatus];
+    return { score: !acted ? -100 : !persists ? 0 : { taunt: 22, leechseed: 26, yawn: 24 }[move.id],
+      failed: !acted, reason: !acted ? '既存状態・無効化などで効果が失敗' : !persists ? '持ち物などで効果が解除' : { taunt: 'ちょうはつ', leechseed: 'やどりぎのタネ', yawn: 'あくび' }[move.id] };
+  } finally { session.calc.destroy(); }
+}
+
+function effectPPRemovalValue(session, beforeSlots, mon, source) {
+  return beforeSlots.reduce((score, old) => {
+    const remaining = mon.getMoveData(old.id)?.pp ?? old.pp;
+    const removed = Math.max(0, old.pp - remaining);
+    if (!removed) return score;
+    const move = battleDex.moves.get(old.id);
+    const threat = isDamagingMove(move) ? projectedEffectDamage(session, mon, source, move) || 10
+      : move.heal || ['synthesis', 'rest', 'wish'].includes(move.id) ? 30 : move.status ? 25 : move.boosts ? 25 : 12;
+    return score + removed / Math.max(1, old.pp) * Math.min(60, threat);
+  }, 0);
+}
+
+function publicEffectResponses(move, pokemon, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, speciesName, assumption = null) {
+  const model = publicActionModel(defenderPlayer, speciesName, assumption?.moves ? { moves: assumption.moves } : null);
+  const expanded = [];
+  for (const action of model) {
+    if (action.move || action.unable) expanded.push(action);
+    else {
+      for (const profile of predictOpponentSets(defenderPlayer, speciesName)) {
+        const unknown = profile.moves.filter((id) => !getRevealedMoves(defenderPlayer, speciesName).includes(id));
+        for (const id of unknown) expanded.push({ move: battleDex.moves.get(id), weight: action.weight * profile.weight / unknown.length });
+      }
+    }
+  }
+  const context = { attackerPokemon: pokemon, defenderPokemon: null,
+    attackerSpecies: battleDex.species.get(getPokemonSpeciesName(pokemon)), defenderSpecies: battleDex.species.get(speciesName),
+    attackerBoosts: { ...createEmptyBoosts(), ...ownBoosts }, defenderBoosts: { ...createEmptyBoosts(), ...foeBoosts }, attackerPlayer, defenderPlayer, defenderAssumption: assumption };
+  return expanded.map((action) => {
+    const order = action.move ? publicMoveOrder(move, action.move, context) : 'own';
+    const beforeOrder = order === 'opponent' ? 1 : order === 'uncertain' ? 0.5 : 0;
+    const actionChance = action.unable ? 0 : action.move?.sleepUsable && battleState[defenderPlayer]?.status === 'slp' ? 1 : cantMoveFactor(battleState[defenderPlayer]?.status, defenderPlayer);
+    return { ...action, beforeOrder, actionChance, beforeOwn: beforeOrder * actionChance };
+  });
+}
+
+function rememberProjectedAction(session, action, player, speciesName) {
+  const { calc, defender } = session;
+  defender.lastMove = calc.dex.getActiveMove(action.id);
+  let slot = defender.getMoveData(action.id);
+  if (!slot) {
+    const maxpp = calc.calculatePP(action, action.noPPBoosts ? 0 : 3);
+    const used = battleState[player]?.ppUsed?.[baseSpeciesName(speciesName)]?.[action.id] || 0;
+    slot = { id: action.id, move: action.name, target: action.target, pp: Math.max(0, maxpp - used), maxpp, disabled: false, disabledSource: '', used: !!used };
+    defender.moveSlots.push(slot);
+  }
+  const pressureTargets = defender.getMoveTargets(action, session.attacker).pressureTargets;
+  const extraPP = pressureTargets.reduce((sum, target) => {
+    const value = calc.runEvent('DeductPP', target, defender, action);
+    return sum + (value === true ? 0 : Number(value) || 0);
+  }, 0);
+  slot.pp = Math.max(0, slot.pp - 1 - extraPP);
+}
+
+function evaluateControlMove(move, pokemon, speciesName, ownBoosts, foeBoosts, request, ownPlayer, foePlayer, assumption = null) {
+  const responses = publicEffectResponses(move, pokemon, ownBoosts, foeBoosts, ownPlayer, foePlayer, speciesName, assumption);
+  const outcomes = [];
+  for (const action of responses) {
+    for (const [foeFirst, probability] of [[false, 1 - action.beforeOwn], [true, action.beforeOwn]]) {
+      if (!probability) continue;
+      const session = createPublicMoveSession(pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, 'max', assumption);
+      try {
+        const { calc, attacker, defender } = session;
+        applyEffectPublicField(session, ownPlayer, foePlayer);
+        seedPublicEffectState(session, pokemon, ownPlayer, foePlayer, request);
+        if (foeFirst && action.move) rememberProjectedAction(session, action.move, foePlayer, speciesName);
+        if (!foeFirst && action.move) calc.queue.push({ choice: 'move', pokemon: defender, move: calc.dex.getActiveMove(action.move), targetLoc: defender.getLocOf(attacker) });
+        const before = projectedEffectPosition(session, pokemon, speciesName, foePlayer, pokemon.moves);
+        const prepared = calc.dex.getActiveMove(move);
+        prepared.accuracy = true;
+        calc.randomChance = (n, d) => d === 100 || n >= d;
+        const acted = calc.actions.useMove(prepared, attacker, { target: defender });
+        calc.runEvent('Update', defender);
+        const applied = !!acted && !!defender.volatiles[move.id];
+        const after = projectedEffectPosition(session, pokemon, speciesName, foePlayer, pokemon.moves);
+        outcomes.push({ weight: action.weight * probability, result: { score: applied ? after.value - before.value : -100,
+          failed: !applied, hitChance: applied ? 1 : 0, successChance: applied ? 1 : 0,
+          reason: applied ? `${move.name}で${defender.volatiles[move.id].move}を制限` : `${move.name}が失敗（直前技・PP・禁止技・重複・無効を確認）` } });
+      } finally { session.calc.destroy(); }
+    }
+  }
+  return averageEffectResults(outcomes, '公開された直前技と行動順から成功見込みを評価');
+}
+
+function evaluateTailwindMove(pokemon, speciesName, ownBoosts, foeBoosts, ownPlayer, foePlayer, request = null, assumption = null) {
+  if (fieldState.sides[ownPlayer]?.tailwind) return { score: -100, failed: true, reason: 'すでにおいかぜ' };
+  if (!ownPlayer || !pokemon?.stats) return { score: 0, reason: 'おいかぜ後の速度を判断できない' };
+  const own = { ...createEmptyBoosts(), ...ownBoosts };
+  const foe = { ...createEmptyBoosts(), ...foeBoosts };
+  const speed = getSpeedEstimate(ownPlayer, pokemon, own, parseCondition(pokemon.condition).status, speciesName, foe, battleState[foePlayer]?.status, false, assumption);
+  const session = createPublicMoveSession(pokemon, speciesName, own, foe, ownPlayer, foePlayer, 'max', assumption);
+  try {
+    applyEffectPublicField(session, ownPlayer, foePlayer);
+    seedPublicEffectState(session, pokemon, ownPlayer, foePlayer, request);
+    const attacks = effectProjectionMoves(pokemon, getPokemonSpeciesName(pokemon), null, pokemon.moves);
+    const chance = (order) => order === 'own' ? 1 : order === 'uncertain' ? 0.5 : 0;
+    const values = attacks.map((attack) => {
+      const outgoing = projectedEffectDamage(session, session.attacker, session.defender, attack);
+      if (!outgoing) return 0;
+      return publicEffectResponses(attack, pokemon, own, foe, ownPlayer, foePlayer, speciesName, assumption).reduce((sum, action) => {
+        if (!action.move) return sum;
+        const incoming = projectedEffectDamage(session, session.defender, session.attacker, action.move);
+        const order = (ownSpeed) => compareEstimatedMoveOrder(attack, action.move, ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, ownPlayer, pokemon, assumption);
+        return sum + action.weight * action.actionChance * (chance(order(speed.ownSpeed * 2)) - chance(order(speed.ownSpeed))) * Math.min(36, Math.max(outgoing, incoming) * 0.5);
+      }, 0);
+    });
+    const score = values.length ? Math.max(...values) : 0;
+    return { score, beforeSpeed: speed.ownSpeed, afterSpeed: speed.ownSpeed * 2,
+      reason: `おいかぜ後の素早さ${speed.ownSpeed * 2} / 相手${speed.opponentMinSpeed}～${speed.opponentMaxSpeed} / ${score > 0 ? '攻撃の先手見込みが上昇' : score < 0 ? '行動順の変化が不利' : '攻撃の行動順は改善しない'}` };
+  } finally { session.calc.destroy(); }
+}
+
+function projectedAttackBoostBranches(session, move) {
+  if (!move || move.category === 'Status') return [{ weight: 1, boosts: [] }];
+  const snapshot = snapshotEffectSession(session);
+  try {
+    const { calc, attacker, defender } = session;
+    const prepared = prepareDamageMove(calc, defender, attacker, move);
+    if (!calc.actions.hitStepTryHitEvent([attacker], defender, prepared)[0] || !calc.actions.hitStepTypeImmunity([attacker], defender, prepared)[0] || !calc.actions.hitStepTryImmunity([attacker], defender, prepared)[0]) return [{ weight: 1, boosts: [] }];
+    const accuracy = readMoveHitChance(calc, defender, attacker, prepared);
+    const effects = prepared.hasSheerForce ? [] : calc.runEvent('ModifySecondaries', attacker, defender, prepared, prepared.secondaries || (prepared.secondary ? [prepared.secondary] : [])) || [];
+    let branches = [{ weight: 1, boosts: prepared.self?.boosts ? [prepared.self.boosts] : [] }];
+    for (const effect of effects) {
+      if (!effect.self?.boosts) continue;
+      const chance = Math.min(100, effect.chance ?? 100) / 100;
+      branches = branches.flatMap((branch) => [
+        { weight: branch.weight * (1 - chance), boosts: branch.boosts },
+        { weight: branch.weight * chance, boosts: [...branch.boosts, effect.self.boosts] },
+      ]).filter((branch) => branch.weight);
+    }
+    return [{ weight: 1 - accuracy, boosts: [] }, ...branches.map((branch) => ({ ...branch, weight: branch.weight * accuracy }))].filter((branch) => branch.weight);
+  } finally { restoreEffectSession(session, snapshot); }
+}
+
+function callbackEffectScore(session, prepared, effect, move, pokemon, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, speciesName) {
+  const { calc, attacker, defender } = session;
+  const snapshot = snapshotEffectSession(session);
+  const sample = calc.sample;
+  const contextual = ['burningjealousy', 'alluringvoice', 'eeriespell'].includes(move.id);
+  const scenarios = contextual ? publicEffectResponses(move, pokemon, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, speciesName, session.effectAssumption)
+    : [{ weight: 1, beforeOwn: 0 }];
+  let score = 0;
+  try {
+    for (const action of scenarios) {
+      for (const [foeActsFirst, orderWeight] of [[false, 1 - action.beforeOwn], [true, action.beforeOwn]]) {
+        if (!orderWeight) continue;
+        let choices = 1;
+        const values = [];
+        restoreEffectSession(session, snapshotEffectCopy(snapshot));
+        const boostBranches = foeActsFirst ? projectedAttackBoostBranches(session, action.move) : [{ weight: 1, boosts: [] }];
+        for (let index = 0; index < choices; index++) {
+          let value = 0;
+          for (const branch of boostBranches) {
+            restoreEffectSession(session, snapshotEffectCopy(snapshot));
+            if (foeActsFirst && action.move) {
+              rememberProjectedAction(session, action.move, defenderPlayer, speciesName);
+              const selfBoost = action.move.target === 'self' && action.move.boosts || action.move.self?.boosts;
+              if (action.move.category === 'Status' && (selfBoost || ['bellydrum', 'stockpile', 'stuffcheeks'].includes(action.move.id))) {
+                const foeMove = calc.dex.getActiveMove(action.move.id);
+                const target = ['self', 'allySide', 'allyTeam', 'allies', 'adjacentAllyOrSelf'].includes(foeMove.target) ? defender : attacker;
+                calc.setActiveMove(foeMove, defender, target);
+                calc.actions.useMove(foeMove, defender, { target });
+              }
+              for (const boosts of branch.boosts) calc.boost(boosts, defender, defender, action.move);
+            }
+            calc.sample = (items) => { choices = Math.max(choices, items.length); return items[index % items.length]; };
+            const before = effectConditionValue(defender) - effectConditionValue(attacker);
+            const statusBefore = effectStatusValue(defender) - effectStatusValue(attacker);
+            const oldStatuses = [attacker.status, defender.status];
+            const statusPosition = projectedAilmentPosition(session, pokemon, speciesName, defenderPlayer, pokemon.moves);
+            const ppBefore = defender.moveSlots.map((slot) => ({ ...slot }));
+            calc.setActiveMove(prepared, attacker, defender);
+            calc.singleEvent('Hit', effect, {}, defender, attacker, prepared);
+            let delta = effectConditionValue(defender) - effectConditionValue(attacker) - before;
+            if (attacker.status !== oldStatuses[0] || defender.status !== oldStatuses[1]) {
+              calc.runEvent('Update', attacker); calc.runEvent('Update', defender);
+              delta -= effectStatusValue(defender) - effectStatusValue(attacker) - statusBefore;
+              delta += projectedAilmentPosition(session, pokemon, speciesName, defenderPlayer, pokemon.moves).value - statusPosition.value;
+            }
+            value += branch.weight * (delta + effectPPRemovalValue(session, ppBefore, defender, attacker));
+          }
+          values.push(value);
+        }
+        score += action.weight * orderWeight * values.reduce((sum, value) => sum + value, 0) / values.length;
+      }
+    }
+    return score;
+  } finally { calc.sample = sample; restoreEffectSession(session, snapshot); }
+}
+
+function restoreEffectSession(session, snapshot) {
+  [session.attacker, session.defender].forEach((mon, index) => Object.assign(mon, snapshot[index]));
+}
+
+function effectProjectionMoves(pokemon, speciesName, player = null, ownMoveIds = null) {
+  let ids = ownMoveIds || pokemon?.moves;
+  if (!ids && player) {
+    const revealed = getRevealedMoves(player, speciesName);
+    ids = [...revealed];
+    if (revealed.length < 4) ids.push(...predictOpponentSets(player, speciesName).flatMap((set) => set.moves || []));
+  }
+  if (!ids || !ids.length) ids = getLearnedDamagingMoveIds(speciesName);
+  const candidates = [...new Set(ids)].map((id) => battleDex.moves.get(id)).filter((move) => isMoveAllowed(move) && isDamagingMove(move));
+  // 技が不明な場合も物理・特殊を両方残す。実際の4技が分かっていればその4技だけを使う。
+  if (!ownMoveIds && !pokemon?.moves && !player) {
+    return ['Physical', 'Special'].flatMap((category) => candidates.filter((move) => move.category === category)
+      .sort((a, b) => b.basePower - a.basePower).slice(0, 3));
+  }
+  return candidates;
+}
+
+function projectedEffectDamage(session, source, target, move) {
+  const snapshot = snapshotEffectSession(session);
+  try {
+    const { calc } = session;
+    if (source.getMoveData(move.id)?.pp === 0) return 0;
+    if (source.volatiles.disable?.move === move.id) return 0;
+    if (source.volatiles.encore?.move && source.volatiles.encore.move !== move.id && move.id !== 'struggle') return 0;
+    if (source.volatiles.choicelock?.move && source.volatiles.choicelock.move !== move.id && source.getItem().isChoice && !source.ignoringItem() && move.id !== 'struggle') return 0;
+    if (source.volatiles.torment && source.lastMove?.id === move.id) return 0;
+    if (target.volatiles.imprison && target.hasMove(move.id) && move.id !== 'struggle') return 0;
+    const prepared = prepareDamageMove(calc, source, target, move);
+    if (!prepared) return 0;
+    if (!calc.actions.hitStepTryHitEvent([target], source, prepared)[0] ||
+        !calc.actions.hitStepTypeImmunity([target], source, prepared)[0] ||
+        !calc.actions.hitStepTryImmunity([target], source, prepared)[0]) return 0;
+    const accuracy = readMoveHitChance(calc, source, target, prepared);
+    const critChance = readCritChance(calc, source, target, prepared);
+    prepared.willCrit = false;
+    calc.random = (n = 2) => n === 16 ? 7 : 0;
+    const normalMove = { ...prepared, allies: prepared.allies?.slice() };
+    const normal = Number(calc.actions.getDamage(source, target, normalMove, true)) || 0;
+    prepared.willCrit = true;
+    const criticalMove = { ...prepared, allies: prepared.allies?.slice() };
+    const critical = critChance ? Number(calc.actions.getDamage(source, target, criticalMove, true)) || 0 : normal;
+    const damage = normal * (1 - critChance) + critical * critChance;
+    const hits = hitBounds(prepared, source).expected;
+    return Math.min(target.hp, Math.max(0, Number(damage) || 0) * hits) / target.maxhp * 100 * accuracy;
+  } finally { restoreEffectSession(session, snapshot); }
+}
+
+function projectedEffectPosition(session, pokemon, opponentSpeciesName, defenderPlayer, ownMoveIds = null) {
+  const { attacker, defender, calc } = session;
+  const own = attacker.moveSlots.length && attacker.moveSlots.every((slot) => !slot.pp) ? [battleDex.moves.get('struggle')] : effectProjectionMoves(pokemon, getPokemonSpeciesName(pokemon), null, ownMoveIds);
+  const foe = defender.moveSlots.length && defender.moveSlots.every((slot) => !slot.pp) ? [battleDex.moves.get('struggle')] : effectProjectionMoves(null, opponentSpeciesName, defenderPlayer, session.effectAssumption?.moves);
+  const best = (source, target, list) => list.map((move) => ({ move, damage: projectedEffectDamage(session, source, target, move) }))
+    .sort((a, b) => b.damage - a.damage)[0] || { move: battleDex.moves.get('tackle'), damage: 0 };
+  const outgoing = best(attacker, defender, own);
+  const incoming = best(defender, attacker, foe);
+  if (!ownMoveIds && !pokemon.moves) {
+    const categories = ['Physical', 'Special'].filter((category) => own.some((move) => move.category === category));
+    if (categories.length) outgoing.damage = categories.reduce((sum, category) =>
+      sum + best(attacker, defender, own.filter((move) => move.category === category)).damage, 0) / categories.length;
+  }
+  const priority = (mon, target, move) => {
+    calc.setActiveMove(move, mon, target);
+    return calc.runEvent('ModifyPriority', mon, target, move, move.priority);
+  };
+  const priorityDelta = priority(attacker, defender, outgoing.move) - priority(defender, attacker, incoming.move);
+  const speedDelta = attacker.getActionSpeed() - defender.getActionSpeed();
+  const order = priorityDelta ? Math.sign(priorityDelta) : Math.sign(speedDelta);
+  // 先手の価値は、その対面で実際に攻撃できる量に応じる。同速は中間。
+  const orderValue = order * Math.min(15, Math.max(outgoing.damage, incoming.damage) / 4);
+  return { outgoing: outgoing.damage, incoming: incoming.damage, outgoingMove: outgoing.move.id, incomingMove: incoming.move.id,
+    order, value: outgoing.damage - incoming.damage + orderValue };
+}
+
+const STATE_EFFECT_MOVES = new Set([
+  'psychup', 'haze', 'clearsmog', 'heartswap', 'powerswap', 'guardswap', 'speedswap',
+  'powertrick', 'powersplit', 'guardsplit', 'topsyturvy', 'spectralthief',
+  'defog', 'rapidspin', 'mortalspin', 'tidyup', 'courtchange', 'strengthsap',
+  'soak', 'magicpowder', 'reflecttype', 'conversion', 'conversion2', 'camouflage',
+  'simplebeam', 'worryseed', 'entrainment', 'skillswap', 'roleplay', 'gastroacid',
+  'bellydrum', 'stockpile', 'stuffcheeks', 'acupressure', 'focusenergy', 'laserfocus', 'magnetrise',
+  'confuseray', 'sweetkiss', 'teeterdance', 'meanlook', 'block', 'octolock',
+  'trickortreat', 'forestscurse', 'gravity', 'magicroom', 'wonderroom',
+  'aquaring', 'ingrain', 'wish', 'healbell', 'aromatherapy', 'refresh', 'purify',
+  'corrosivegas', 'thief', 'covet', 'pluck', 'bugbite', 'stoneaxe', 'ceaselessedge',
+  'icespinner', 'steelroller', 'burnup', 'doubleshock', 'sparklingaria',
+  'transform', 'spite', 'lockon', 'safeguard', 'swallow', 'torment', 'recycle', 'imprison',
+  'healingwish', 'electrify', 'fairylock', 'magneticflux', 'teatime', 'instruct', 'healpulse',
+  'wideguard', 'quickguard', 'jawlock', 'fellstinger',
+  'trick', 'switcheroo',
+]);
+
+function moveEffectEvaluationKind(move, pokemon = null) {
+  if (!isMoveAllowed(move)) return 'シングルの利用制限で登録・選択対象外';
+  if (move.category === 'Status' && move.status && targetsOpponent(move)) return '状態異常後の火力・速度・行動可能性・継続効果を比較';
+  if (['taunt', 'leechseed', 'yawn'].includes(move.id)) return '公開された既存状態を復元し実際の成功・即時解除を評価';
+  if (['sandstorm', 'snowscape', 'hail'].includes(move.id)) return '天候前後の対面・継続効果と自分の控えを比較';
+  if (move.stallingMove) return '連続成功率・防げる被害・接触時の効果を評価';
+  if (['encore', 'disable'].includes(move.id)) return '直前技・PP・行動順から成功と制限の利益を評価';
+  if (move.id === 'tailwind') return '使用後の速度・優先度・トリックルームを比較';
+  if (move.id === 'copycat') return '公開された直前の技を呼び出して評価';
+  if (hasProjectedStateEffect(move, pokemon)) return '効果前後の対面を比較';
+  if (['pollenpuff', 'shellsidearm'].includes(move.id)) return 'シングルの対象・分類変化をエンジンで計算';
+  return null;
+}
+
+function hasHandledAdditionalEffect(move) {
+  return ['fellstinger', 'pollenpuff', 'jawlock', 'shellsidearm', 'burningjealousy', 'eeriespell', 'alluringvoice'].includes(move.id);
+}
+
+function shellSideArmContactChance(pokemon, opponentSpeciesName, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer) {
+  let chance = 0;
+  for (const stat of ['def', 'spd']) {
+    for (const endpoint of ['min', 'max']) {
+      for (const physicalTie of [false, true]) {
+        const assumed = rangedCombatant(battleDex.species.get(opponentSpeciesName), stat, endpoint, foeBoosts, defenderPlayer);
+        const session = createPublicMoveSession(pokemon, opponentSpeciesName, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, endpoint, assumed);
+        try {
+          session.calc.randomChance = (n, d) => d === 2 ? physicalTie : n >= d;
+          const prepared = prepareDamageMove(session.calc, session.attacker, session.defender, battleDex.moves.get('shellsidearm'));
+          if (prepared.flags.contact) chance += 1 / 8;
+        } finally { session.calc.destroy(); }
+      }
+    }
+  }
+  return chance;
+}
+
+function hasProjectedStateEffect(move, pokemon = null) {
+  return !!(move.boosts || move.self?.boosts || move.selfSwitch || move.forceSwitch || STATE_EFFECT_MOVES.has(move.id) ||
+    (move.id === 'curse' && pokemon && !battleDex.species.get(getPokemonSpeciesName(pokemon)).types.includes('Ghost')));
+}
+
+function applyEffectPublicField(session, attackerPlayer, defenderPlayer) {
+  const ids = { stealthRock: 'stealthrock', spikes: 'spikes', toxicSpikes: 'toxicspikes', stickyWeb: 'stickyweb',
+    reflect: 'reflect', lightScreen: 'lightscreen', auroraVeil: 'auroraveil', tailwind: 'tailwind', safeguard: 'safeguard', mist: 'mist' };
+  for (const [mon, player] of [[session.attacker, attackerPlayer], [session.defender, defenderPlayer]]) {
+    if (!player) continue;
+    for (const [key, id] of Object.entries(ids)) {
+      mon.side.removeSideCondition(id);
+      const value = fieldState.sides[player]?.[key];
+      if (!value) continue;
+      mon.side.addSideCondition(id, session.attacker);
+      if (typeof value === 'number' && mon.side.sideConditions[id]) mon.side.sideConditions[id].layers = value;
+    }
+  }
+  if (fieldState.trickRoom) session.calc.field.addPseudoWeather('trickroom', session.attacker);
+  if (fieldState.fairyLockUntil != null && fieldState.fairyLockUntil >= speedLearningState.turn) session.calc.field.addPseudoWeather('fairylock', session.attacker);
+}
+
+function effectHazardBurden(side, pokemon) {
+  if (!pokemon || pokemon.hasItem('heavydutyboots') || pokemon.hasAbility('magicguard')) return 0;
+  const conditions = side.sideConditions;
+  let value = conditions.stealthrock ? 12.5 * getTypeMultiplier('Rock', pokemon.getTypes()) : 0;
+  if (pokemon.isGrounded()) {
+    if (conditions.spikes) value += [0, 12.5, 100 / 6, 25][conditions.spikes.layers || 1];
+    if (conditions.toxicspikes && !pokemon.hasType('Poison') && !pokemon.hasType('Steel') && !pokemon.status) value += 12;
+    if (conditions.stickyweb) value += 10;
+  }
+  return value;
+}
+
+function effectOwnHazardBurden(side, active, bench) {
+  const values = [effectHazardBurden(side, active)];
+  for (const pokemon of bench) {
+    const species = battleDex.species.get(getPokemonSpeciesName(pokemon));
+    const ability = normalizeBattleEffect(pokemon.ability);
+    const item = normalizeBattleEffect(pokemon.item);
+    values.push(effectHazardBurden(side, {
+      status: parseCondition(pokemon.condition).status,
+      hasItem: (id) => item === id, hasAbility: (id) => ability === id,
+      hasType: (type) => species.types.includes(type), getTypes: () => species.types,
+      isGrounded: () => isPokemonGrounded(pokemon),
+    }));
+  }
+  return values.reduce((sum, value) => sum + value, 0) / values.length;
+}
+
+function projectedStatusThreat(session, pokemon, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, speciesName) {
+  const { calc, attacker, defender } = session;
+  let score = 0;
+  for (const action of publicEffectResponses(battleDex.moves.get('safeguard'), pokemon, ownBoosts, foeBoosts, attackerPlayer, defenderPlayer, speciesName, session.effectAssumption)) {
+    if (!action.move || action.unable) continue;
+    const snapshot = snapshotEffectSession(session);
+    try {
+      const prepared = prepareDamageMove(calc, defender, attacker, action.move);
+      if (!calc.actions.hitStepTryHitEvent([attacker], defender, prepared)[0] || !calc.actions.hitStepTryImmunity([attacker], defender, prepared)[0] || calc.runEvent('TryPrimaryHit', attacker, defender, prepared) !== true) continue;
+      const accuracy = readMoveHitChance(calc, defender, attacker, prepared);
+      const effects = action.move.category === 'Status'
+        ? [{ chance: 100, status: prepared.status, volatileStatus: prepared.volatileStatus }]
+        : calc.runEvent('ModifySecondaries', attacker, defender, prepared, prepared.secondaries || (prepared.secondary ? [prepared.secondary] : []));
+      for (const effect of effects || []) {
+        const before = effectConditionValue(attacker);
+        if (effect.status) attacker.trySetStatus(effect.status, defender, prepared);
+        if (effect.volatileStatus) attacker.addVolatile(effect.volatileStatus, defender, prepared);
+        if (effect.onHit) calc.singleEvent('Hit', effect, {}, attacker, defender, prepared);
+        score += action.weight * accuracy * Math.min(100, effect.chance ?? 100) / 100 * Math.max(0, effectConditionValue(attacker) - before);
+        restoreEffectSession(session, snapshotEffectCopy(snapshot));
+      }
+    } finally { restoreEffectSession(session, snapshot); }
+  }
+  return score;
+}
+
+function projectedTrapValue(session, pokemon, speciesName, ownMoves, ownBench, foeBench, attackerPlayer, defenderPlayer, position) {
+  const { calc, attacker, defender } = session;
+  calc.runEvent('TrapPokemon', attacker);
+  calc.runEvent('TrapPokemon', defender);
+  let score = 0;
+  if (attacker.trapped && ownBench.length) {
+    const values = ownBench.map((bench) => {
+      const next = createPublicMoveSession(bench, speciesName, {}, defender.boosts, attackerPlayer, defenderPlayer);
+      try { applyEffectPublicField(next, attackerPlayer, defenderPlayer); return projectedEffectPosition(next, bench, speciesName, defenderPlayer, bench.moves).value - effectHazardBurden(next.attacker.side, next.attacker); }
+      finally { next.calc.destroy(); }
+    });
+    score -= Math.max(0, Math.max(...values) - position.value);
+  }
+  if (defender.trapped && foeBench.length) {
+    const values = foeBench.map((name) => {
+      const next = createPublicMoveSession(pokemon, name, attacker.boosts, {}, attackerPlayer, defenderPlayer);
+      try { applyEffectPublicField(next, attackerPlayer, defenderPlayer); return projectedEffectPosition(next, pokemon, name, defenderPlayer, ownMoves).value + effectHazardBurden(next.defender.side, next.defender); }
+      finally { next.calc.destroy(); }
+    });
+    score += Math.max(0, position.value - Math.min(...values));
+  }
+  return score;
+}
+
+function projectedItemSupport(session, mon, position, own) {
+  if (mon.ignoringItem()) return 0;
+  const snapshot = snapshotEffectSession(session);
+  const incoming = own ? position.incoming : position.outgoing;
+  try {
+    // 次の一撃後の回復・きのみ・状態付与をエンジンに問い合わせる。
+    mon.hp = Math.max(1, mon.hp - Math.floor(mon.maxhp * incoming / 100));
+    const hp = mon.hp;
+    const condition = effectConditionValue(mon);
+    session.calc.singleEvent('Residual', mon.getItem(), mon.itemState, mon);
+    session.calc.runEvent('Update', mon);
+    let score = (mon.hp - hp) / mon.maxhp * 80 + condition - effectConditionValue(mon);
+    if (mon.getItem().isChoice || mon.hasItem('assaultvest')) {
+      const lostOptions = mon.moveSlots.filter((slot) => slot.pp > 0).map((slot) => session.calc.dex.moves.get(slot.id)).filter((move) => move.category === 'Status').map((move) => {
+        if (move.heal || move.id === 'rest') return Math.min(50, (mon.maxhp - hp) / mon.maxhp * 100) * 0.8;
+        if (move.boosts) return Object.entries(move.boosts).some(([stat, amount]) => amount > 0 && mon.boosts[stat] < 6) ? Math.min(30, incoming) : 0;
+        if (move.status) return Math.min(30, incoming);
+        return 0;
+      });
+      if (lostOptions.length) score -= Math.max(...lostOptions) / Math.max(1, mon.moveSlots.length);
+    }
+    return score;
+  } finally { restoreEffectSession(session, snapshot); }
+}
+
+function evaluateProjectedStateEffect(move, pokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, sampleIndex = null, damageRoll = 7, hpEndpoint = 'max', forceCrit = false, defenderAssumption = null) {
+  const session = createPublicMoveSession(pokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, hpEndpoint, defenderAssumption);
+  try {
+    const { calc, attacker, defender } = session;
+    applyEffectPublicField(session, attackerPlayer, defenderPlayer);
+    seedPublicEffectState(session, pokemon, attackerPlayer, defenderPlayer, request);
+    const ownMoves = request?.active?.[0]?.moves?.map((entry) => entry.id) || pokemon.moves;
+    const ownBench = (request?.side?.pokemon || []).filter((mon) => !mon.active && !mon.condition.includes('fnt'));
+    const foeBench = benchSpeciesNames(defenderPlayer);
+    attacker.side.pokemonLeft = 1 + ownBench.length;
+    defender.side.pokemonLeft = 1 + foeBench.length;
+    if (move.id === 'healingwish' && !ownBench.length) return { score: -100, reason: 'いやしのねがいで交代できる控えがいない' };
+    calc.canSwitch = (side) => side === attacker.side ? ownBench.length : foeBench.length;
+    const before = projectedEffectPosition(session, pokemon, opponentSpeciesName, defenderPlayer, ownMoves);
+    const itemBefore = ['trick', 'switcheroo'].includes(move.id) ? projectedItemSupport(session, attacker, before, true) - projectedItemSupport(session, defender, before, false) : 0;
+    const statusThreatBefore = move.id === 'safeguard' ? projectedStatusThreat(session, pokemon, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName) : 0;
+    const trapBefore = ['jawlock', 'fairylock'].includes(move.id) ? projectedTrapValue(session, pokemon, opponentSpeciesName, ownMoves, ownBench, foeBench, attackerPlayer, defenderPlayer, before) : 0;
+    const ownHazards = effectOwnHazardBurden(attacker.side, attacker, ownBench);
+    const foeHazards = effectHazardBurden(defender.side, defender);
+    const hpBefore = attacker.hp;
+    const foeHpBefore = defender.hp;
+    const conditionsBefore = effectConditionValue(defender) - effectConditionValue(attacker);
+    const ownVolatilesBefore = new Set(Object.keys(attacker.volatiles));
+    const transformedBefore = attacker.transformed;
+    const ppBefore = defender.moveSlots.map((slot) => ({ ...slot }));
+    const pending = publicEffectResponses(move, pokemon, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName, defenderAssumption).find((action) => action.move && action.actionChance);
+    if (['wideguard', 'quickguard', 'electrify', 'instruct'].includes(move.id) && pending) {
+      calc.queue.push({ choice: 'move', pokemon: defender, move: calc.dex.getActiveMove(pending.move), targetLoc: defender.getLocOf(attacker) });
+    }
+    // 条件付き成功時を一度実行し、命中率は呼び出し側で一度だけ掛ける。
+    calc.randomChance = (n, d) => d === 100 || n >= d;
+    calc.random = (n = 2) => n === 16 ? damageRoll : n === 100 ? 99 : 0;
+    const prepared = calc.dex.getActiveMove(move);
+    prepared.accuracy = true;
+    prepared.willCrit = forceCrit;
+    prepared.secondary = move.id === 'sparklingaria' ? prepared.secondary : null;
+    prepared.secondaries = move.id === 'sparklingaria' ? prepared.secondaries : [];
+    let sampleChoices = 1;
+    calc.sample = (values) => { sampleChoices = Math.max(sampleChoices, values.length); return values[(sampleIndex || 0) % values.length]; };
+    const target = ['self', 'adjacentAllyOrSelf', 'allyTeam', 'allySide'].includes(move.target) ? attacker : defender;
+    calc.setActiveMove(prepared, attacker, target);
+    const acted = calc.actions.useMove(prepared, attacker, { target });
+    if (move.id === 'instruct' && calc.queue.list.length > 1 && defender.lastMove) {
+      const repeated = calc.dex.getActiveMove(defender.lastMove);
+      defender.deductPP(repeated.id, 1);
+      const repeatedTarget = ['self', 'allySide', 'allyTeam'].includes(repeated.target) ? defender : attacker;
+      calc.setActiveMove(repeated, defender, repeatedTarget);
+      calc.actions.useMove(repeated, defender, { target: repeatedTarget });
+    }
+    if (move.id === 'sparklingaria' && calc.activeMove) calc.singleEvent('AfterMove', calc.activeMove, null, attacker, defender, calc.activeMove);
+    if (['recycle', 'teatime'].includes(move.id)) {
+      calc.runEvent('Update', attacker);
+      calc.runEvent('Update', defender);
+    }
+    const healing = move.category === 'Status' ? (attacker.hp - hpBefore) / attacker.maxhp * 100 * 0.8 : 0;
+    const sacrificed = attacker.hp <= 0;
+    const knockedOut = defender.hp <= 0;
+    const opponentHpValue = move.category === 'Status' ? (foeHpBefore - defender.hp) / defender.maxhp * 100 * 0.8 : 0;
+    // 主ダメージ・吸収・反動は既存の計算に含まれるため、将来の対面比較ではHPを揃える。
+    attacker.hp = hpBefore;
+    defender.hp = foeHpBefore;
+    const afterMoves = move.id === 'transform' && attacker.transformed ? attacker.moveSlots.map((slot) => slot.id) : ownMoves;
+    const after = projectedEffectPosition(session, pokemon, opponentSpeciesName, defenderPlayer, afterMoves);
+    let score = after.value - before.value + healing + opponentHpValue + ownHazards - effectOwnHazardBurden(attacker.side, attacker, ownBench)
+      - foeHazards + effectHazardBurden(defender.side, defender);
+    score += effectConditionValue(defender) - effectConditionValue(attacker) - conditionsBefore;
+    if (['trick', 'switcheroo'].includes(move.id)) score += projectedItemSupport(session, attacker, after, true) - projectedItemSupport(session, defender, after, false) - itemBefore;
+    if (move.id === 'spite') score += effectPPRemovalValue(session, ppBefore, defender, attacker);
+    if (move.id === 'safeguard') score += 2 * (statusThreatBefore - projectedStatusThreat(session, pokemon, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName));
+    if (['jawlock', 'fairylock'].includes(move.id)) score += projectedTrapValue(session, pokemon, opponentSpeciesName, afterMoves, ownBench, foeBench, attackerPlayer, defenderPlayer, after) - trapBefore;
+    if (['electrify', 'wideguard', 'quickguard'].includes(move.id)) {
+      const responses = publicEffectResponses(move, pokemon, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName, defenderAssumption);
+      const beforeChance = responses.reduce((sum, action) => sum + action.weight * action.actionChance * (1 - action.beforeOrder), 0);
+      score *= beforeChance;
+    }
+    // 遅延回復は、今の不足HPを上限に一回分を評価する。
+    for (const id of ['aquaring', 'ingrain']) {
+      if (attacker.volatiles[id] && !ownVolatilesBefore.has(id)) score += Math.min(100 / 16, (attacker.maxhp - hpBefore) / attacker.maxhp * 100) * 0.8;
+    }
+    if (attacker.side.slotConditions?.[attacker.position]?.wish) score += Math.min(50, (attacker.maxhp - hpBefore) / attacker.maxhp * 100) * 0.8;
+    const notes = ['能力・対面の変化'];
+    if (move.id === 'fellstinger' && knockedOut && foeBench.length) {
+      const deltas = foeBench.map((name) => {
+        const next = createPublicMoveSession(pokemon, name, attacker.boosts, {}, attackerPlayer, defenderPlayer);
+        const prior = createPublicMoveSession(pokemon, name, ownBoosts, {}, attackerPlayer, defenderPlayer);
+        try {
+          applyEffectPublicField(next, attackerPlayer, defenderPlayer);
+          applyEffectPublicField(prior, attackerPlayer, defenderPlayer);
+          return projectedEffectPosition(next, pokemon, name, defenderPlayer, ownMoves).value - projectedEffectPosition(prior, pokemon, name, defenderPlayer, ownMoves).value;
+        } finally { next.calc.destroy(); prior.calc.destroy(); }
+      });
+      score += deltas.reduce((sum, value) => sum + value, 0) / deltas.length;
+      notes.push('KO後の相手の控えに対する攻撃上昇');
+    }
+    if (move.id === 'spite') notes.push('PP減少（公開履歴から残量推定）');
+    if (['wideguard', 'quickguard'].includes(move.id)) notes.push('対応する攻撃を防ぐ');
+    if (move.id === 'electrify') notes.push('先に動ける場合だけ相手の技を電気に変える');
+    if (move.id === 'recycle') notes.push('公開された消費アイテムを回収');
+    if (move.id === 'swallow') notes.push('たくわえた回数で回復し能力上昇を解除');
+    if (move.id === 'transform') notes.push('公開技と構成候補から変身後を推定');
+    if (['trick', 'switcheroo'].includes(move.id)) notes.push('持ち物交換後の火力・速度・回復・技の制約を比較');
+    if (move.id === 'recycle' && !pokemon.item && attacker.hasItem('leftovers')) {
+      score += Math.min(100 / 16, (attacker.maxhp - hpBefore) / attacker.maxhp * 100 + after.incoming) * 0.8;
+    }
+    if (Math.abs(ownHazards - effectOwnHazardBurden(attacker.side, attacker, ownBench)) > 0.01 ||
+        Math.abs(foeHazards - effectHazardBurden(defender.side, defender)) > 0.01) notes.push('設置技の増減');
+    if (attacker.switchFlag && ownBench.length) {
+      const positions = ownBench.map((bench) => {
+        const next = createPublicMoveSession(bench, opponentSpeciesName, move.id === 'batonpass' ? attacker.boosts : {}, defender.boosts, attackerPlayer, defenderPlayer);
+        try {
+          applyEffectPublicField(next, attackerPlayer, defenderPlayer);
+          return projectedEffectPosition(next, bench, opponentSpeciesName, defenderPlayer, bench.moves).value - effectHazardBurden(next.attacker.side, next.attacker);
+        } finally { next.calc.destroy(); }
+      });
+      score += Math.max(...positions) - after.value;
+      notes.push('控えへの交代');
+    }
+    if (defender.forceSwitchFlag && foeBench.length) {
+      // 控えの技・HPは公開情報だけから予測し、交代後の対面を平均する。
+      const values = foeBench.map((name) => {
+        const next = createPublicMoveSession(pokemon, name, attacker.boosts, {}, attackerPlayer, defenderPlayer);
+        try {
+          applyEffectPublicField(next, attackerPlayer, defenderPlayer);
+          return projectedEffectPosition(next, pokemon, name, defenderPlayer, ownMoves).value + effectHazardBurden(next.defender.side, next.defender);
+        } finally { next.calc.destroy(); }
+      });
+      score += values.reduce((sum, value) => sum + value, 0) / values.length - after.value;
+      notes.push('相手を交代させる');
+    }
+    if (['healbell', 'aromatherapy'].includes(move.id)) {
+      for (const bench of ownBench) {
+        if (!parseCondition(bench.condition).status || (move.id === 'healbell' && ['soundproof', 'goodasgold'].includes(normalizeBattleEffect(bench.ability)))) continue;
+        const next = createPublicMoveSession(bench, opponentSpeciesName, {}, opponentBoosts, attackerPlayer, defenderPlayer);
+        try {
+          const old = effectConditionValue(next.attacker);
+          const position = projectedEffectPosition(next, bench, opponentSpeciesName, defenderPlayer, bench.moves);
+          if (next.attacker.cureStatus()) score += 0.5 * (old + projectedEffectPosition(next, bench, opponentSpeciesName, defenderPlayer, bench.moves).value - position.value);
+        } finally { next.calc.destroy(); }
+      }
+      notes.push('控えの状態異常治癒');
+    }
+    if (move.id === 'healingwish' && hpBefore > 0 && sacrificed) {
+      const outcomes = ownBench.map((bench) => {
+        const next = createPublicMoveSession(bench, opponentSpeciesName, {}, opponentBoosts, attackerPlayer, defenderPlayer);
+        try {
+          applyEffectPublicField(next, attackerPlayer, defenderPlayer);
+          const hp = next.attacker.hp;
+          const statusValue = effectConditionValue(next.attacker);
+          next.attacker.side.addSlotCondition(next.attacker, 'healingwish', next.attacker, move);
+          const state = next.attacker.side.slotConditions[next.attacker.position].healingwish;
+          next.calc.singleEvent('Swap', next.calc.dex.conditions.get('healingwish'), state, next.attacker);
+          return projectedEffectPosition(next, bench, opponentSpeciesName, defenderPlayer, bench.moves).value - before.value
+            + (next.attacker.hp - hp) / next.attacker.maxhp * 80 + statusValue - effectConditionValue(next.attacker) - effectHazardBurden(next.attacker.side, next.attacker);
+        } finally { next.calc.destroy(); }
+      });
+      score += Math.max(...outcomes);
+      notes.push('本人の犠牲と控えの回復・治癒・対面を比較');
+    }
+    if (sampleChoices > 1 && sampleIndex === null) {
+      const outcomes = [score];
+      for (let index = 1; index < sampleChoices; index++) outcomes.push(evaluateProjectedStateEffect(move, pokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, index, damageRoll, hpEndpoint, forceCrit, defenderAssumption).score);
+      return { score: outcomes.reduce((sum, value) => sum + value, 0) / outcomes.length, reason: `${notes.join(' ')} / ランダム効果${sampleChoices}候補の平均`, outcomes };
+    }
+    const failed = move.id === 'transform' ? !attacker.transformed || transformedBefore
+      : !acted && ['spite', 'lockon', 'swallow', 'recycle', 'magneticflux', 'healpulse', 'instruct', 'teatime', 'trick', 'switcheroo'].includes(move.id);
+    if (failed) score = -100;
+    return { score, reason: `${notes.join(' ')}${!acted ? ' / 効果が失敗または変化なし' : ''}`, before, after, ownBoosts: { ...attacker.boosts }, opponentBoosts: { ...defender.boosts }, switched: !!attacker.switchFlag, forcedSwitch: !!defender.forceSwitchFlag, acted: !!acted, failed, ownItem: attacker.item, ownStatus: attacker.status, opponentStatus: defender.status, ownMoves: afterMoves };
+  } finally { session.calc.destroy(); }
+}
+
+function statusMoveFailReason(session, move) {
+  const { calc, attacker, defender } = session;
+  const prepared = prepareDamageMove(calc, attacker, defender, move);
+  if (move.target === 'foeSide') {
+    return calc.runEvent('TryHitSide', defender, attacker, prepared) ? null : '相手側への変化技が無効・反射';
+  }
+  if (!calc.actions.hitStepTryHitEvent([defender], attacker, prepared)[0]) return '特性などで無効・反射';
+  if (!calc.actions.hitStepTypeImmunity([defender], attacker, prepared)[0] ||
+      !calc.actions.hitStepTryImmunity([defender], attacker, prepared)[0]) return 'タイプなどで無効';
+  if (calc.runEvent('TryPrimaryHit', defender, attacker, prepared) !== true) return 'みがわりに防がれる';
+  if (prepared.status && !defender.setStatus(prepared.status, attacker, prepared)) return '状態異常が無効';
+  return null;
+}
+
+function evaluateHealingMove(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer) {
+  const session = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer);
+  try {
+    const before = session.attacker.hp;
+    session.calc.actions.useMove(move.id, session.attacker, session.attacker);
+    const restored = (session.attacker.hp - before) / session.attacker.maxhp * 100;
+    return restored > 0
+      ? { score: restored * 0.8, minDamagePercent: 0, maxDamagePercent: 0, reason: `回復${restored.toFixed(0)}%` }
+      : { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: '満タンなどで回復できない' };
+  } finally { session.calc.destroy(); }
+}
+
+function evaluatePainSplit(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer) {
+  const outcomes = ['min', 'max'].map((endpoint) => {
+    const session = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, endpoint);
+    try {
+      const ownBefore = session.attacker.hp;
+      const foeBefore = session.defender.hp;
+      session.calc.randomChance = () => true;
+      session.calc.actions.useMove('painsplit', session.attacker, session.defender);
+      return {
+        gained: (session.attacker.hp - ownBefore) / session.attacker.maxhp * 100,
+        removed: (foeBefore - session.defender.hp) / session.defender.maxhp * 100,
+      };
+    } finally { session.calc.destroy(); }
+  });
+  const gained = outcomes.reduce((sum, outcome) => sum + outcome.gained, 0) / outcomes.length;
+  const removed = outcomes.reduce((sum, outcome) => sum + outcome.removed, 0) / outcomes.length;
+  const range = (key) => outcomes.map((outcome) => outcome[key]).sort((a, b) => a - b);
+  const ownRange = range('gained');
+  const foeRange = range('removed');
+  return {
+    score: gained * 0.8 + removed * 0.6,
+    reason: `いたみわけ 自分HP${ownRange.map((value) => `${value >= 0 ? '+' : ''}${value.toFixed(0)}%`).join('～')} / 相手を削る${foeRange.map((value) => `${value.toFixed(0)}%`).join('～')}`,
+    ownHpChangePercent: gained,
+    opponentHpRemovedPercent: removed,
+  };
+}
+
+function predictYawnSleepChance(player, pokemon = null) {
+  const state = battleState[player];
+  if (!state?.volatiles.yawn || (state.yawnDueTurn !== null && state.yawnDueTurn > speedLearningState.turn) || (pokemon ? parseCondition(pokemon.condition).status : state.status)) return 0;
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  const spec = pokemon ? knownCombatant(pokemon, state.boosts) : rangedCombatant(battleDex.species.get(state.species), 'def', 'max', state.boosts, player);
+  const profiles = pokemon ? [{ ability: spec.ability, item: spec.item, weight: 1 }] : predictOpponentSets(player, state.species);
+  let chance = 0;
+  for (const profile of profiles) {
+    const session = createDamageBattle({ ...spec, ability: profile.ability, item: profile.item }, rangedCombatant(battleDex.species.get(battleState[foe].species), 'def', 'max', battleState[foe].boosts, foe), foe);
+    try {
+      applyPublicCalcState(session.attacker, player, spec);
+      if (!session.attacker.trySetStatus('slp', session.defender)) continue;
+      session.calc.runEvent('Update', session.attacker);
+      if (session.attacker.status === 'slp') chance += profile.weight;
+    } finally { session.calc.destroy(); }
+  }
+  return Math.min(1, chance);
+}
+
+function evaluateYawnRisk(player, pokemon, move = null, hitChance = 1) {
+  if (!pokemon) return { penalty: 0, chance: 0 };
+  const sleepChance = predictYawnSleepChance(player, pokemon);
+  if (!sleepChance) return { penalty: 0, chance: 0 };
+  const escape = move?.selfSwitch ? Math.min(1, Math.max(0, hitChance)) : 0;
+  const moves = (pokemon.moves || []).map((id) => battleDex.moves.get(id)).filter((move) => isMoveAllowed(move));
+  const usableAsleep = moves.some((candidate) => candidate.id === 'snore' || (candidate.id === 'sleeptalk' && moves.some((called) => called.id !== 'sleeptalk' && !called.flags.nosleeptalk && !called.flags.charge)));
+  const lostActions = normalizeBattleEffect(pokemon.ability) === 'earlybird' ? 2 / 3 : 5 / 3;
+  const chance = sleepChance * (1 - escape);
+  return { chance, penalty: 40 * lostActions * chance * (usableAsleep ? 0.35 : 1), reason: chance ? 'あくびでターン終了後に眠る' : '交代技であくび回避' };
+}
+
+function effectProfileGroups(player, speciesName) {
+  const groups = new Map();
+  for (const profile of predictOpponentSets(player, speciesName)) {
+    const key = JSON.stringify([profile.ability, profile.item, profile.moves]);
+    const group = groups.get(key) || { ...profile, weight: 0 };
+    group.weight += profile.weight;
+    groups.set(key, group);
+  }
+  return [...groups.values()];
+}
+
+function averageEffectResults(outcomes, note) {
+  if (!outcomes.length) return { score: -100, failed: true, hitChance: 0, reason: '評価できる公開情報の候補がない' };
+  const total = outcomes.reduce((sum, row) => sum + row.weight, 0);
+  const failed = (result) => result.failed === true || (result.failed === undefined && result.score === -100 && !result.before);
+  const allFailed = outcomes.every((row) => failed(row.result));
+  const average = (key) => outcomes.reduce((sum, row) => sum + row.weight * (failed(row.result) ? 0 : row.result[key] ?? (key === 'hitChance' ? 1 : 0)), 0) / total;
+  const result = { ...outcomes.find((row) => !failed(row.result))?.result || outcomes[0].result,
+    score: allFailed ? -100 : average('score'), hitChance: average('hitChance'), failed: allFailed,
+    reason: [...new Set(outcomes.map((row) => row.result.reason).filter(Boolean)), note].filter(Boolean).join(' / ') };
+  for (const key of ['critChance', 'critFactor', 'yawnPenalty', 'opponentNextTurnSleepChance', 'successChance']) if (outcomes.some((row) => row.result[key] != null)) result[key] = average(key);
+  for (const key of ['minDamagePercent', 'maxDamagePercent', 'critMaxDamagePercent']) {
+    const values = outcomes.map((row) => failed(row.result) ? 0 : row.result[key] || 0);
+    result[key] = key === 'minDamagePercent' ? Math.min(...values) : Math.max(...values);
+  }
+  return result;
+}
+
+function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer = null, defenderPlayer = null, calledBySleepTalk = false, inferTraits = false, defenderAssumption = null) {
+  const move = battleDex.moves.get(moveRequest.id);
+  const activePokemon = request.side.pokemon.find((pokemon) => pokemon.active);
+  // 仮説ごとの効果とダメージを同じ盤面で評価。公開状態を仮説の値で上書きしない。
+  if (inferTraits && !defenderAssumption && activePokemon && isMoveAllowed(move) &&
+      (hasProjectedStateEffect(move, activePokemon) || move.secondary || move.secondaries?.length || move.status || move.stallingMove || ['encore', 'disable', 'tailwind', 'copycat', 'taunt', 'leechseed', 'yawn', 'sandstorm', 'snowscape', 'hail'].includes(move.id))) {
+    const profiles = effectProfileGroups(defenderPlayer, opponentSpeciesName);
+    if (profiles.length) return averageEffectResults(profiles.map((profile) => ({ weight: profile.weight,
+      result: evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, calledBySleepTalk, false, profile) })), '構成候補ごとの効果・損益を平均');
+  }
+  const result = evaluateMoveWhenAble(moveRequest, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, calledBySleepTalk, inferTraits, defenderAssumption);
+  if (result.score === -100 && result.failed === undefined) result.failed = true;
+  if (move.category === 'Status' && targetsOpponent(move) && activePokemon && !result.failed && (result.score >= 0 || result.failed === false || result.before || result.outcomes)) {
+    const session = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, 'max', defenderAssumption);
+    try {
+      const prepared = prepareDamageMove(session.calc, session.attacker, session.defender, move);
+      const chance = readMoveHitChance(session.calc, session.attacker, session.defender, prepared);
+      const baseChance = move.accuracy === true ? 1 : move.accuracy / 100;
+      result.score *= baseChance ? chance / baseChance : 0;
+      result.hitChance = chance * (result.successChance ?? 1);
+    } finally { session.calc.destroy(); }
+    if (inferTraits) {
+      const profiles = predictOpponentSets(defenderPlayer, opponentSpeciesName);
+      let allowed = 0;
+      for (const profile of profiles) {
+        const assumed = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, 'max', { ability: profile.ability, item: profile.item });
+        try { if (!statusMoveFailReason(assumed, move)) allowed += profile.weight; }
+        finally { assumed.calc.destroy(); }
+      }
+      allowed = Math.min(1, allowed);
+      result.score *= allowed;
+      result.hitChance *= allowed;
+      if (allowed < 1) result.reason = [result.reason, `構成候補の無効化を考慮${Math.round(allowed * 100)}%`].filter(Boolean).join(' / ');
+    }
+  }
+  const status = attackerPlayer ? battleState[attackerPlayer].status : null;
+  const selfThaw = status === 'frz' && move.flags.defrost;
+  const asleep = status === 'slp' && !move.sleepUsable;
+  const frozen = status === 'frz' && !selfThaw;
+  const paralyzed = status === 'par';
+  const chance = !calledBySleepTalk && (asleep || frozen || paralyzed) ? cantMoveFactor(status, attackerPlayer, activePokemon?.ability) : 1;
+  if (!result.failed && (result.score >= 0 || result.failed === false) && chance < 1) {
+    result.score = chance ? result.score * chance : 0;
+    result.minDamagePercent = 0;
+    if (chance === 0) {
+      result.maxDamagePercent = 0;
+      result.critMaxDamagePercent = 0;
+    }
+    result.hitChance = (result.hitChance ?? 1) * chance;
+  }
+  const reason = selfThaw ? '技でこおり解除' : !calledBySleepTalk && (asleep || frozen || paralyzed) ? `行動可能性${Math.round(chance * 100)}%` : null;
+  if (reason) result.reason = [result.reason, reason].filter(Boolean).join(' / ');
+  if (!calledBySleepTalk) {
+    const yawn = evaluateYawnRisk(attackerPlayer, activePokemon, move, result.score > 0 ? result.hitChance ?? 1 : 0);
+    result.score -= yawn.penalty;
+    result.yawnPenalty = yawn.penalty;
+    if (yawn.reason) result.reason = [result.reason, yawn.reason].filter(Boolean).join(' / ');
+    const foeSleepChance = predictYawnSleepChance(defenderPlayer);
+    result.opponentNextTurnSleepChance = foeSleepChance;
+    if (foeSleepChance && move.category === 'Status' && ['self', 'allySide'].includes(move.target) && result.score > 0) {
+      result.score += 12 * foeSleepChance;
+      result.reason = [result.reason, '相手のあくびによる睡眠を見越す'].filter(Boolean).join(' / ');
+    }
+  }
+  return result;
+}
+
+function evaluateMoveWhenAble(moveRequest, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer = null, defenderPlayer = null, calledBySleepTalk = false, inferTraits = false, defenderAssumption = null) {
   const move = battleDex.moves.get(moveRequest.id);
 
   const ownPokemon = battleDex.species.get(ownSpeciesName);
@@ -3769,16 +5115,7 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
 
   const ownStatus = attackerPlayer ? battleState[attackerPlayer].status : null;
 
-  if ((ownStatus === 'slp' || ownStatus === 'frz') && !move.sleepUsable) {
-    return {
-      score: -100,
-      minDamagePercent: 0,
-      maxDamagePercent: 0,
-      reason: ownStatus === 'slp' ? 'ねむっていて動けない' : 'こおっていて動けない',
-    };
-  }
-
-  const lockedMove = attackerPlayer ? choiceLockedMove(attackerPlayer) : null;
+  const lockedMove = attackerPlayer && !calledBySleepTalk ? choiceLockedMove(attackerPlayer) : null;
 
   if (lockedMove && lockedMove !== move.id) {
     return {
@@ -3790,6 +5127,53 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
   }
 
   const ownAbility = normalizeBattleEffect(activePokemon.ability) || (attackerPlayer ? battleState[attackerPlayer]?.ability : null);
+
+  if (!isMoveAllowed(move)) return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: moveRestriction(move) };
+  if (move.id === 'copycat') {
+    const copied = battleDex.moves.get(publicEffectHistory.lastMove?.id);
+    if (!copied.exists || copied.flags.failcopycat || copied.isZ || copied.isMax || copied.id === 'copycat') {
+      return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: 'まねっこで呼べる直前の公開技がない' };
+    }
+    const value = evaluateMove({ id: copied.id }, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, true, inferTraits, defenderAssumption);
+    return { ...value, reason: `まねっこで${copied.name} / ${value.reason || '呼び出した効果を評価'}` };
+  }
+
+  if (['fakeout', 'firstimpression'].includes(move.id) && attackerPlayer && battleState[attackerPlayer].activeMoveActions > 0) {
+    return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: '登場直後の行動でしか使えない' };
+  }
+
+  if (move.id === 'rest') {
+    if (ownStatus === 'slp') return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: 'ねむっていてねむるは失敗' };
+    const session = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer);
+    try {
+      const before = session.attacker.hp;
+      session.calc.actions.useMove('rest', session.attacker, session.attacker);
+      const restored = (session.attacker.hp - before) / session.attacker.maxhp * 100;
+      if (restored <= 0) return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: 'ねむるが失敗する条件' };
+      const cureBonus = ['brn', 'psn', 'tox', 'par'].includes(ownStatus) ? 12 : 0;
+      return { score: restored * 0.8 + cureBonus - 12, minDamagePercent: 0, maxDamagePercent: 0, reason: `ねむる 回復${restored.toFixed(0)}% / ねむり2ターン` };
+    } finally { session.calc.destroy(); }
+  }
+
+  if (move.id === 'sleeptalk') {
+    if (ownStatus !== 'slp' && ownAbility !== 'comatose') return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: '起きているためねごとは失敗' };
+    const moveIds = activePokemon.moves || request.active?.[0]?.moves.map((entry) => entry.id) || [];
+    const calledMoves = moveIds.map((id) => battleDex.moves.get(id)).filter((called) => called.exists && isMoveAllowed(called) && !called.flags.nosleeptalk && !called.flags.charge && !called.isZ && !called.isMax);
+    if (!calledMoves.length) return { score: -100, minDamagePercent: 0, maxDamagePercent: 0, reason: 'ねごとで呼べる技がない' };
+    const outcomes = calledMoves.map((called) => evaluateMove({ id: called.id }, ownSpeciesName, opponentSpeciesName, opponentStatus, lastMoveId, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, true, inferTraits, defenderAssumption));
+    // 呼び出し失敗も等確率で含める。呼ばれる技を指定して確定KOとは扱わない。
+    const asleepChance = ownAbility === 'comatose' ? 1 : 1 - sleepWakeChance(attackerPlayer, ownAbility);
+    return { score: asleepChance ? outcomes.reduce((sum, outcome) => sum + (outcome.failed ? 0 : outcome.score), 0) / outcomes.length * asleepChance : 0,
+      failed: false, minDamagePercent: 0, maxDamagePercent: 0, reason: `ねごと ${calledMoves.map((called) => called.name).join('/')}の平均評価（成功時の不利益を含む） / 睡眠継続${Math.round(asleepChance * 100)}%` };
+  }
+
+  if (move.category === 'Status' && (targetsOpponent(move) || move.target === 'foeSide')) {
+    const session = createPublicMoveSession(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, 'max', defenderAssumption);
+    try {
+      const reason = statusMoveFailReason(session, move);
+      if (reason) return { score: -100, failed: true, minDamagePercent: 0, maxDamagePercent: 0, reason };
+    } finally { session.calc.destroy(); }
+  }
 
   if (ownAbility === 'prankster' && move.category === 'Status' && targetsOpponent(move) && opponentPokemon.types?.includes('Dark')) {
     return {
@@ -3814,11 +5198,24 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
   // ========================================
 
   if (move.category === 'Status') {
+    if (['encore', 'disable'].includes(move.id)) {
+      return evaluateControlMove(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, defenderAssumption);
+    }
+    if (['taunt', 'leechseed', 'yawn'].includes(move.id)) {
+      return { ...evaluatePersistentStatusMove(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, defenderAssumption), minDamagePercent: 0, maxDamagePercent: 0 };
+    }
+    if (move.status && targetsOpponent(move)) {
+      return { ...evaluateAilmentMove(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, defenderAssumption), minDamagePercent: 0, maxDamagePercent: 0 };
+    }
+    if (move.target === 'self' && (move.heal || ['synthesis', 'morningsun', 'moonlight', 'shoreup'].includes(move.id))) {
+      return evaluateHealingMove(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer);
+    }
     const fieldMoveRepeatReason = getFieldMoveRepeatReason(move.id, attackerPlayer);
 
     if (fieldMoveRepeatReason) {
       return {
         score: -100,
+        failed: true,
         minDamagePercent: 0,
         maxDamagePercent: 0,
         reason: fieldMoveRepeatReason,
@@ -3836,7 +5233,7 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
       };
     }
 
-    const fieldSetupEvaluation = evaluateFieldSetupMove(move, activePokemon, opponentPokemon, opponentBoosts, opponentStatus, attackerPlayer, defenderPlayer);
+    const fieldSetupEvaluation = evaluateFieldSetupMove(move, activePokemon, opponentPokemon, opponentBoosts, opponentStatus, attackerPlayer, defenderPlayer, ownBoosts, request, defenderAssumption);
 
     if (fieldSetupEvaluation) {
       return {
@@ -3868,90 +5265,17 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     }
 
     if (move.stallingMove) {
-      const previousMove = lastMoveId ? battleDex.moves.get(lastMoveId) : null;
-
-      if (previousMove?.stallingMove) {
-        return {
-          score: -50,
-          minDamagePercent: 0,
-          maxDamagePercent: 0,
-          reason: '前ターンもまもる系',
-        };
-      }
-
-      const protectEvaluation = evaluateProtectMove(activePokemon, attackerPlayer, opponentSpeciesName, opponentBoosts, ownBoosts, attackerPlayer ? battleState[attackerPlayer].status : null, opponentStatus);
+      const protectEvaluation = evaluateProtectMove(move, activePokemon, attackerPlayer, defenderPlayer, opponentSpeciesName, opponentBoosts, ownBoosts, request, defenderAssumption);
 
       if (protectEvaluation) {
         return protectEvaluation;
       }
     }
 
-    const selfBoosts = {
-      ...(move.target === 'self' && move.boosts ? move.boosts : {}),
-      ...(move.self?.boosts ?? {}),
-    };
-
-    const boostEntries = Object.entries(selfBoosts);
-
-    if (boostEntries.length > 0) {
-      let boostScore = 0;
-      let changed = false;
-
-      const weights = {
-        atk: 25,
-        spa: 25,
-        def: 10,
-        spd: 10,
-        spe: 12,
-      };
-
-      for (const [stat, amount] of boostEntries) {
-        if (!(stat in weights)) {
-          continue;
-        }
-
-        const currentStage = ownBoosts[stat] ?? 0;
-
-        const nextStage = clampBoost(currentStage + amount);
-
-        if (currentStage === nextStage) {
-          continue;
-        }
-
-        changed = true;
-
-        const currentMultiplier = getBoostMultiplier(currentStage);
-
-        const nextMultiplier = getBoostMultiplier(nextStage);
-
-        const improvement = nextMultiplier / currentMultiplier - 1;
-
-        boostScore += improvement * weights[stat];
-      }
-
-      if (!changed) {
-        return {
-          score: -50,
-          minDamagePercent: 0,
-          maxDamagePercent: 0,
-          reason: '能力ランク上限',
-        };
-      }
-
-      const condition = parseCondition(activePokemon.condition);
-
-      if (condition.hpPercent <= 30) {
-        boostScore *= 0.35;
-      } else if (condition.hpPercent <= 50) {
-        boostScore *= 0.65;
-      }
-
-      return {
-        score: 10 + boostScore,
-        minDamagePercent: 0,
-        maxDamagePercent: 0,
-        reason: '積み技',
-      };
+    if (hasProjectedStateEffect(move, activePokemon)) {
+      const effect = evaluateProjectedStateEffect(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, null, 7, 'max', false, defenderAssumption);
+      const accuracy = move.accuracy === true ? 1 : move.accuracy / 100;
+      return { ...effect, score: effect.score * accuracy, minDamagePercent: 0, maxDamagePercent: 0 };
     }
 
     const sleepEvaluation = evaluateSleepStatusMove(move, activePokemon, opponentPokemon, opponentBoosts, defenderPlayer, attackerPlayer);
@@ -3960,22 +5284,21 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
       return sleepEvaluation;
     }
 
-    const utilityEvaluation = evaluateUtilityStatusMove(move, activePokemon, opponentPokemon, ownBoosts, defenderPlayer, attackerPlayer, opponentBoosts, opponentStatus);
+    const utilityEvaluation = evaluateUtilityStatusMove(move, activePokemon, opponentPokemon, ownBoosts, defenderPlayer, attackerPlayer, opponentBoosts, opponentStatus, request, defenderAssumption);
 
     if (utilityEvaluation) {
       return {
-        score: utilityEvaluation.score,
+        ...utilityEvaluation,
         minDamagePercent: 0,
         maxDamagePercent: 0,
-        reason: utilityEvaluation.reason,
       };
     }
 
     return {
-      score: 10,
+      score: 0,
       minDamagePercent: 0,
       maxDamagePercent: 0,
-      reason: null,
+      reason: '評価未対応の変化技',
     };
   }
 
@@ -3992,7 +5315,7 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     };
   }
 
-  const damageRange = estimateBattleDamage({
+  const damageRange = (inferTraits ? estimateInferredBattleDamage : estimateBattleDamage)({
     move,
     attackerSpecies: ownPokemon,
     defenderSpecies: opponentPokemon,
@@ -4000,6 +5323,7 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     attackerBoosts: ownBoosts,
     defenderBoosts: opponentBoosts,
     defenderPlayer,
+    defenderAssumption,
   });
 
   if (damageRange.immune) {
@@ -4013,17 +5337,38 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     };
   }
 
-  const added = addedEffectScore(move, activePokemon, opponentStatus, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName);
+  const ownMoveIds = request?.active?.[0]?.moves?.map((entry) => entry.id) || activePokemon.moves;
+  const added = addedEffectScore(move, activePokemon, opponentStatus, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer, opponentSpeciesName, ownMoveIds, defenderAssumption);
+  added.score = ((added.score - (added.selfScore || 0)) * (damageRange.bodyHitChance ?? 1) + (added.selfScore || 0)) * (damageRange.hitChance ?? 1);
+  if (!damageRange.bodyHitChance) added.reason = added.selfScore > 0 ? '追加で能力上昇' : null;
+
+  let primaryEffect = hasProjectedStateEffect(move, activePokemon)
+    ? evaluateProjectedStateEffect(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, null, 7, 'max', false, defenderAssumption)
+    : { score: 0, reason: null };
+  if (move.id === 'fellstinger') {
+    let score = 0;
+    for (const endpoint of ['min', 'max']) {
+      for (let roll = 0; roll < 16; roll++) {
+        for (const [critical, weight] of [[false, 1 - damageRange.critChance], [true, damageRange.critChance]]) {
+          if (!weight) continue;
+          score += weight / 32 * evaluateProjectedStateEffect(move, activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, request, attackerPlayer, defenderPlayer, null, roll, endpoint, critical, defenderAssumption).score;
+        }
+      }
+    }
+    primaryEffect = { score, reason: 'とどめばりで倒せるダメージ乱数と急所の分だけ攻撃上昇を評価' };
+  }
+  primaryEffect.score *= damageRange.hitChance ?? 1;
 
   let contactChip = 0;
 
-  if (move.flags?.contact && defenderPlayer && battleState[defenderPlayer]?.item === 'rockyhelmet') {
+  const contactChance = move.id === 'shellsidearm' ? shellSideArmContactChance(activePokemon, opponentSpeciesName, ownBoosts, opponentBoosts, attackerPlayer, defenderPlayer) : move.flags?.contact ? 1 : 0;
+  if (contactChance && ownAbility !== 'longreach' && normalizeBattleEffect(activePokemon.item) !== 'protectivepads' && defenderPlayer && battleState[defenderPlayer]?.item === 'rockyhelmet') {
     const hits = hitBounds(move, {
       ability: normalizeBattleEffect(activePokemon.ability),
       item: normalizeBattleEffect(activePokemon.item),
     });
 
-    contactChip = (100 / 6) * hits.expected * ((move.accuracy === true ? 100 : move.accuracy) / 100);
+    contactChip = (100 / 6) * (damageRange.bodyHits ?? hits.expected) * (damageRange.hitChance ?? 1) * contactChance;
   }
 
   let itemPenalty = 0;
@@ -4037,6 +5382,8 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     itemPenalty = 16;
     itemReason = 'だっしゅつボタン';
   }
+  itemPenalty *= (damageRange.bodyHitChance ?? 1) * (damageRange.hitChance ?? 1);
+  if (!damageRange.bodyHitChance) itemReason = null;
 
   const selfDrop = move.self?.boosts && Object.values(move.self.boosts).some((value) => value < 0);
 
@@ -4048,14 +5395,14 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
   let knockOffBonus = 0;
 
   if (move.id === 'knockoff' && defenderItem) {
-    knockOffBonus = 18;
+    knockOffBonus = 18 * (damageRange.bodyHitChance ?? 1) * (damageRange.hitChance ?? 1);
     itemReason = itemReason ? `${itemReason} はたきおとす` : 'はたきおとす';
   }
 
-  const reasons = [move.id === 'struggle' ? 'わるあがき反動' : null, damageRange.recoilPercent > 0.5 ? '反動' : null, damageRange.recoilPercent < -0.5 ? '吸収' : null, defenderPlayer && battleState[defenderPlayer]?.ability === 'liquidooze' && move.drain ? 'ヘドロえき' : null, added.reason, contactChip > 0 ? 'ゴツゴツメット' : null, itemReason].filter(Boolean);
+  const reasons = [damageRange.substituteScore > 0 ? 'みがわりを削る' : null, move.id === 'struggle' ? 'わるあがき反動' : null, damageRange.recoilPercent > 0.5 ? '反動' : null, damageRange.recoilPercent < -0.5 ? '吸収' : null, defenderPlayer && battleState[defenderPlayer]?.ability === 'liquidooze' && move.drain ? 'ヘドロえき' : null, added.reason, Math.abs(primaryEffect.score) > 0.01 ? primaryEffect.reason : null, contactChip > 0 ? 'ゴツゴツメット' : null, itemReason].filter(Boolean);
 
   return {
-    score: damageRange.score - damageRange.recoilPercent + added.score - contactChip - itemPenalty + knockOffBonus,
+    score: damageRange.score + damageRange.substituteScore - damageRange.recoilPercent + added.score + primaryEffect.score - contactChip - itemPenalty + knockOffBonus,
     minDamagePercent: damageRange.minDamagePercent,
     maxDamagePercent: damageRange.maxDamagePercent,
     weatherReason: damageRange.weatherReason,
@@ -4064,6 +5411,7 @@ function evaluateMove(moveRequest, ownSpeciesName, opponentSpeciesName, opponent
     critChance: damageRange.critChance ?? 0,
     critFactor: damageRange.critFactor ?? 1,
     critMaxDamagePercent: damageRange.critMaxDamagePercent ?? 0,
+    hitChance: damageRange.hitChance ?? 0,
   };
 }
 
@@ -4076,7 +5424,7 @@ function getPokemonSpeciesName(pokemon) {
 }
 
 function usesFixedDamage(move) {
-  return move?.damage != null || typeof move?.damageCallback === 'function';
+  return Boolean(move?.ohko || move?.damage != null || typeof move?.damageCallback === 'function');
 }
 
 function isDamagingMove(move) {
@@ -4094,7 +5442,7 @@ function moveTypeMultiplier(move, defenderTypes) {
 // 控えの攻撃性能
 // ========================================
 
-function estimatePokemonAttackScore(pokemon, opponentSpeciesName, defenderPlayer = null) {
+function estimatePokemonAttackScore(pokemon, opponentSpeciesName, defenderPlayer = null, attackerBoosts = null, defenderBoosts = null) {
   const ownSpeciesName = getPokemonSpeciesName(pokemon);
 
   const ownPokemon = battleDex.species.get(ownSpeciesName);
@@ -4114,11 +5462,12 @@ function estimatePokemonAttackScore(pokemon, opponentSpeciesName, defenderPlayer
       continue;
     }
 
-    const damageRange = estimateBattleDamage({
+    const damageRange = estimateInferredBattleDamage({
       move,
       attackerSpecies: ownPokemon,
       defenderSpecies: opponentPokemon,
       attackerPokemon: pokemon,
+      attackerBoosts, defenderBoosts,
       defenderPlayer,
     });
 
@@ -4196,7 +5545,7 @@ function getDefensiveMatchupScore(ownSpeciesName, opponentSpeciesName, revealedM
 // 公開技から受けるダメージを推定
 // ========================================
 
-function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentBoosts, defenderPlayer = null, weather = fieldState.weather) {
+function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentBoosts, defenderPlayer = null, weather = fieldState.weather, responseMove = null, inferTraits = false, attackerAssumption = null) {
   const defenderSpeciesName = getPokemonSpeciesName(defender);
 
   const defenderSpecies = battleDex.species.get(defenderSpeciesName);
@@ -4209,7 +5558,7 @@ function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentB
     return null;
   }
 
-  const damageRange = estimateBattleDamage({
+  const damageRange = (inferTraits ? estimateInferredBattleDamage : estimateBattleDamage)({
     move,
     attackerSpecies: opponentSpecies,
     defenderSpecies,
@@ -4217,6 +5566,8 @@ function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentB
     attackerBoosts: opponentBoosts,
     defenderPlayer,
     weather,
+    responseMove,
+    attackerAssumption,
   });
 
   if (!damageRange) {
@@ -4238,6 +5589,7 @@ function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentB
     minDamagePercent: damageRange.minDamagePercent,
     maxDamagePercent: damageRange.maxDamagePercent,
     expectedDamagePercent: damageRange.score,
+    hitChance: damageRange.hitChance,
     fieldReason: damageRange.fieldReason,
   };
 }
@@ -4249,6 +5601,134 @@ function estimateIncomingDamage(defender, opponentSpeciesName, moveId, opponentB
 const learnedDamagingMoveIds = new Map();
 
 const guessedStabDamageCache = new Map();
+
+const opponentSetCache = new Map();
+const inferredDamageCache = new Map();
+
+// 採用率データではなく、公開技・種族の能力・技の役割から置く構成候補。
+// 対面が変わっても同じ4技セットを使い、実際の相手の構築は参照しない。
+function predictOpponentSets(player, speciesName, revealedOverride = null) {
+  const species = battleDex.species.get(speciesName);
+  const state = battleState[player];
+  if (!species.exists) return [];
+  const entry = rosterByShowdownId.get(species.id);
+  const revealed = [...new Set(revealedOverride || (player ? getRevealedMoves(player, species.name) : []))].filter((id) => isMoveAllowed(battleDex.moves.get(id))).slice(0, 4);
+  const ability = revealedAbilityFor(player, species.name);
+  const itemKnown = !!state && (Object.hasOwn(state.revealedItems, baseSpeciesName(species.name)) || (state.species === species.name && !!state.item));
+  const item = revealedItemFor(player, species.name);
+  const usedItems = Object.entries(state?.revealedItems || {}).filter(([name]) => name !== baseSpeciesName(species.name)).map(([, value]) => value).filter(Boolean);
+  const key = JSON.stringify([player, species.name, revealed, ability, itemKnown, item, usedItems]);
+  if (opponentSetCache.has(key)) return opponentSetCache.get(key);
+  const learned = (learnsetByName.get(entry?.name) || []).map((row) => battleDex.moves.get(moveByChampionsId.get(row.id)?.showdownId)).filter((move) => move.exists && isMoveAllowed(move));
+  const abilitiesByName = new Map(abilities.map((row) => [row.name, row.showdownId]));
+  const abilityIds = ability ? [ability] : [...new Set(Object.values(entry?.abilities || species.abilities).filter(Boolean).map((name) => abilitiesByName.get(name) || normalizeBattleEffect(name)))];
+  if (!abilityIds.length) abilityIds.push('');
+  const knownMoves = revealed.map((id) => battleDex.moves.get(id));
+  const physicalCount = knownMoves.filter((move) => move.category === 'Physical').length;
+  const specialCount = knownMoves.filter((move) => move.category === 'Special').length;
+  const roles = [];
+  if (species.baseStats.atk >= species.baseStats.spa * 0.8 || physicalCount) roles.push({ name: 'physical', weight: species.baseStats.atk * (1 + physicalCount) });
+  if (species.baseStats.spa >= species.baseStats.atk * 0.8 || specialCount) roles.push({ name: 'special', weight: species.baseStats.spa * (1 + specialCount) });
+  if (species.baseStats.hp + species.baseStats.def + species.baseStats.spd >= 240 || knownMoves.some((move) => move.heal || move.status || move.volatileStatus === 'yawn')) roles.push({ name: 'bulky', weight: 70 + knownMoves.filter((move) => move.category === 'Status').length * 40 });
+  if (!roles.length) roles.push({ name: 'physical', weight: 1 });
+  const profiles = [];
+  for (const role of roles) {
+    const ids = [...revealed];
+    const category = role.name === 'physical' ? 'Physical' : role.name === 'special' ? 'Special' : species.baseStats.atk >= species.baseStats.spa ? 'Physical' : 'Special';
+    while (ids.length < 4) {
+      const selected = ids.map((id) => battleDex.moves.get(id));
+      const ranked = learned.filter((move) => !ids.includes(move.id)).map((move) => {
+        let score = 0;
+        if (isDamagingMove(move)) {
+          const power = usesFixedDamage(move) ? 65 : move.basePower || 50;
+          score = Math.min(power, 130) * (move.accuracy === true ? 1 : move.accuracy / 100);
+          score *= species.types.includes(move.type) ? 1.5 : 1;
+          score *= move.category === category ? 1 : 0.35;
+          if (move.flags.charge || move.selfdestruct || move.flags.recharge) score *= 0.25;
+          if (['counter', 'mirrorcoat', 'fakeout', 'firstimpression'].includes(move.id)) score *= 0.45;
+          if (move.ohko) score *= 0.3;
+          if (move.priority > 0) score *= 1.15;
+          if (selected.some((other) => isDamagingMove(other) && other.type === move.type)) score *= 0.3;
+          if (role.name === 'bulky' && selected.some(isDamagingMove)) score *= 0.5;
+        } else {
+          const boosts = move.boosts || {};
+          const setup = (category === 'Physical' ? boosts.atk : boosts.spa) > 0;
+          score = move.heal ? 105 : move.status || move.volatileStatus === 'yawn' ? 90 : ['stealthrock', 'spikes', 'protect', 'leechseed'].includes(move.id) ? 80 : setup ? 95 : ['taunt', 'encore', 'substitute'].includes(move.id) ? 65 : 5;
+          score *= role.name === 'bulky' ? 1.3 : setup ? 1 : 0.65;
+          if (!selected.some(isDamagingMove)) score *= 0.1;
+          if (selected.some((other) => (move.heal && other.heal) || (move.status && other.status) || (setup && other.boosts && (other.boosts.atk > 0 || other.boosts.spa > 0)))) score *= 0.2;
+        }
+        return { move, score };
+      }).sort((a, b) => b.score - a.score || a.move.id.localeCompare(b.move.id));
+      if (!ranked.length) break;
+      ids.push(ranked[0].move.id);
+    }
+    const hasStatus = knownMoves.some((move) => move.category === 'Status');
+    let itemIds = role.name === 'bulky' ? ['leftovers', 'sitrusberry'] : hasStatus ? ['lifeorb', 'sitrusberry'] : role.name === 'physical' ? ['choiceband', 'choicescarf'] : ['choicespecs', 'choicescarf'];
+    if (itemKnown) itemIds = [item];
+    else {
+      if (role.name !== 'bulky' && species.baseStats.hp + species.baseStats.def <= 150) itemIds[1] = 'focussash';
+      itemIds = ['', ...itemIds.filter((id) => items.some((row) => row.showdownId === id) && !usedItems.includes(id))];
+    }
+    if (!itemIds.length) itemIds = [''];
+    for (const itemId of itemIds) {
+      const itemMoves = [...ids];
+      if (['choiceband', 'choicespecs', 'choicescarf', 'assaultvest'].includes(itemId)) {
+        for (let index = 0; index < itemMoves.length; index++) {
+          if (revealed.includes(itemMoves[index]) || battleDex.moves.get(itemMoves[index]).category !== 'Status') continue;
+          const replacement = learned.filter((move) => isDamagingMove(move) && !itemMoves.includes(move.id)).map((move) => ({
+            move, score: (usesFixedDamage(move) ? 65 : move.basePower || 50) * (species.types.includes(move.type) ? 1.5 : 1) * (move.category === category ? 1 : 0.3) * (itemMoves.some((id) => battleDex.moves.get(id).type === move.type) ? 0.3 : 1) * (move.flags.charge || move.flags.recharge || move.selfdestruct ? 0.2 : 1),
+          })).sort((a, b) => b.score - a.score);
+          if (replacement[0]) itemMoves[index] = replacement[0].move.id;
+        }
+      }
+      for (const abilityId of abilityIds) profiles.push({ role: role.name, moves: itemMoves, ability: abilityId, item: itemId, weight: role.weight / abilityIds.length / itemIds.length, inferred: !ability || !itemKnown || revealed.length < 4 });
+    }
+  }
+  const total = profiles.reduce((sum, profile) => sum + profile.weight, 0);
+  for (const profile of profiles) profile.weight /= total;
+  if (opponentSetCache.size >= 256) opponentSetCache.clear();
+  opponentSetCache.set(key, profiles);
+  return profiles;
+}
+
+function estimateInferredBattleDamage(options) {
+  const { attackerPokemon, defenderPokemon, attackerSpecies, defenderSpecies, defenderPlayer, move } = options;
+  const attackerPlayer = options.attackerPlayer ?? (defenderPlayer === 'p1' ? 'p2' : 'p1');
+  const player = attackerPokemon ? defenderPlayer : attackerPlayer;
+  const species = attackerPokemon ? defenderSpecies : attackerSpecies;
+  if ((!attackerPokemon && !defenderPokemon) || !player || ['counter', 'mirrorcoat'].includes(move.id)) return estimateBattleDamage(options);
+  let profiles = predictOpponentSets(player, species.name);
+  if (!attackerPokemon && !getRevealedMoves(player, species.name).includes(move.id)) profiles = profiles.filter((profile) => profile.moves.includes(move.id));
+  if (!profiles.length) return estimateBattleDamage(options);
+  const groups = new Map();
+  for (const profile of profiles) {
+    const key = JSON.stringify([profile.ability, profile.item]);
+    const group = groups.get(key) || { ability: profile.ability, item: profile.item, weight: 0 };
+    group.weight += profile.weight;
+    groups.set(key, group);
+  }
+  const known = attackerPokemon || defenderPokemon;
+  const key = JSON.stringify([move.id, knownCombatant(known, attackerPokemon ? options.attackerBoosts : options.defenderBoosts), attackerSpecies.name, defenderSpecies.name, options.attackerBoosts, options.defenderBoosts, options.weather, options.responseMove, battleState, fieldState, [...groups.values()]]);
+  if (inferredDamageCache.has(key)) return inferredDamageCache.get(key);
+  const total = profiles.reduce((sum, profile) => sum + profile.weight, 0);
+  const outcomes = [...groups.values()].map((group) => ({ weight: group.weight / total, result: estimateBattleDamage({ ...options, [attackerPokemon ? 'defenderAssumption' : 'attackerAssumption']: { ability: group.ability, item: group.item } }) }));
+  const average = (field) => outcomes.reduce((sum, row) => sum + (row.result[field] || 0) * row.weight, 0);
+  const result = {
+    ...outcomes[0].result,
+    immune: outcomes.every((row) => row.result.immune),
+    minDamagePercent: Math.min(...outcomes.flatMap((row) => [row.result.minDamagePercent, row.result.maxDamagePercent])),
+    maxDamagePercent: Math.max(...outcomes.flatMap((row) => [row.result.minDamagePercent, row.result.maxDamagePercent])),
+    critMaxDamagePercent: Math.max(...outcomes.map((row) => row.result.critMaxDamagePercent)),
+    inferred: profiles.some((profile) => profile.inferred),
+  };
+  for (const field of ['score', 'hitChance', 'critChance', 'critFactor', 'substituteScore', 'bodyHitChance', 'bodyHits', 'recoilPercent']) result[field] = average(field);
+  for (const field of ['hitChance', 'critChance', 'bodyHitChance']) result[field] = Math.max(0, Math.min(1, result[field]));
+  result.fieldReason = [result.fieldReason, result.inferred ? '公開情報から構成候補を推定' : null].filter(Boolean).join(' / ') || null;
+  if (inferredDamageCache.size >= 512) inferredDamageCache.clear();
+  inferredDamageCache.set(key, result);
+  return result;
+}
 
 function getLearnedDamagingMoveIds(speciesName) {
   if (learnedDamagingMoveIds.has(speciesName)) {
@@ -4284,7 +5764,7 @@ function hasRevealedDamagingMove(revealedMoveIds) {
   });
 }
 
-function guessIncomingDamage(defender, opponentSpeciesName, opponentBoosts, defenderPlayer, excludeMoveIds = []) {
+function guessIncomingDamage(defender, opponentSpeciesName, opponentBoosts, defenderPlayer, excludeMoveIds = [], responseMove = null) {
   const defenderStats = defender.stats ?? {};
   const attackerPlayer = defenderPlayer === 'p1' ? 'p2' : defenderPlayer === 'p2' ? 'p1' : null;
   const defenderState = defenderPlayer ? battleState[defenderPlayer] : null;
@@ -4300,6 +5780,7 @@ function guessIncomingDamage(defender, opponentSpeciesName, opponentBoosts, defe
     fieldState,
     level: currentBattleLevel(),
     excluded: [...excluded].sort(),
+    responseMove,
   });
 
   if (guessedStabDamageCache.has(cacheKey)) {
@@ -4334,7 +5815,7 @@ function guessIncomingDamage(defender, opponentSpeciesName, opponentBoosts, defe
   const ranked = [];
 
   for (const candidate of candidates) {
-    const damage = estimateIncomingDamage(defender, opponentSpeciesName, candidate.moveId, opponentBoosts, defenderPlayer);
+    const damage = estimateIncomingDamage(defender, opponentSpeciesName, candidate.moveId, opponentBoosts, defenderPlayer, fieldState.weather, responseMove);
 
     if (!damage || damage.expectedDamagePercent <= 0) {
       continue;
@@ -4358,59 +5839,37 @@ function hiddenMoveWeight(openSlots) {
   return [0, 0.45, 0.65, 0.8, 1][Math.min(Math.max(openSlots, 0), 4)];
 }
 
-function hiddenIncomingThreat(defender, opponentSpeciesName, opponentBoosts, defenderPlayer, revealedMoveIds) {
-  const openSlots = Math.max(4 - revealedMoveIds.length, 0);
-
-  if (!openSlots) {
-    return null;
-  }
-
-  const guessed = guessIncomingDamage(defender, opponentSpeciesName, opponentBoosts, defenderPlayer, revealedMoveIds);
-
-  if (!guessed?.options?.length) {
-    return null;
-  }
-
-  const considered = [];
-  const usedTypes = new Set();
-
-  for (const damage of guessed.options) {
-    const move = battleDex.moves.get(damage.moveId || damage.moveName);
-    const type = move?.type;
-
-    if (type && usedTypes.has(type)) {
-      continue;
-    }
-
-    if (type) {
-      usedTypes.add(type);
-    }
-
-    considered.push(damage);
-
-    if (considered.length >= Math.min(3, openSlots)) {
-      break;
-    }
-  }
-
-  if (!considered.length) {
-    considered.push(guessed.options[0]);
-  }
-
+function hiddenIncomingThreat(defender, opponentSpeciesName, opponentBoosts, defenderPlayer, revealedMoveIds, responseMove = null) {
+  const revealed = [...new Set(revealedMoveIds)];
+  const openSlots = Math.max(4 - revealed.length, 0);
+  if (!openSlots) return null;
+  const cacheKey = JSON.stringify(['sets', knownCombatant(defender, battleState[defenderPlayer]?.boosts), opponentSpeciesName, opponentBoosts, defenderPlayer, revealed, responseMove, battleState, fieldState]);
+  if (guessedStabDamageCache.has(cacheKey)) return guessedStabDamageCache.get(cacheKey);
+  const player = defenderPlayer === 'p1' ? 'p2' : 'p1';
+  const profiles = predictOpponentSets(player, opponentSpeciesName, revealed);
+  const rows = profiles.map((profile) => {
+    const attacks = profile.moves.filter((id) => !revealed.includes(id) && isDamagingMove(battleDex.moves.get(id)) && !(battleState[player]?.species === opponentSpeciesName && moveBlockedByVolatile(player, battleDex.moves.get(id))));
+    const damages = attacks.map((id) => estimateIncomingDamage(defender, opponentSpeciesName, id, opponentBoosts, defenderPlayer, fieldState.weather, responseMove, false, { ability: profile.ability, item: profile.item })).filter(Boolean);
+    damages.sort((a, b) => b.expectedDamagePercent - a.expectedDamagePercent);
+    return { profile, damage: damages[0] || null };
+  });
+  const damaging = rows.filter((row) => row.damage?.expectedDamagePercent > 0);
+  if (!damaging.length) return null;
   const weight = hiddenMoveWeight(openSlots);
-
-  const average = considered.reduce((sum, damage) => sum + damage.expectedDamagePercent, 0) / considered.length;
-
-  const mixed = guessed.expectedDamagePercent * 0.6 + average * 0.4;
-
-  return {
-    ...guessed,
-    guessed: true,
-    moveName: considered.map((damage) => damage.moveName).join('/'),
-    minDamagePercent: guessed.minDamagePercent * weight,
-    maxDamagePercent: guessed.maxDamagePercent * weight,
-    expectedDamagePercent: mixed * weight,
+  const options = [...new Map(damaging.map((row) => [row.damage.moveId, row.damage])).values()];
+  options.sort((a, b) => b.expectedDamagePercent - a.expectedDamagePercent);
+  const result = {
+    ...options[0], guessed: true,
+    moveName: options.map((damage) => damage.moveName).join('/'),
+    minDamagePercent: 0,
+    maxDamagePercent: Math.max(...damaging.map((row) => row.damage.maxDamagePercent)),
+    expectedDamagePercent: rows.reduce((sum, row) => sum + (row.damage?.expectedDamagePercent || 0) * row.profile.weight, 0) * weight,
+    options, predictedSets: profiles,
+    fieldReason: '公開技を含む4技構成の候補から推定',
   };
+  if (guessedStabDamageCache.size >= 512) guessedStabDamageCache.clear();
+  guessedStabDamageCache.set(cacheKey, result);
+  return result;
 }
 
 function formatIncomingMoveName(damage) {
@@ -4435,7 +5894,7 @@ function evaluateIncomingRisk(pokemon, opponentSpeciesName, revealedMoveIds, opp
       continue;
     }
 
-    const damage = estimateIncomingDamage(pokemon, opponentSpeciesName, moveId, opponentBoosts, defenderPlayer);
+    const damage = estimateIncomingDamage(pokemon, opponentSpeciesName, moveId, opponentBoosts, defenderPlayer, fieldState.weather, null, true);
 
     if (!damage) {
       continue;
@@ -4449,7 +5908,7 @@ function evaluateIncomingRisk(pokemon, opponentSpeciesName, revealedMoveIds, opp
   const encored = attackerPlayer ? battleState[attackerPlayer]?.volatiles?.encoreMove : null;
 
   if (encored) {
-    const encoredDamage = estimateIncomingDamage(pokemon, opponentSpeciesName, encored, opponentBoosts, defenderPlayer);
+    const encoredDamage = estimateIncomingDamage(pokemon, opponentSpeciesName, encored, opponentBoosts, defenderPlayer, fieldState.weather, null, true);
 
     worstDamage = encoredDamage && encoredDamage.expectedDamagePercent > 0 ? encoredDamage : worstDamage;
   }
@@ -4457,7 +5916,7 @@ function evaluateIncomingRisk(pokemon, opponentSpeciesName, revealedMoveIds, opp
   const locked = attackerPlayer ? choiceLockedMove(attackerPlayer) : null;
 
   if (locked) {
-    const lockedDamage = estimateIncomingDamage(pokemon, opponentSpeciesName, locked, opponentBoosts, defenderPlayer);
+    const lockedDamage = estimateIncomingDamage(pokemon, opponentSpeciesName, locked, opponentBoosts, defenderPlayer, fieldState.weather, null, true);
 
     worstDamage = lockedDamage && lockedDamage.expectedDamagePercent > 0 ? lockedDamage : worstDamage;
   } else if (encored) {
@@ -4484,16 +5943,13 @@ function evaluateIncomingRisk(pokemon, opponentSpeciesName, revealedMoveIds, opp
 
   let koRisk = null;
 
-  const defenderItem = pokemon.item || (defenderPlayer ? battleState[defenderPlayer]?.item : null);
-
-  const sash = focusSashHolds(defenderItem, condition.hpPercent, null);
-
-  if (!sash && !worstDamage.guessed && worstDamage.minDamagePercent >= condition.hpPercent) {
+  // ダメージ計算でタスキ・がんじょうと各打撃を処理済み。その結果でKOを判定する。
+  if (!worstDamage.guessed && worstDamage.minDamagePercent >= condition.hpPercent && (worstDamage.hitChance ?? 1) >= 1) {
     penalty += 40;
 
     koRisk = '確定で倒れる危険';
-  } else if (!sash && !worstDamage.guessed && worstDamage.maxDamagePercent >= condition.hpPercent) {
-    penalty += 20;
+  } else if (!worstDamage.guessed && worstDamage.maxDamagePercent >= condition.hpPercent) {
+    penalty += 20 * (worstDamage.hitChance ?? 1);
 
     koRisk = '倒れる可能性';
   }
@@ -4612,75 +6068,14 @@ function intimidateReaction(abilityId) {
 }
 
 function getIntimidateSwitch(pokemon, opponentBoosts, revealedMoveIds, opponentPlayer = null) {
-  if (normalizeBattleEffect(pokemon.ability) !== 'intimidate') {
-    return null;
-  }
-
-  const reaction = opponentPlayer ? intimidateReaction(battleState[opponentPlayer]?.ability) : null;
-
-  if (reaction === 'immune') {
-    return {
-      boosts: opponentBoosts,
-      bonus: 0,
-      note: 'いかく無効',
-    };
-  }
-
-  if (reaction === 'defiant') {
-    return {
-      boosts: opponentBoosts,
-      bonus: -20,
-      note: 'いかくで攻撃上昇',
-    };
-  }
-
-  if (reaction === 'competitive') {
-    return {
-      boosts: opponentBoosts,
-      bonus: -16,
-      note: 'いかくで特攻上昇',
-    };
-  }
-
-  if (reaction === 'contrary') {
-    return {
-      boosts: {
-        ...opponentBoosts,
-        atk: clampBoost((opponentBoosts?.atk ?? 0) + 1),
-      },
-      bonus: -24,
-      note: 'たんじゅんで攻撃上昇',
-    };
-  }
-
-  if (reaction === 'mirrorarmor') {
-    return {
-      boosts: opponentBoosts,
-      bonus: -18,
-      note: 'ミラーアーマー',
-    };
-  }
-
-  const currentAtk = opponentBoosts?.atk ?? 0;
-  const nextAtk = clampBoost(currentAtk - 1);
-
-  if (nextAtk === currentAtk) {
-    return {
-      boosts: opponentBoosts,
-      bonus: 0,
-      note: 'いかく不可',
-    };
-  }
-
-  return {
-    boosts: {
-      ...opponentBoosts,
-      atk: nextAtk,
-    },
-    // 技が未公開のときだけ、物理技が来た場合の分を小さく足す。
-    bonus: revealedMoveIds.length === 0 ? 12 : 0,
-    note: 'いかく',
-  };
+  if (normalizeBattleEffect(pokemon.ability) !== 'intimidate' || !battleState[opponentPlayer]?.species) return null;
+  const ownPlayer = opponentPlayer === 'p1' ? 'p2' : 'p1';
+  const session = createPublicMoveSession(pokemon, battleState[opponentPlayer].species, {}, opponentBoosts, ownPlayer, opponentPlayer);
+  try {
+    const { calc, attacker, defender } = session;
+    calc.singleEvent('Start', calc.dex.abilities.get('intimidate'), attacker.abilityState, attacker);
+    return { boosts: { ...defender.boosts }, ownBoosts: { ...attacker.boosts }, bonus: 0, note: 'いかく後の能力で評価' };
+  } finally { session.calc.destroy(); }
 }
 
 function evaluateSwitchCandidates(observer, request, opponentSpeciesName, revealedMoveIds, opponentBoosts, opponentStatus, mode = 'voluntary') {
@@ -4695,7 +6090,8 @@ function evaluateSwitchCandidates(observer, request, opponentSpeciesName, reveal
     .map(({ pokemon, slot }) => {
       const species = getPokemonSpeciesName(pokemon);
 
-      const attackScore = estimatePokemonAttackScore(pokemon, opponentSpeciesName, opponentPlayer);
+      const intimidate = getIntimidateSwitch(pokemon, opponentBoosts, revealedMoveIds, opponentPlayer);
+      const attackScore = estimatePokemonAttackScore(pokemon, opponentSpeciesName, opponentPlayer, intimidate?.ownBoosts, intimidate?.boosts);
 
       const defenseScore = getDefensiveMatchupScore(species, opponentSpeciesName, revealedMoveIds);
 
@@ -4703,7 +6099,6 @@ function evaluateSwitchCandidates(observer, request, opponentSpeciesName, reveal
 
       const hpFactor = Math.max(0.25, condition.hpPercent / 100);
 
-      const intimidate = getIntimidateSwitch(pokemon, opponentBoosts, revealedMoveIds, opponentPlayer);
 
       const incomingRisk = evaluateIncomingRisk(pokemon, opponentSpeciesName, revealedMoveIds, intimidate?.boosts ?? opponentBoosts, observer);
 
@@ -4915,12 +6310,22 @@ function getEffectiveSpeed(baseSpeed, boostStage, status, modifiers) {
   return applyKnownSpeedModifiers(speed, modifiers);
 }
 
-function getOpponentSpeedRange(observer, opponentSpeciesName, opponentBoosts, opponentStatus) {
+function getOpponentSpeedRange(observer, opponentSpeciesName, opponentBoosts, opponentStatus, inferTraits = false, assumption = null) {
   const knowledge = ensureSpeedKnowledge(observer, opponentSpeciesName);
 
   const opponent = observer === 'p1' ? 'p2' : 'p1';
 
-  const range = getEffectiveCandidateRange(knowledge.candidates, opponentBoosts.spe, opponentStatus, getPublicSpeedModifiers(opponent));
+  const modifiers = { ...getPublicSpeedModifiers(opponent) };
+  if (assumption) Object.assign(modifiers, { scarf: assumption.item === 'choicescarf', abilityId: assumption.ability, abilityMultiplier: weatherSpeedMultiplier(assumption.ability, opponentStatus) });
+  const range = getEffectiveCandidateRange(knowledge.candidates, opponentBoosts.spe, opponentStatus, modifiers);
+  if (inferTraits) {
+    for (const profile of predictOpponentSets(opponent, opponentSpeciesName)) {
+      const modifiers = { ...getPublicSpeedModifiers(opponent), scarf: profile.item === 'choicescarf', abilityId: profile.ability, abilityMultiplier: weatherSpeedMultiplier(profile.ability, opponentStatus) };
+      const predicted = getEffectiveCandidateRange(knowledge.candidates, opponentBoosts.spe, opponentStatus, modifiers);
+      range.minSpeed = Math.min(range.minSpeed, predicted.minSpeed);
+      range.maxSpeed = Math.max(range.maxSpeed, predicted.maxSpeed);
+    }
+  }
 
   return {
     ...range,
@@ -4928,10 +6333,10 @@ function getOpponentSpeedRange(observer, opponentSpeciesName, opponentBoosts, op
   };
 }
 
-function getSpeedEstimate(observer, activePokemon, ownBoosts, ownStatus, opponentSpeciesName, opponentBoosts, opponentStatus) {
+function getSpeedEstimate(observer, activePokemon, ownBoosts, ownStatus, opponentSpeciesName, opponentBoosts, opponentStatus, inferTraits = false, assumption = null) {
   const ownSpeed = getEffectiveSpeed(activePokemon.stats.spe, ownBoosts.spe, ownStatus, getPublicSpeedModifiers(observer, activePokemon));
 
-  const opponentSpeedRange = getOpponentSpeedRange(observer, opponentSpeciesName, opponentBoosts, opponentStatus);
+  const opponentSpeedRange = getOpponentSpeedRange(observer, opponentSpeciesName, opponentBoosts, opponentStatus, inferTraits, assumption);
 
   let relation;
 
@@ -4952,10 +6357,11 @@ function getSpeedEstimate(observer, activePokemon, ownBoosts, ownStatus, opponen
   };
 }
 
-function compareEstimatedMoveOrder(ownMove, opponentMove, ownSpeed, opponentMinSpeed, opponentMaxSpeed, observer = null, ownPokemon = null) {
+function compareEstimatedMoveOrder(ownMove, opponentMove, ownSpeed, opponentMinSpeed, opponentMaxSpeed, observer = null, ownPokemon = null, opponentPokemon = null) {
   const opponentPlayer = observer === 'p1' ? 'p2' : observer === 'p2' ? 'p1' : null;
+  if (opponentPokemon) opponentPokemon = { condition: `${battleState[opponentPlayer]?.hpPercent ?? 100}/100 ${battleState[opponentPlayer]?.status || ''}`, ...opponentPokemon };
   const ownPriority = effectiveMovePriority(ownMove, observer, ownPokemon);
-  const opponentPriority = effectiveMovePriority(opponentMove, opponentPlayer, null);
+  const opponentPriority = effectiveMovePriority(opponentMove, opponentPlayer, opponentPokemon);
 
   if (opponentPriority > 0 && priorityBlocked(observer, opponentMove)) {
     return 'own';
@@ -4974,7 +6380,7 @@ function compareEstimatedMoveOrder(ownMove, opponentMove, ownSpeed, opponentMinS
   }
 
   const ownFractional = fractionalMovePriority(ownMove, observer, ownPokemon);
-  const opponentFractional = fractionalMovePriority(opponentMove, opponentPlayer, null);
+  const opponentFractional = fractionalMovePriority(opponentMove, opponentPlayer, opponentPokemon);
 
   if (ownFractional > opponentFractional) {
     return 'own';
@@ -5016,7 +6422,7 @@ function evaluatePreMoveThreat(observer, activePokemon, ownMoveRequest, opponent
 
   const opponentPlayer = observer === 'p1' ? 'p2' : 'p1';
 
-  const speedEstimate = getSpeedEstimate(observer, activePokemon, ownBoosts, ownStatus, opponentSpeciesName, opponentBoosts, opponentStatus);
+  const speedEstimate = getSpeedEstimate(observer, activePokemon, ownBoosts, ownStatus, opponentSpeciesName, opponentBoosts, opponentStatus, true);
 
   const condition = parseCondition(activePokemon.condition);
 
@@ -5033,7 +6439,7 @@ function evaluatePreMoveThreat(observer, activePokemon, ownMoveRequest, opponent
       continue;
     }
 
-    const damage = estimateIncomingDamage(activePokemon, opponentSpeciesName, moveId, opponentBoosts, observer);
+    const damage = estimateIncomingDamage(activePokemon, opponentSpeciesName, moveId, opponentBoosts, observer, fieldState.weather, ownMove.id, true);
 
     if (!damage) {
       continue;
@@ -5047,11 +6453,9 @@ function evaluatePreMoveThreat(observer, activePokemon, ownMoveRequest, opponent
       continue;
     }
 
-    const sash = focusSashHolds(activePokemon.item, condition.hpPercent, opponentMove);
+    const guaranteedKo = damage.minDamagePercent >= condition.hpPercent && (damage.hitChance ?? 1) >= 1;
 
-    const guaranteedKo = !sash && damage.minDamagePercent >= condition.hpPercent;
-
-    const possibleKo = !sash && damage.maxDamagePercent >= condition.hpPercent;
+    const possibleKo = damage.maxDamagePercent >= condition.hpPercent;
 
     if (!guaranteedKo && !possibleKo) {
       continue;
@@ -5079,7 +6483,7 @@ function evaluatePreMoveThreat(observer, activePokemon, ownMoveRequest, opponent
     }
   }
 
-  const guessed = choiceLockedMove(opponentPlayer) ? null : hiddenIncomingThreat(activePokemon, opponentSpeciesName, opponentBoosts, observer, revealedMoveIds);
+  const guessed = choiceLockedMove(opponentPlayer) ? null : hiddenIncomingThreat(activePokemon, opponentSpeciesName, opponentBoosts, observer, revealedMoveIds, ownMove.id);
 
   const guessedId = guessed?.options?.[0]?.moveId || guessed?.options?.[0]?.moveName;
   const guessedMove = guessedId ? battleDex.moves.get(guessedId) : null;
@@ -5091,11 +6495,9 @@ function evaluatePreMoveThreat(observer, activePokemon, ownMoveRequest, opponent
 
     const order = compareEstimatedMoveOrder(ownMove, guessedMove, speedEstimate.ownSpeed, speedEstimate.opponentMinSpeed, speedEstimate.opponentMaxSpeed, observer, activePokemon);
 
-    const sash = focusSashHolds(activePokemon.item, condition.hpPercent, guessedMove);
+    const guaranteedKo = minDamagePercent >= condition.hpPercent && (guessed.hitChance ?? 1) >= 1;
 
-    const guaranteedKo = !sash && minDamagePercent >= condition.hpPercent;
-
-    const possibleKo = !sash && maxDamagePercent >= condition.hpPercent;
+    const possibleKo = maxDamagePercent >= condition.hpPercent;
 
     const penalty = Math.round(dieFirstPenalty(order, guaranteedKo, possibleKo, guessed.expectedDamagePercent, cantMoveFactor(opponentStatus, opponentPlayer)) * 0.5);
 
@@ -5284,8 +6686,501 @@ function evaluateTeamPreview(player, request) {
 // AI
 // ========================================
 
+function projectMegaRequest(player, request) {
+  const active = request.side?.pokemon.find((pokemon) => pokemon.active);
+  if (!request.active?.[0]?.canMegaEvo || !active) return null;
+  const speciesName = getPokemonSpeciesName(active);
+  // 自分の構築だけを参照する。相手のrequestや構築の非公開情報は使わない。
+  const ownSet = (player === 'p1' ? teamA : teamB).find((set) => baseSpeciesName(set.species) === baseSpeciesName(speciesName));
+  if (!ownSet) return null;
+  const opponent = player === 'p1' ? 'p2' : 'p1';
+  const opponentSpecies = battleDex.species.get(battleState[opponent].species);
+  if (!opponentSpecies.exists) return null;
+  const spec = { ...knownCombatant(active, battleState[player].boosts), evs: ownSet.evs, nature: ownSet.nature, moves: active.moves || request.active[0].moves.map((move) => move.id) };
+  const session = createDamageBattle(spec, rangedCombatant(opponentSpecies, 'def', 'max', battleState[opponent].boosts, opponent), opponent);
+  try {
+    useWeather(session.calc, fieldState.weather, session.source);
+    if (!session.calc.actions.runMegaEvo(session.attacker)) return null;
+    const mon = session.attacker;
+    const projected = { ...active, details: mon.details, ability: mon.ability, stats: { ...mon.storedStats }, condition: `${mon.hp}/${mon.maxhp}${mon.status ? ` ${mon.status}` : ''}` };
+    return {
+      request: { ...request, active: request.active.map((entry) => ({ ...entry, canMegaEvo: false })), side: { ...request.side, pokemon: request.side.pokemon.map((pokemon) => pokemon === active ? projected : pokemon) } },
+      species: mon.species.name,
+      ability: mon.ability,
+      ownBoosts: { ...mon.boosts },
+      opponentBoosts: { ...session.defender.boosts },
+      weather: Object.keys(SIM_WEATHER_ID).find((label) => SIM_WEATHER_ID[label] === session.calc.field.weather) || null,
+      terrain: session.calc.field.terrain ? session.calc.field.terrain.replace(/terrain$/, '') : fieldState.terrain,
+    };
+  } finally {
+    session.calc.destroy();
+  }
+}
+
 function chooseAction(player, request) {
   syncFieldStateFromBattle();
+  const projection = request.teamPreview || request.wait || request.forceSwitch?.some(Boolean) ? null : projectMegaRequest(player, request);
+  if (!projection) return chooseActionInternal(player, request);
+
+  const opponent = player === 'p1' ? 'p2' : 'p1';
+  const savedOwn = { ...battleState[player] };
+  const savedOpponent = { ...battleState[opponent] };
+  const savedField = { ...fieldState };
+  const restore = () => {
+    Object.assign(battleState[player], savedOwn);
+    Object.assign(battleState[opponent], savedOpponent);
+    Object.assign(fieldState, savedField);
+  };
+  const applyProjection = () => {
+    Object.assign(battleState[player], { species: projection.species, ability: projection.ability, boosts: projection.ownBoosts });
+    battleState[opponent].boosts = projection.opponentBoosts;
+    fieldState.weather = projection.weather;
+    fieldState.terrain = projection.terrain;
+  };
+  let normalScore = -Infinity;
+  let megaScore = -Infinity;
+  let megaAction;
+  try {
+    chooseActionInternal(player, request, (score) => { normalScore = score; }, true);
+    restore();
+    applyProjection();
+    megaAction = chooseActionInternal(player, projection.request, (score) => { megaScore = score; }, true);
+  } finally {
+    restore();
+  }
+  if (!megaAction?.startsWith('move ') || megaScore <= normalScore) return chooseActionInternal(player, request);
+  try {
+    applyProjection();
+    console.log(`${player} メガシンカ判断: ${projection.species}（通常${normalScore.toFixed(1)} / メガ${megaScore.toFixed(1)}）`);
+    const action = chooseActionInternal(player, projection.request);
+    // 公開ログが届くまでは、予測したフォルムや天候を盤面に確定させない。
+    const choice = battleState[player].lastChoice;
+    const recent = battleState[player].recentSpecies;
+    restore();
+    battleState[player].lastChoice = choice;
+    battleState[player].recentSpecies = recent;
+    return action?.startsWith('move ') ? `${action} mega` : action;
+  } finally {
+    Object.assign(fieldState, savedField);
+    battleState[player].species = savedOwn.species;
+    battleState[player].ability = savedOwn.ability;
+    battleState[player].boosts = savedOwn.boosts;
+    battleState[opponent].boosts = savedOpponent.boosts;
+  }
+}
+
+// 平均の被ダメージとは独立した、一手だけの破綻確認。
+// 数値は通常スコアへの加減点に使わず、大差がある場合の行動変更だけに使う。
+const HIDDEN_DISRUPTION_LIMIT = 80;
+const HIDDEN_DISRUPTION_MARGIN = 40;
+const hiddenDisruptionCache = new Map();
+// 比較検証から設定を変えられるが、通常実行はこの既定値を使う。
+const hiddenDisruptionPolicy = { enabled: true, optimize: true, limit: HIDDEN_DISRUPTION_LIMIT, margin: HIDDEN_DISRUPTION_MARGIN, opportunityWeight: 0.5 };
+const hiddenDisruptionMetrics = { calls: 0, cacheHits: 0, scenarios: 0, branches: 0, baselineCacheHits: 0, skippedUnsafe: 0, overrides: 0 };
+const hiddenDisruptionDecisions = new Map();
+
+// 定義にboosts/sideCondition等がないコールバックも、候補抽出とKO事前判定で共有する。
+const HIDDEN_DISRUPTION_CALLBACKS = new Map([
+  ...['bellydrum', 'stockpile', 'stuffcheeks', 'acupressure', 'focusenergy', 'laserfocus', 'psychup',
+    'powertrick', 'powersplit', 'guardsplit', 'transform', 'roleplay', 'conversion', 'conversion2',
+    'camouflage', 'reflecttype', 'magnetrise', 'substitute', 'tailwind', 'trickroom', 'gravity', 'magicroom', 'wonderroom',
+    'sunnyday', 'raindance', 'sandstorm', 'snowscape', 'hail', 'electricterrain', 'grassyterrain',
+    'mistyterrain', 'psychicterrain'].map((id) => [id, 'setup']),
+  ...['stoneaxe', 'ceaselessedge', 'courtchange'].map((id) => [id, 'hazard']),
+  ...['yawn', 'leechseed', 'curse', 'perishsong', 'saltcure', 'syrupbomb', 'throatchop', 'jawlock',
+    'spiritshackle', 'destinybond', 'fling', 'taunt', 'encore', 'disable', 'torment', 'imprison', 'spite', 'trick', 'switcheroo',
+    'corrosivegas', 'gastroacid', 'simplebeam', 'worryseed', 'entrainment', 'skillswap', 'haze',
+    'clearsmog', 'spectralthief', 'topsyturvy', 'heartswap', 'powerswap', 'guardswap', 'speedswap',
+    'soak', 'magicpowder', 'trickortreat', 'forestscurse', 'defog', 'lockon', 'electrify', 'fairylock']
+    .map((id) => [id, 'control']),
+]);
+
+function hiddenDisruptionKinds(move) {
+  if (!move?.exists || !isMoveAllowed(move)) return [];
+  // 相手の通常の防御技を「対面を崩す未公開技」として扱わない。
+  if (move.stallingMove || ['wideguard', 'quickguard'].includes(move.id)) return [];
+  const kinds = new Set(move.category !== 'Status' ? ['attack'] : []);
+  const effects = [move, move.self, ...(move.secondaries || (move.secondary ? [move.secondary] : []))];
+  for (const effect of effects.filter(Boolean)) {
+    if (effect.status || (effect.volatileStatus && (effect !== move || targetsOpponent(move)))) kinds.add('status');
+    if (effect.boosts || effect.self?.boosts || effect.self?.volatileStatus) kinds.add('setup');
+    if (['stealthrock', 'spikes', 'toxicspikes', 'stickyweb'].includes(effect.sideCondition)) kinds.add('hazard');
+    if (effect.forceSwitch) kinds.add('control');
+  }
+  // 壁・おいかぜなど、直後の対面能力を変える場の展開も対象。
+  if (['reflect', 'lightscreen', 'auroraveil', 'tailwind', 'safeguard', 'mist'].includes(move.sideCondition)) kinds.add('setup');
+  const callback = HIDDEN_DISRUPTION_CALLBACKS.get(move.id);
+  if (callback) kinds.add(callback);
+  return [...kinds];
+}
+
+function hiddenDisruptionMoves(player, speciesName) {
+  const revealed = getRevealedMoves(player, speciesName);
+  if (new Set(revealed).size >= 4) return [];
+  const state = battleState[player];
+  if (state.volatiles.encore || (revealedItemFor(player, speciesName).startsWith('choice') && state.lastMove)) return [];
+  const entry = rosterByShowdownId.get(battleDex.species.get(speciesName).id);
+  const ids = (learnsetByName.get(entry?.name) || []).map((row) => moveByChampionsId.get(row.id)?.showdownId);
+  return [...new Set(ids)].map((id) => battleDex.moves.get(id)).filter((move) => {
+    if (!isMoveAllowed(move) || revealed.includes(move.id) || moveBlockedByVolatile(player, move)) return false;
+    if (state.activeMoveActions > 0 && ['fakeout', 'firstimpression'].includes(move.id)) return false;
+    if (state.volatiles.mustrecharge) return false;
+    const used = state.ppUsed?.[baseSpeciesName(speciesName)]?.[move.id] || 0;
+    if (used >= move.pp * (move.noPPBoosts ? 1 : 1.6)) return false;
+    return hiddenDisruptionKinds(move).length > 0;
+  });
+}
+
+function hiddenDisruptionProfile(profile, move, revealed) {
+  if (move.category === 'Status' && ['choiceband', 'choicespecs', 'choicescarf', 'assaultvest'].includes(profile.item)) return null;
+  // 仮説はコピーにだけ挿入し、既存の構成予測や公開技を変更しない。
+  const moves = [...new Set([...revealed, move.id, ...profile.moves])].slice(0, 4);
+  return { ...profile, moves };
+}
+
+function hiddenDisruptionActionChance(mon, player, move) {
+  if (mon.status === 'slp' && move.sleepUsable) return 1;
+  if (mon.status === 'slp' && battleState[player].status !== 'slp') return 0;
+  if (mon.status === 'frz' && move.flags.defrost) return 1;
+  return cantMoveFactor(mon.status, player, mon.ability);
+}
+
+function hiddenDisruptionEffectBranches(move, mon) {
+  if (!move) return [{ roll: 99, sample: 0, weight: 1 }];
+  const effects = move.secondaries || (move.secondary ? [move.secondary] : []);
+  const thresholds = [...new Set([0, 100, ...effects.map((effect) => Math.max(0, Math.min(100, effect.chance ?? 100)))])].sort((a, b) => a - b);
+  const samples = move.id === 'acupressure' ? Math.max(1, Object.values(mon.boosts).filter((stage) => stage < 6).length)
+    : ['triattack', 'direclaw'].includes(move.id) ? 3 : 1;
+  return thresholds.slice(1).flatMap((upper, i) => Array.from({ length: samples }, (_, sample) => ({
+    roll: upper - 1, sample, weight: (upper - thresholds[i]) / 100 / samples,
+  })));
+}
+
+function hiddenDisruptionBoard(session, pokemon, speciesName, foePlayer) {
+  const { attacker, defender } = session;
+  if (!attacker.hp) return -240 + (defender.hp ? 0 : 100);
+  if (!defender.hp) return 200 + attacker.hp / attacker.maxhp * 100;
+  // 次のターンを実行せず、直後の能力・状態・技制限から対面の変化を測る。
+  const position = projectedAilmentPosition(session, pokemon, speciesName, foePlayer, pokemon.moves, false);
+  let hazards = 0;
+  for (const mon of attacker.side.pokemon) {
+    if (!mon.hp) continue;
+    // エンジンのhasItem/hasAbilityは非アクティブ個体では無効を返す。
+    // 控えの入場負担には、自分が把握している持ち物・特性を使う。
+    const entryMon = mon.isActive ? mon : { status: mon.status, hasItem: (id) => mon.item === id,
+      hasAbility: (id) => mon.ability === id, hasType: (type) => mon.hasType(type), getTypes: () => mon.getTypes(),
+      isGrounded: () => isPokemonGrounded({ details: mon.species.name, ability: mon.ability, item: mon.item }) };
+    const burden = effectHazardBurden(attacker.side, entryMon);
+    const entryDamage = entryMon.hasItem('heavydutyboots') || entryMon.hasAbility('magicguard') ? 0 :
+      (attacker.side.sideConditions.stealthrock ? 12.5 * getTypeMultiplier('Rock', mon.getTypes()) : 0) +
+      (entryMon.isGrounded() && attacker.side.sideConditions.spikes ? [0, 12.5, 100 / 6, 25][attacker.side.sideConditions.spikes.layers || 1] : 0);
+    // 控えが次の入場で倒れる盤面は、単なる設置の小さな点数とは区別する。
+    hazards = Math.max(hazards, burden + (entryDamage > 0 && entryDamage >= mon.hp / mon.maxhp * 100 ? 100 : 0));
+  }
+  const exposed = position.incoming >= attacker.hp / attacker.maxhp * 100 - 1 &&
+    position.outgoing < defender.hp / defender.maxhp * 100 - 1 && position.order < 0 ? 80 : 0;
+  return attacker.hp / attacker.maxhp * 100 - defender.hp / defender.maxhp * 100 + position.value -
+    effectConditionValue(attacker) + effectConditionValue(defender) - hazards - exposed;
+}
+
+function hiddenDisruptionOutcome(player, request, action, speciesName, profile, foeMove) {
+  hiddenDisruptionMetrics.scenarios++;
+  const foePlayer = player === 'p1' ? 'p2' : 'p1';
+  const active = request.side.pokemon.find((pokemon) => pokemon.active);
+  const pokemon = action.kind === 'switch' ? request.side.pokemon[action.slot - 1] : active;
+  const ownBoosts = action.kind === 'switch' ? createEmptyBoosts() : battleState[player].boosts;
+  // 一貫した合法の努力値配分。攻撃・耐久・速度を全て最大にした敵は作らない。
+  const spread = rangedCombatant(battleDex.species.get(speciesName), profile.role === 'special' ? 'spa' : profile.role === 'bulky' ? 'def' : 'atk', 'max', battleState[foePlayer].boosts, foePlayer);
+  const session = createPublicMoveSession(pokemon, speciesName, ownBoosts, battleState[foePlayer].boosts,
+    player, foePlayer, 'max', { ...spread, ...profile }, true);
+  const { calc, attacker, defender } = session;
+  try {
+    applyEffectPublicField(session, player, foePlayer);
+    seedPublicEffectState(session, pokemon, player, foePlayer, action.kind === 'switch' ? null : request);
+    for (const own of request.side.pokemon) {
+      if (own === pokemon || own.condition.includes('fnt')) continue;
+      const spec = knownCombatant({ ...own, active: false, level: own.level || BATTLE_LEVEL }, createEmptyBoosts());
+      const mon = attacker.side.addPokemon(toCalcSet(spec));
+      applyCombatant(mon, spec);
+    }
+    attacker.side.pokemonLeft = attacker.side.pokemon.length;
+    // 相手の控えは公開された存在・生存だけを使う（私有チームは参照しない）。
+    calc.canSwitch = (side) => side === attacker.side ? side.pokemon.filter((mon) => mon.hp && !mon.isActive).length : benchSpeciesNames(foePlayer).length;
+    if (action.kind === 'switch') {
+      // 新しく場に出るときの設置・特性・持ち物を、実際の入場イベントで処理。
+      attacker.isStarted = false;
+      calc.actions.runSwitch(attacker);
+      if (!attacker.hp) return { loss: 240, order: 'opponent', moveId: foeMove.id, outcomes: [], unusableEntry: true };
+    }
+    const ownMove = action.kind === 'move' ? battleDex.moves.get(action.id) : null;
+    if (ownMove?.stallingMove) {
+      const chain = battleState[player].protectionChain;
+      if (chain?.count && chain.turn === speedLearningState.turn - 1) {
+        attacker.addVolatile('stall');
+        for (let i = 1; i < chain.count; i++) attacker.addVolatile('stall');
+      }
+    }
+    const speed = getSpeedEstimate(player, pokemon, ownBoosts, attacker.status, speciesName, battleState[foePlayer].boosts, defender.status, false, profile);
+    const order = ownMove ? compareEstimatedMoveOrder(ownMove, foeMove, speed.ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, player, pokemon, profile) : 'opponent';
+    const initial = snapshotEffectSession(session);
+    const ownSide = attacker.side;
+    const sides = calc.sides.map((side) => ({ pokemon: side.pokemon.slice(), active: side.active.slice(), pokemonLeft: side.pokemonLeft,
+      faintedThisTurn: side.faintedThisTurn, faintedLastTurn: side.faintedLastTurn, totalFainted: side.totalFainted }));
+    const extra = sides.flatMap((side) => side.pokemon).map((mon) => ({ mon, state: snapshotEffectSession({ attacker: mon, defender: mon })[0],
+      position: mon.position, isActive: mon.isActive, isStarted: mon.isStarted, faintQueued: mon.faintQueued }));
+    const sideConditions = calc.sides.map((side) => Object.fromEntries(Object.entries(side.sideConditions).map(([id, state]) => [id, { ...state }])));
+    const field = { weather: calc.field.weather, weatherState: { ...calc.field.weatherState }, terrain: calc.field.terrain, terrainState: { ...calc.field.terrainState },
+      pseudoWeather: Object.fromEntries(Object.entries(calc.field.pseudoWeather).map(([id, state]) => [id, { ...state }])) };
+    const reset = () => {
+      session.attacker = attacker;
+      // extraには両側の全個体を含む。activeを別に復元して二重にコピーしない。
+      for (const row of extra) Object.assign(row.mon, snapshotEffectCopy([row.state])[0], { position: row.position, isActive: row.isActive, isStarted: row.isStarted, faintQueued: row.faintQueued });
+      calc.sides.forEach((side, i) => {
+        Object.assign(side, sides[i], { pokemon: sides[i].pokemon.slice(), active: sides[i].active.slice() });
+        side.sideConditions = Object.fromEntries(Object.entries(sideConditions[i]).map(([id, state]) => [id, { ...state }]));
+      });
+      Object.assign(calc.field, { ...field, weatherState: { ...field.weatherState }, terrainState: { ...field.terrainState },
+        pseudoWeather: Object.fromEntries(Object.entries(field.pseudoWeather).map(([id, state]) => [id, { ...state }])) });
+      calc.queue.clear(); calc.faintQueue = []; calc.log = [];
+      calc.ended = false; calc.winner = ''; calc.activeMove = null; calc.activePokemon = null; calc.activeTarget = null;
+      for (const [mon, owner] of [[attacker, player], [defender, foePlayer]]) {
+        mon.attackedBy = []; mon.hurtThisTurn = null; mon.moveThisTurnResult = undefined;
+        mon.activeMoveActions = action.kind === 'switch' && mon === attacker ? 1 : battleState[owner].activeMoveActions + 1;
+      }
+      calc.random = (n = 2) => n === 16 ? 7 : n === 100 ? 99 : 0;
+      calc.randomChance = (n, d) => n >= d;
+      calc.sample = (values) => values[0];
+    };
+    const use = (mon, target, move, hits = null, effect = { roll: 99, sample: 0 }) => {
+      if (!mon.hp || !target.hp || mon.forceSwitchFlag) return;
+      if (!hiddenDisruptionActionChance(mon, mon === defender ? foePlayer : player, move)) return;
+      if ((mon.volatiles.taunt && move.category === 'Status') || mon.volatiles.disable?.move === move.id ||
+          (mon.volatiles.encore?.move && mon.volatiles.encore.move !== move.id) || (mon.volatiles.throatchop && move.flags.sound)) return;
+      if (['self', 'allySide', 'allyTeam'].includes(move.target)) target = mon;
+      // useMove自身がModifyType/ModifyMoveを実行するため、ここで二重に変換しない。
+      const prepared = calc.dex.getActiveMove(move.id);
+      prepared.pranksterBoosted = mon.hasAbility('prankster') && move.category === 'Status';
+      if (move.multihit && hits !== null) prepared.multihit = hits;
+      prepared.accuracy = true;
+      prepared.willCrit = !!move.willCrit;
+      calc.random = (n = 2, upper) => upper !== undefined ? n : n === 16 ? 7 : n === 100 ? effect.roll : 0;
+      calc.sample = (values) => values[effect.sample % values.length];
+      calc.randomChance = (n, d) => d === 100 ? effect.roll < n : n >= d;
+      if (move.stallingMove) calc.randomChance = () => true;
+      calc.setActiveMove(prepared, mon, target);
+      calc.actions.useMove(prepared, mon, { target });
+      calc.runEvent('Update', mon); calc.runEvent('Update', target);
+    };
+    // 効果が成功した枝と不発の枝を区別。低命中技や連続まもるを確実とは扱わない。
+    reset();
+    const prepared = prepareDamageMove(calc, defender, attacker, foeMove);
+    const hitChance = readMoveHitChance(calc, defender, attacker, prepared);
+    const foeChance = hiddenDisruptionActionChance(defender, foePlayer, foeMove) * hitChance;
+    let guardChance = 1;
+    if (ownMove?.stallingMove) {
+      calc.randomChance = (n, d) => { guardChance *= n / d; return true; };
+      calc.runEvent('StallMove', attacker);
+    }
+    const ownPrepared = ownMove ? prepareDamageMove(calc, attacker, defender, ownMove) : null;
+    const ownChance = ownMove ? hiddenDisruptionActionChance(attacker, player, ownMove) *
+      readMoveHitChance(calc, attacker, defender, ownPrepared) * guardChance : 0;
+    const foeHitBranches = hitSpread(foeMove, defender, hitChance);
+    const ownHitBranches = ownMove ? hitSpread(ownMove, attacker) : [{ hits: 1, probability: 1 }];
+    // てんのめぐみ・ちからずくなどが変更した実際の追加効果を分岐へ使う。
+    const foeEffectBranches = hiddenDisruptionEffectBranches(prepared || foeMove, defender);
+    const ownEffectBranches = hiddenDisruptionEffectBranches(ownPrepared, attacker);
+    const branch = (enemyActs, ownActs, ownFirst, blockedAfterOpponent = false, foeHits = null, ownHits = null, foeEffect, ownEffect) => {
+      hiddenDisruptionMetrics.branches++;
+      reset();
+      if (ownMove && ownActs) {
+        calc.queue.push({ choice: 'move', pokemon: attacker, move: calc.dex.getActiveMove(ownMove) });
+      }
+      if (enemyActs || (ownMove && ownActs && ownMove.stallingMove)) {
+        calc.queue.push({ choice: 'move', pokemon: defender, move: calc.dex.getActiveMove(foeMove) });
+      }
+      let remainingActionChance = 1;
+      const own = () => {
+        if (ownMove && ownActs) {
+          calc.queue.cancelAction(attacker);
+          const original = hiddenDisruptionActionChance({ status: initial[0].status, ability: attacker.ability }, player, ownMove);
+          const now = hiddenDisruptionActionChance(attacker, player, ownMove);
+          remainingActionChance = original ? Math.min(1, now / original) : 0;
+          if (attacker.volatiles.flinch && calc.runEvent('Flinch', attacker)) remainingActionChance = 0;
+          if (blockedAfterOpponent || !remainingActionChance) return;
+          // 連続成功率は分岐の重みに反映済み。
+          if (ownMove.stallingMove) calc.randomChance = () => true;
+          use(attacker, defender, ownMove, ownHits, ownEffect);
+          calc.randomChance = (n, d) => n >= d;
+        }
+      };
+      if (ownFirst) own();
+      if (enemyActs) {
+        calc.queue.cancelAction(defender);
+        use(defender, attacker, foeMove, foeHits, foeEffect);
+      }
+      if (!ownFirst) own();
+      if (attacker.forceSwitchFlag && attacker.hp && calc.canSwitch(ownSide)) {
+        calc.actions.dragIn(ownSide, 0);
+        session.attacker = ownSide.active[0];
+      }
+      // Protect類の一時的な防御を、直後の継続対面の強さに持ち越さない。
+      for (const mon of [session.attacker, defender]) {
+        for (const id of Object.keys(mon.volatiles)) if (calc.dex.moves.get(id).stallingMove) delete mon.volatiles[id];
+        delete mon.volatiles.stall;
+      }
+      const current = session.attacker === attacker ? pokemon : request.side.pokemon.find((row) => getPokemonSpeciesName(row) === session.attacker.species.name) || pokemon;
+      return { value: hiddenDisruptionBoard(session, current, speciesName, foePlayer),
+        ownHpPercent: session.attacker.hp / session.attacker.maxhp * 100,
+        foeHpPercent: defender.hp / defender.maxhp * 100, ownStatus: session.attacker.status, remainingActionChance };
+    };
+    let loss = 0;
+    const outcomes = [];
+    const baselines = new Map();
+    const orders = order === 'uncertain' ? [[true, 0.5], [false, 0.5]] : [[order === 'own', 1]];
+    for (const [ownFirst, orderWeight] of orders) {
+      for (const [ownActs, weight] of [[true, ownChance], [false, 1 - ownChance]]) {
+        if (!weight) continue;
+        for (const foeHits of foeHitBranches) {
+          for (const ownHits of ownHitBranches) {
+          for (const foeEffect of foeEffectBranches) {
+          for (const ownEffect of ownEffectBranches) {
+            // 相手が動かない基準盤面は、相手の命中回数・追加効果では変わらない。
+            const baselineKey = JSON.stringify([ownActs, ownFirst, ownHits.hits, ownEffect]);
+            let baseline = hiddenDisruptionPolicy.optimize ? baselines.get(baselineKey) : null;
+            if (baseline) hiddenDisruptionMetrics.baselineCacheHits++;
+            else {
+              baseline = branch(false, ownActs, ownFirst, false, foeHits.hits, ownHits.hits, foeEffect, ownEffect);
+              if (hiddenDisruptionPolicy.optimize) baselines.set(baselineKey, baseline);
+            }
+            const after = branch(true, ownActs, ownFirst, false, foeHits.hits, ownHits.hits, foeEffect, ownEffect);
+            const unable = !ownFirst && ownActs && after.remainingActionChance < 1
+              ? branch(true, ownActs, ownFirst, true, foeHits.hits, ownHits.hits, foeEffect, ownEffect) : after;
+            const value = after.value * after.remainingActionChance + unable.value * (1 - after.remainingActionChance);
+            const probability = orderWeight * weight * foeChance * foeHits.probability * ownHits.probability * foeEffect.weight * ownEffect.weight;
+            loss += probability * Math.max(0, baseline.value - value);
+            outcomes.push({ ...after, ownFirst, weight: probability * after.remainingActionChance });
+            if (unable !== after) outcomes.push({ ...unable, ownFirst, weight: probability * (1 - after.remainingActionChance) });
+          }
+          }
+          }
+        }
+      }
+    }
+    return { loss, order, moveId: foeMove.id, outcomes };
+  } finally { calc.destroy(); }
+}
+
+function hiddenDisruptionCouldKO(player, pokemon, speciesName, profile, move) {
+  // 条件付きダメージは、こちらの選択を含む本計算へ回す。
+  if (move.damageCallback || move.ohko || ['counter', 'mirrorcoat', 'metalburst', 'bide'].includes(move.id)) return true;
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  const spread = rangedCombatant(battleDex.species.get(speciesName), profile.role === 'special' ? 'spa' : profile.role === 'bulky' ? 'def' : 'atk', 'max', battleState[foe].boosts, foe);
+  const session = createPublicMoveSession(pokemon, speciesName, battleState[player].boosts, battleState[foe].boosts,
+    player, foe, 'max', { ...spread, ...profile }, true);
+  try {
+    applyEffectPublicField(session, player, foe);
+    const { calc, attacker, defender } = session;
+    const prepared = prepareDamageMove(calc, defender, attacker, move);
+    if (!prepared) return false;
+    if (!calc.actions.hitStepTypeImmunity([attacker], defender, prepared)[0] || !calc.actions.hitStepTryImmunity([attacker], defender, prepared)[0]) return false;
+    calc.random = () => 0;
+    calc.randomChance = (n, d) => n >= d;
+    prepared.willCrit = !!move.willCrit;
+    const damage = Number(calc.actions.getDamage(defender, attacker, prepared, true)) || 0;
+    return damage * hitBounds(prepared, defender).max >= attacker.hp;
+  } finally { session.calc.destroy(); }
+}
+
+function evaluateHiddenDisruption(player, request, scoredMoves, canSwitch) {
+  hiddenDisruptionMetrics.calls++;
+  if (!hiddenDisruptionPolicy.enabled) { hiddenDisruptionDecisions.delete(player); return null; }
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  const pokemon = request.side.pokemon.find((mon) => mon.active);
+  const profiles = effectProfileGroups(foe, battleState[foe].species);
+  const speeds = profiles.map((profile) => getSpeedEstimate(player, pokemon, battleState[player].boosts, battleState[player].status,
+    battleState[foe].species, battleState[foe].boosts, battleState[foe].status, false, profile));
+  const key = JSON.stringify([player, request, scoredMoves.map((row) => [row.move.id, row.slot, row.score, row.minDamagePercent, row.hitChance]), canSwitch,
+    battleState, fieldState, profiles, speeds, hiddenDisruptionMoves(foe, battleState[foe].species).map((move) => move.id), hiddenDisruptionPolicy]);
+  if (hiddenDisruptionCache.has(key)) {
+    hiddenDisruptionMetrics.cacheHits++;
+    const cached = hiddenDisruptionCache.get(key);
+    hiddenDisruptionDecisions.set(player, cached);
+    return cached;
+  }
+  const result = computeHiddenDisruption(player, request, scoredMoves, canSwitch);
+  if (hiddenDisruptionCache.size >= 64) hiddenDisruptionCache.clear();
+  hiddenDisruptionCache.set(key, result);
+  hiddenDisruptionDecisions.set(player, result);
+  if (result?.override) hiddenDisruptionMetrics.overrides++;
+  return result;
+}
+
+function selectHiddenDisruption(rows, recent = [], policy = hiddenDisruptionPolicy) {
+  const current = rows[0];
+  const opportunityCost = (row) => {
+    const switchCost = row.kind === 'switch' ? (recent.includes(row.species) ? 80 : recent.length ? 50 : 20) + recent.length * 40 : 0;
+    return Math.max(0, current.score - row.score) * policy.opportunityWeight + switchCost;
+  };
+  const evaluated = rows.map((row) => ({ ...row, opportunityCost: opportunityCost(row),
+    improvement: current.loss - row.loss, netImprovement: current.loss - row.loss - opportunityCost(row) }));
+  if (current.loss < policy.limit) return { rows: evaluated, override: null, reason: 'below-severity' };
+  const safe = evaluated.slice(1).filter((row) => row.loss < policy.limit && row.improvement >= policy.margin && row.netImprovement >= policy.margin)
+    .sort((a, b) => a.loss + a.opportunityCost - b.loss - b.opportunityCost || b.score - a.score || a.slot - b.slot);
+  return { rows: evaluated, override: safe[0] || null, reason: safe.length ? 'material-improvement' : 'no-safe-improvement' };
+}
+
+function computeHiddenDisruption(player, request, scoredMoves, canSwitch) {
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  const species = battleState[foe].species;
+  const candidates = hiddenDisruptionMoves(foe, species);
+  if (!candidates.length) return null;
+  const best = scoredMoves[0];
+  const pokemon = request.side.pokemon.find((mon) => mon.active);
+  const profiles = effectProfileGroups(foe, species);
+  const revealed = getRevealedMoves(foe, species);
+  // KO幅はタスキ・がんじょう・みがわり等を含む既存エンジンの結果。
+  if (best.minDamagePercent >= battleState[foe].hpPercent && best.hitChance === 1 &&
+      cantMoveFactor(parseCondition(pokemon.condition).status, player, pokemon.ability) === 1 && profiles.every((profile) => {
+        const speed = getSpeedEstimate(player, pokemon, battleState[player].boosts, battleState[player].status, species, battleState[foe].boosts, battleState[foe].status, false, profile);
+        return candidates.every((move) => compareEstimatedMoveOrder(best.move, move, speed.ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, player, pokemon, profile) === 'own');
+      })) return { certainFirstKO: true, slot: best.slot, override: null };
+  const actions = [{ kind: 'move', id: best.move.id, slot: best.slot, score: best.score }];
+  for (const row of scoredMoves) {
+    if (row !== best && !row.failed && (row.move.stallingMove || row.move.category !== 'Status')) {
+      actions.push({ kind: 'move', id: row.move.id, slot: row.slot, score: row.score });
+    }
+  }
+  if (canSwitch) for (const row of evaluateSwitchCandidates(player, request, species, revealed, battleState[foe].boosts, battleState[foe].status)) actions.push({ kind: 'switch', ...row });
+  if (actions.length < 2) return null;
+  const rows = actions.map((action) => ({ ...action, loss: 0, threat: null, lossComplete: true }));
+  for (const move of candidates) {
+    for (const profile of profiles) {
+      const hypothesis = hiddenDisruptionProfile(profile, move, revealed);
+      if (!hypothesis) continue;
+      // 威力だけでは破綻を生まない攻撃は、KO候補として数えない。
+      if (hiddenDisruptionKinds(move).every((kind) => kind === 'attack')) {
+        if (!hiddenDisruptionCouldKO(player, pokemon, species, hypothesis, move)) continue;
+      }
+      for (const row of rows) {
+        // 最悪値は単調に増える。閾値以上の代替は、その後も安全候補に戻らない。
+        // 元の最良行動の最悪値は全候補で求める。省略した代替値は下限として明示する。
+        if (hiddenDisruptionPolicy.optimize && row !== rows[0] && row.loss >= hiddenDisruptionPolicy.limit) {
+          row.lossComplete = false;
+          hiddenDisruptionMetrics.skippedUnsafe++;
+          continue;
+        }
+        const outcome = hiddenDisruptionOutcome(player, request, row, species, hypothesis, move);
+        // 両立しない未公開技・構成は足さず、最悪の一手を保持する。
+        if (outcome.loss > row.loss) { row.loss = outcome.loss; row.threat = move.id; }
+      }
+    }
+  }
+  return selectHiddenDisruption(rows, battleState[player].recentSpecies || []);
+}
+
+function chooseActionInternal(player, request, onScore = null, quiet = false) {
+  assertRequestSupported(request);
+  const console = quiet ? { log() {} } : globalThis.console;
 
   if (request.teamPreview) {
     return evaluateTeamPreview(player, request);
@@ -5355,9 +7250,12 @@ function chooseAction(player, request) {
       move,
       slot: index + 1,
     }))
-    .filter(({ move }) => !move.disabled);
+    .filter(({ move }) => !move.disabled && isMoveAllowed(battleDex.moves.get(move.id)));
 
   if (!usableMoves.length) {
+    if (active.moves.some((move) => !move.disabled && !isMoveAllowed(battleDex.moves.get(move.id)))) {
+      throw new Error('シングルで使用可能な技がありません。ダブル向けの技をチームから変更してください。');
+    }
     return null;
   }
 
@@ -5387,7 +7285,7 @@ function chooseAction(player, request) {
   // 素早さ推定
   // ========================================
 
-  const speedEstimate = getSpeedEstimate(player, activePokemon, battleState[player].boosts, battleState[player].status, opponentSpecies, battleState[opponent].boosts, battleState[opponent].status);
+  const speedEstimate = getSpeedEstimate(player, activePokemon, battleState[player].boosts, battleState[player].status, opponentSpecies, battleState[opponent].boosts, battleState[opponent].status, true);
 
   let speedText = '速度関係不明';
 
@@ -5450,7 +7348,7 @@ function chooseAction(player, request) {
   // ========================================
 
   const scoredMoves = usableMoves.map(({ move, slot }) => {
-    const evaluation = evaluateMove(move, ownSpecies, opponentSpecies, battleState[opponent].status, battleState[player].lastMove, battleState[player].boosts, battleState[opponent].boosts, request, player, opponent);
+    const evaluation = evaluateMove(move, ownSpecies, opponentSpecies, battleState[opponent].status, battleState[player].lastMove, battleState[player].boosts, battleState[opponent].boosts, request, player, opponent, false, true);
 
     const baseScore = evaluation.score;
 
@@ -5460,16 +7358,14 @@ function chooseAction(player, request) {
 
     const foeMove = battleDex.moves.get(move.id);
 
-    const foeSash = focusSashHolds(battleState[opponent].item, opponentHp, foeMove);
-
-    if (!foeSash && evaluation.minDamagePercent > 0 && evaluation.minDamagePercent >= opponentHp) {
-      score += 80;
-      koType = '確定';
-    } else if (!foeSash && evaluation.maxDamagePercent > 0 && evaluation.maxDamagePercent >= opponentHp) {
-      score += 40;
-      koType = '乱数';
-    } else if (!foeSash && evaluation.critChance > 0 && evaluation.critChance < 1 && (evaluation.critMaxDamagePercent || evaluation.maxDamagePercent * (evaluation.critFactor || 1)) >= opponentHp) {
-      score += Math.round(40 * evaluation.critChance);
+    if (evaluation.minDamagePercent > 0 && evaluation.minDamagePercent >= opponentHp) {
+      score += 80 * (evaluation.hitChance ?? 1);
+      koType = (evaluation.hitChance ?? 1) < 1 ? '命中' : '確定';
+    } else if (evaluation.maxDamagePercent > 0 && evaluation.maxDamagePercent >= opponentHp) {
+      score += 40 * (evaluation.hitChance ?? 1);
+      koType = foeMove.ohko ? '命中' : '乱数';
+    } else if (evaluation.critChance > 0 && evaluation.critChance < 1 && (evaluation.critMaxDamagePercent || evaluation.maxDamagePercent * (evaluation.critFactor || 1)) >= opponentHp) {
+      score += Math.round(40 * evaluation.critChance * (evaluation.hitChance ?? 1));
       koType = '急所';
     }
 
@@ -5481,7 +7377,7 @@ function chooseAction(player, request) {
       const serious = Boolean(koType) || currentMultiplier >= 2 || opponentHp <= 40;
 
       if (resist) {
-        const switched = estimateBattleDamage({
+        const switched = estimateInferredBattleDamage({
           move: foeMove,
           attackerSpecies: battleDex.species.get(ownSpecies),
           defenderSpecies: resist.species,
@@ -5563,7 +7459,23 @@ function chooseAction(player, request) {
 
   const opponentDamageKnown = hasRevealedDamagingMove(revealedMoveIds);
 
-  if (canSwitch && (!bestMove.koType || bestMoveIsUnsafe || !opponentDamageKnown)) {
+  const hiddenDisruption = evaluateHiddenDisruption(player, request, scoredMoves, canSwitch);
+  if (hiddenDisruption?.override) {
+    const action = hiddenDisruption.override;
+    const threat = battleDex.moves.get(hiddenDisruption.rows[0].threat).name;
+    console.log(`${player} 未公開の重大な一手: ${threat} / 居座りの不利${hiddenDisruption.rows[0].loss.toFixed(1)} → ${action.kind === 'switch' ? action.species : action.id}の不利${action.loss.toFixed(1)}`);
+    onScore?.(action.score);
+    if (action.kind === 'switch') {
+      battleState[player].recentSpecies = [...(battleState[player].recentSpecies || []), ownSpecies];
+      battleState[player].lastChoice = 'switch';
+      return `switch ${action.slot}`;
+    }
+    battleState[player].recentSpecies = [];
+    battleState[player].lastChoice = 'move';
+    return `move ${action.slot}`;
+  }
+
+  if (canSwitch && !hiddenDisruption?.certainFirstKO && (!bestMove.koType || bestMoveIsUnsafe || !opponentDamageKnown || bestMove.yawnPenalty > 0)) {
     const currentDefenseScore = getDefensiveMatchupScore(ownSpecies, opponentSpecies, revealedMoveIds);
 
     const currentRisk = evaluateIncomingRisk(activePokemon, opponentSpecies, revealedMoveIds, battleState[opponent].boosts, player);
@@ -5609,6 +7521,7 @@ function chooseAction(player, request) {
       const switchMargin = cycling ? 80 : recent.length ? 50 : 20;
 
       if (bestSwitch.score >= currentPositionScore + switchMargin && bestSwitch.score >= 25) {
+        onScore?.(bestSwitch.score);
         console.log(`${player} 自主交代判断: ` + `${ownSpecies} → ` + `${bestSwitch.species}`);
 
         battleState[player].recentSpecies = [...(battleState[player].recentSpecies || []), ownSpecies];
@@ -5653,6 +7566,10 @@ function chooseAction(player, request) {
           text += '【推定乱数1発】';
         }
 
+        if (result.koType === '命中') {
+          text += '【命中時1発】';
+        }
+
         if (result.koType === '急所') {
           text += '【推定急所】';
         }
@@ -5686,6 +7603,7 @@ function chooseAction(player, request) {
 
   battleState[player].lastChoice = 'move';
 
+  onScore?.(bestMove.score);
   return `move ${bestMove.slot}`;
 }
 

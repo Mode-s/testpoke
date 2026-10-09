@@ -1,0 +1,201 @@
+p1 選出候補: [Venusaur / Blastoise / Charizard]=337.9 | [Venusaur / Blastoise / Arcanine]=315.3 | [Blastoise / Gengar / Charizard]=274.4
+p1 選出判断: Blastoise → Charizard → Venusaur (team 362)
+p1: team 362
+p2 選出候補: [Charizard / Blastoise / Venusaur]=337.9 | [Charizard / Blastoise / Steelix]=322.3 | [Arcanine / Blastoise / Venusaur]=315.3
+p2 選出判断: Blastoise → Charizard → Venusaur (team 415)
+p2: team 415
+p1 素早さ推定: Blastoise 143 / Blastoise 88〜214 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Focus Punch/Water Spout 0.0〜53.2%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Venusaur=61.2 (攻67.1 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Charizard=-126.0 (攻20.8 守-25.0 被予想:Water Spout/Wave Crash 0.0〜185.8% 次先+15 [167 vs 88〜143])
+p1 自主交代判断: Blastoise → Venusaur
+p1: switch 3
+p2 素早さ推定: Blastoise 143 / Blastoise 88〜214 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Focus Punch/Water Spout 0.0〜53.2%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Venusaur=61.2 (攻67.1 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Charizard=-126.0 (攻20.8 守-25.0 被予想:Water Spout/Wave Crash 0.0〜185.8% 次先+15 [167 vs 88〜143])
+p2 自主交代判断: Blastoise → Venusaur
+p2: switch 3
+p1 素早さ推定: Venusaur 145 / Venusaur 90〜217 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Sludge Wave/Poison Jab/Petal Dance 0.0〜57.3%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Charizard=64.5 (攻87.7 守0.0 被予想:Sludge Wave/Double-Edge/Petal Dance 0.0〜65.8% 次先+15 [167 vs 90〜145]) / Blastoise=-107.1 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p1 自主交代判断: Venusaur → Charizard
+p1: switch 2
+p2 素早さ推定: Venusaur 145 / Venusaur 90〜217 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Sludge Wave/Poison Jab/Petal Dance 0.0〜57.3%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Charizard=64.5 (攻87.7 守0.0 被予想:Sludge Wave/Double-Edge/Petal Dance 0.0〜65.8% 次先+15 [167 vs 90〜145]) / Blastoise=-107.1 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p2 自主交代判断: Venusaur → Charizard
+p2: switch 2
+p1 素早さ推定: Charizard 167 / Charizard 108〜250 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Hurricane/Overheat 0.0〜80.0%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Blastoise=51.5 (攻85.2 守0.0 被予想:Hurricane/Overheat 0.0〜67.3% 次速度不明 [143 vs 108〜167]) / Venusaur=-95.2 (攻47.4 守-25.0 被予想:Overheat 0.0〜164.3% 次速度不明 [145 vs 108〜167])
+p1 技評価: Flamethrower 推定14.6〜33.3% 評価24.5【公開情報から構成候補を推定】 / Sunny Day 推定0.0〜0.0% 評価16.3【晴れ展開価値 攻+12.8 防+0.0 約5ターン】
+p1: move 1
+p2 素早さ推定: Charizard 167 / Charizard 108〜250 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Hurricane/Overheat 0.0〜80.0%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Blastoise=51.5 (攻85.2 守0.0 被予想:Hurricane/Overheat 0.0〜67.3% 次速度不明 [143 vs 108〜167]) / Venusaur=-95.2 (攻47.4 守-25.0 被予想:Overheat 0.0〜164.3% 次速度不明 [145 vs 108〜167])
+p2 技評価: Flamethrower 推定14.6〜33.3% 評価24.5【公開情報から構成候補を推定】
+p2: move 1
+p2 公開技記憶: Charizard → Flamethrower
+p1 素早さ学習: Charizard 108〜167 → 167〜167（Charizardが先）
+p2 素早さ観測: Charizard 108〜167（Charizardが先 / 絞り込みなし）
+p1 公開技記憶: Charizard → Flamethrower
+p1 相手公開技: Charizard [Flamethrower]
+p1 素早さ推定: Charizard 167 / Charizard 167〜250 → 速度関係不明（観測1回反映）
+p1 現在対面の被ダメ推定: 予想:Hurricane 0.0〜80.0%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Blastoise=47.6 (攻85.2 守0.0 被予想:Hurricane 0.0〜67.3% 次後-15 [143 vs 167〜167]) / Venusaur=-104.3 (攻47.4 守-25.0 被Flamethrower 65.0〜114.6% 倒れる可能性 次後-15 [145 vs 167〜167])
+p1 自主交代判断: Charizard → Blastoise
+p1: switch 3
+p2 相手公開技: Charizard [Flamethrower]
+p2 素早さ推定: Charizard 167 / Charizard 108〜250 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Hurricane 0.0〜80.0%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Blastoise=62.6 (攻85.2 守0.0 被予想:Hurricane 0.0〜67.3% 次速度不明 [143 vs 108〜167]) / Venusaur=-89.3 (攻47.4 守-25.0 被Flamethrower 65.0〜114.6% 倒れる可能性 次速度不明 [145 vs 108〜167])
+p2 自主交代判断: Charizard → Blastoise
+p2: switch 3
+p1 素早さ推定: Blastoise 143 / Blastoise 88〜214 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Focus Punch/Water Spout 0.0〜53.2%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Venusaur=61.2 (攻67.1 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Charizard=-124.8 (攻20.8 守-25.0 被予想:Water Spout/Wave Crash 0.0〜185.8% 次先+15 [167 vs 88〜143])
+p1 自主交代判断: Blastoise → Venusaur
+p1: switch 2
+p2 素早さ推定: Blastoise 143 / Blastoise 88〜214 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Focus Punch/Water Spout 0.0〜53.2%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Venusaur=61.2 (攻67.1 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Charizard=-125.0 (攻20.8 守-25.0 被予想:Water Spout/Wave Crash 0.0〜185.8% 次先+15 [167 vs 88〜143])
+p2 自主交代判断: Blastoise → Venusaur
+p2: switch 2
+p1 素早さ推定: Venusaur 145 / Venusaur 90〜217 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Sludge Wave/Poison Jab/Petal Dance 0.0〜57.3%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Charizard=39.1 (攻87.7 守0.0 被予想:Sludge Wave/Double-Edge/Petal Dance 0.0〜65.8% 次先+15 [167 vs 90〜145]) / Blastoise=-107.1 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p1 技評価: Sludge Bomb 推定25.7〜54.8% 評価41.1【公開情報から構成候補を推定】 / Protect 推定0.0〜0.0% 評価10.0【先に倒される危険なし】 / Giga Drain 推定5.3〜11.6% 評価8.7【公開情報から構成候補を推定】 / Sleep Powder 推定0.0〜0.0% 評価-100.0【タイプなどで無効】
+p1: move 2
+p2 素早さ推定: Venusaur 145 / Venusaur 90〜217 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Sludge Wave/Poison Jab/Petal Dance 0.0〜57.3%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Charizard=42.5 (攻87.7 守0.0 被予想:Sludge Wave/Double-Edge/Petal Dance 0.0〜65.8% 次先+15 [167 vs 90〜145]) / Blastoise=-107.1 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p2 技評価: Sludge Bomb 推定25.7〜54.8% 評価41.1【公開情報から構成候補を推定】 / Giga Drain 推定5.3〜11.6% 評価8.7【公開情報から構成候補を推定】
+p2: move 2
+p1 公開技記憶: Venusaur → Sludge Bomb
+p1 素早さ観測: Venusaur 90〜145（Venusaurが先 / 絞り込みなし）
+p2 素早さ学習: Venusaur 90〜145 → 145〜145（Venusaurが先）
+p2 公開技記憶: Venusaur → Sludge Bomb
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Venusaur 145 / Venusaur 90〜217 → 速度関係不明
+p1 現在対面の被ダメ推定: Sludge Bomb 29.3〜54.1%【公開情報から構成候補を推定】
+p1 交代候補: Charizard=28.5 (攻87.7 守0.0 被Sludge Bomb 33.5〜61.9% 次先+15 [167 vs 90〜145]) / Blastoise=-71.5 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p1 自主交代判断: Venusaur → Charizard
+p1: switch 3
+p2 相手公開技: Venusaur [Sludge Bomb]
+p2 素早さ推定: Venusaur 145 / Venusaur 145〜217 → 速度関係不明（観測1回反映）
+p2 技評価: Sludge Bomb 推定25.7〜54.8% 評価81.1【推定乱数1発】【公開情報から構成候補を推定】 / Giga Drain 推定5.3〜11.6% 評価13.2【公開情報から構成候補を推定】【吸収】
+p2: move 2
+p1 状態異常: psn
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Charizard 167 / Venusaur 90〜217 → 速度関係不明
+p1 ターン終了: どく 点数-12.5
+p1 現在対面の被ダメ推定: Sludge Bomb 33.5〜61.9%【公開情報から構成候補を推定】
+p1 交代候補: Venusaur=-41.1 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 倒れる可能性 次速度不明 [145 vs 90〜145]) / Blastoise=-71.5 (攻18.6 守-25.0 被予想:Petal Dance/Power Whip 0.0〜138.5% 次速度不明 [143 vs 90〜145])
+p1 技評価: Flamethrower 推定80.2〜174.2% 評価38.1【推定確定1発】【公開情報から構成候補を推定】【速度関係不明でSludge BombのKO危険】【やけど】【交代読み:Charizard】 / Sunny Day 推定0.0〜0.0% 評価-67.7【速度関係不明でSludge BombのKO危険】【晴れ展開価値 攻+63.9 防+0.0 約5ターン】
+p1: move 1
+p2 相手公開技: Charizard [Flamethrower]
+p2 素早さ推定: Venusaur 145 / Charizard 108〜250 → 速度関係不明
+p2 現在対面の被ダメ推定: Flamethrower 65.0〜169.4%【公開情報から構成候補を推定】
+p2 交代候補: Blastoise=58.0 (攻85.2 守0.0 被Flamethrower 15.4〜40.4% 次速度不明 [143 vs 108〜167]) / Charizard=-13.9 (攻24.5 守0.0 被Flamethrower 18.1〜48.4% 次速度不明 [167 vs 108〜167])
+p2 自主交代判断: Venusaur → Blastoise
+p2: switch 2
+p1 強制交代候補: Venusaur=62.5 (攻96.4 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Blastoise=28.0 (攻18.0 守20.0 被予想:Focus Punch/Dragon Pulse/Water Spout 0.0〜53.2% 次速度不明 [143 vs 88〜143])
+p1 強制交代判断: Venusaur
+p1: switch 3
+p1 素早さ推定: Venusaur 145 / Blastoise 88〜214 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Blastoise=9.4 (攻18.0 守20.0 被予想:Focus Punch/Dragon Pulse/Water Spout 0.0〜53.2% 次速度不明 [143 vs 88〜143])
+p1 技評価: Giga Drain 推定41.9〜89.6% 評価41.6【推定乱数1発】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-Edge/Water SpoutのKO危険】【吸収】【交代読み:Charizard】 / Sludge Bomb 推定24.2〜53.2% 評価27.1【推定急所】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-Edge/Water SpoutのKO危険】【どく】 / Sleep Powder 推定0.0〜0.0% 評価10.4【速度関係不明で予想:Ice Beam/Double-Edge/Water SpoutのKO危険】【ねむりで次の予想:Ice Beam/Double-Edge/Water Spoutを回避 命中75%】 / Protect 推定0.0〜0.0% 評価6.0【相手の予想:Ice Beam/Double-Edge/Water Spoutが先に乱数KOするためまもる】
+p1: move 1
+p2 相手公開技: Venusaur [Sludge Bomb]
+p2 素早さ推定: Blastoise 143 / Venusaur 145〜217 → 相手が確実に速い（観測1回反映）
+p2 現在対面の被ダメ推定: 予想:Petal Dance/Power Whip 0.0〜138.5%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Charizard=31.9 (攻87.7 守0.0 被Sludge Bomb 33.5〜61.9% 次先+15 [167 vs 145〜145]) / Venusaur=-19.0 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 次速度不明 [145 vs 145〜145])
+p2 自主交代判断: Blastoise → Charizard
+p2: switch 3
+p1 公開技記憶: Venusaur → Giga Drain
+p1 相手公開技: Charizard [Flamethrower]
+p1 素早さ推定: Venusaur 145 / Charizard 167〜250 → 相手が確実に速い（観測1回反映）
+p1 現在対面の被ダメ推定: Flamethrower 65.0〜114.6%【公開情報から構成候補を推定】
+p1 交代候補: Blastoise=47.6 (攻85.2 守0.0 被予想:Hurricane 0.0〜67.3% 次後-15 [143 vs 167〜167])
+p1 自主交代判断: Venusaur → Blastoise
+p1: switch 2
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Charizard 167 / Venusaur 145〜217 → 速度関係不明（観測1回反映）
+p2 技評価: Flamethrower 推定54.5〜117.4% 評価52.5【推定乱数1発】【公開情報から構成候補を推定】【やけど】【交代読み:Blastoise】
+p2: move 1
+p1 相手公開技: Charizard [Flamethrower]
+p1 素早さ推定: Blastoise 143 / Charizard 167〜250 → 相手が確実に速い（観測1回反映）
+p1 技評価: Surf 推定51.9〜115.0% 評価75.2【推定乱数1発】【公開情報から構成候補を推定】【交代読み:Blastoise】 / Rain Dance 推定0.0〜0.0% 評価41.8【雨展開価値 攻+42.6 防+11.1 約5ターン】
+p1: move 1
+p2 素早さ推定: Charizard 167 / Blastoise 88〜214 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Wave Crash/Water Spout 0.0〜156.1%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Venusaur=44.2 (攻98.3 守20.0 被予想:Ice Beam/Double-Edge/Water Spout 0.0〜65.0% 次先+15 [145 vs 88〜143]) / Blastoise=-3.8 (攻18.0 守20.0 被予想:Focus Punch/Dragon Pulse/Water Spout 0.0〜53.2% 次速度不明 [143 vs 88〜143])
+p2 自主交代判断: Charizard → Venusaur
+p2: switch 2
+p1 公開技記憶: Blastoise → Surf
+p1 相手公開技: Venusaur [Sludge Bomb]
+p1 素早さ推定: Blastoise 143 / Venusaur 90〜217 → 速度関係不明
+p1 現在対面の被ダメ推定: 予想:Petal Dance/Power Whip 0.0〜138.5%【公開技を含む4技構成の候補から推定】
+p1 交代候補: Venusaur=-19.0 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 次速度不明 [145 vs 90〜145])
+p1 技評価: Surf 推定11.2〜25.2% 評価-0.4【推定急所】【公開情報から構成候補を推定】【速度関係不明で予想:Petal Dance/Power WhipのKO危険】 / Rain Dance 推定0.0〜0.0% 評価-7.0【速度関係不明で予想:Petal Dance/Power WhipのKO危険】【雨展開価値 攻+9.3 防+0.0 約5ターン】
+p1: move 1
+p2 相手公開技: Blastoise [Surf]
+p2 素早さ推定: Venusaur 145 / Blastoise 88〜214 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Ice Beam/Double-Edge 0.0〜65.0%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Blastoise=7.3 (攻18.0 守20.0 被予想:Focus Punch/Dragon Pulse 0.0〜53.2% 次速度不明 [143 vs 88〜143]) / Charizard=-95.3 (攻20.8 守-25.0 被Surf 59.4〜112.3% 倒れる可能性 次先+15 [167 vs 88〜143])
+p2 技評価: Giga Drain 推定41.9〜89.6% 評価54.6【推定乱数1発】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-EdgeのKO危険】【吸収】【交代読み:Venusaur】 / Sludge Bomb 推定24.2〜53.2% 評価27.1【推定急所】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-EdgeのKO危険】【どく】
+p2: move 1
+p2 公開技記憶: Venusaur → Giga Drain
+p1 素早さ学習: Venusaur 90〜145 → 143〜145（Venusaurが先）
+p2 素早さ観測: Blastoise 88〜143（Venusaurが先 / 絞り込みなし）
+p1 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p1 素早さ推定: Blastoise 143 / Venusaur 143〜217 → 速度関係不明（観測1回反映）
+p1 現在対面の被ダメ推定: Giga Drain 47.4〜88.5%【公開情報から構成候補を推定】
+p1 交代候補: Venusaur=-19.0 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 次速度不明 [145 vs 143〜145])
+p1 技評価: Surf 推定16.6〜36.8% 評価-60.8【推定急所】【公開情報から構成候補を推定】【速度関係不明でSludge BombのKO危険】 / Rain Dance 推定0.0〜0.0% 評価-82.3【速度関係不明でSludge BombのKO危険】【雨展開価値 攻+13.9 防+0.0 約5ターン】
+p1: move 1
+p2 相手公開技: Blastoise [Surf]
+p2 素早さ推定: Venusaur 145 / Blastoise 88〜214 → 速度関係不明
+p2 現在対面の被ダメ推定: 予想:Ice Beam/Double-Edge 0.0〜65.0%【公開技を含む4技構成の候補から推定】
+p2 交代候補: Blastoise=3.0 (攻18.0 守20.0 被Surf 12.2〜34.6% 次速度不明 [143 vs 88〜143]) / Charizard=-116.7 (攻20.8 守-25.0 被Surf 59.4〜166.5% 倒れる可能性 次先+15 [167 vs 88〜143])
+p2 技評価: Sludge Bomb 推定24.2〜53.2% 評価105.1【推定確定1発】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-EdgeのKO危険】【どく】 / Giga Drain 推定41.9〜89.6% 評価61.6【推定確定1発】【公開情報から構成候補を推定】【速度関係不明で予想:Ice Beam/Double-EdgeのKO危険】【吸収】【交代読み:Venusaur】
+p2: move 2
+p1 強制交代候補: Venusaur=8.6 (攻41.1 守0.0 被Sludge Bomb 29.3〜54.1% 次速度不明 [145 vs 143〜145])
+p1 強制交代判断: Venusaur
+p1: switch 2
+p1 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p1 素早さ推定: Venusaur 145 / Venusaur 143〜217 → 速度関係不明（観測1回反映）
+p1 技評価: Sludge Bomb 推定25.7〜54.8% 評価81.1【推定乱数1発】【公開情報から構成候補を推定】 / Giga Drain 推定5.3〜11.6% 評価13.2【公開情報から構成候補を推定】【吸収】 / Protect 推定0.0〜0.0% 評価10.0【先に倒される危険なし】 / Sleep Powder 推定0.0〜0.0% 評価-100.0【タイプなどで無効】
+p1: move 2
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Venusaur 145 / Venusaur 145〜217 → 速度関係不明（観測1回反映）
+p2 現在対面の被ダメ推定: Sludge Bomb 29.3〜54.1%【公開情報から構成候補を推定】
+p2 交代候補: Charizard=23.4 (攻87.7 守0.0 被Sludge Bomb 33.5〜61.9% 次先+15 [167 vs 145〜145]) / Blastoise=-108.7 (攻18.6 守-25.0 被Giga Drain 47.4〜88.5% 倒れる可能性 次後-15 [143 vs 145〜145])
+p2 技評価: Sludge Bomb 推定25.7〜54.8% 評価8.1【推定急所】【公開情報から構成候補を推定】【速度関係不明でSludge BombのKO危険】 / Giga Drain 推定5.3〜11.6% 評価-21.8【公開情報から構成候補を推定】【速度関係不明でSludge BombのKO危険】【吸収】
+p2: move 2
+p2 強制交代候補: Charizard=55.1 (攻87.7 守0.0 被Sludge Bomb 33.5〜61.9% 次先+15 [167 vs 145〜145]) / Blastoise=-68.6 (攻18.6 守-25.0 被Giga Drain 47.4〜88.5% 倒れる可能性 次後-15 [143 vs 145〜145])
+p2 強制交代判断: Charizard
+p2: switch 2
+p1 相手公開技: Charizard [Flamethrower]
+p1 素早さ推定: Venusaur 145 / Charizard 167〜250 → 相手が確実に速い（観測1回反映）
+p1 現在対面の被ダメ推定: Flamethrower 65.0〜114.6%【公開情報から構成候補を推定】
+p1 技評価: Protect 推定0.0〜0.0% 評価30.0【相手のFlamethrowerが先に乱数KOするためまもる】 / Sleep Powder 推定0.0〜0.0% 評価-16.3【相手のFlamethrowerが先に乱数KO推定】【ねむりで次のFlamethrowerを回避 命中75%】 / Sludge Bomb 推定28.1〜64.7% 評価-32.0【推定急所】【公開情報から構成候補を推定】【相手のFlamethrowerが先に乱数KO推定】【どく】 / Giga Drain 推定5.4〜13.1% 評価-70.7【公開情報から構成候補を推定】【相手のFlamethrowerが先に乱数KO推定】【吸収】
+p1: move 4
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain]
+p2 素早さ推定: Charizard 167 / Venusaur 145〜217 → 速度関係不明（観測1回反映）
+p2 技評価: Flamethrower 推定54.5〜117.4% 評価130.5【推定乱数1発】【公開情報から構成候補を推定】【やけど】
+p2: move 1
+p1 公開技記憶: Venusaur → Protect
+p1 相手公開技: Charizard [Flamethrower]
+p1 素早さ推定: Venusaur 145 / Charizard 167〜250 → 相手が確実に速い（観測1回反映）
+p1 現在対面の被ダメ推定: Flamethrower 65.0〜114.6%【公開情報から構成候補を推定】
+p1 技評価: Sleep Powder 推定0.0〜0.0% 評価-16.3【相手のFlamethrowerが先に乱数KO推定】【ねむりで次のFlamethrowerを回避 命中75%】 / Sludge Bomb 推定28.1〜64.7% 評価-32.0【推定急所】【公開情報から構成候補を推定】【相手のFlamethrowerが先に乱数KO推定】【どく】 / Protect 推定0.0〜0.0% 評価-50.0【前ターンもまもる系】 / Giga Drain 推定5.4〜13.1% 評価-70.7【公開情報から構成候補を推定】【相手のFlamethrowerが先に乱数KO推定】【吸収】
+p1: move 3
+p2 相手公開技: Venusaur [Sludge Bomb, Giga Drain, Protect]
+p2 素早さ推定: Charizard 167 / Venusaur 145〜145 → 自分が確実に速い（観測1回反映）
+p2 技評価: Flamethrower 推定54.5〜117.4% 評価130.5【推定乱数1発】【公開情報から構成候補を推定】【やけど】
+p2: move 1
+
+=== 対戦終了 ===
+勝者: AI-2
+ターン数: 16

@@ -1,0 +1,7128 @@
+{
+  "total": 512,
+  "classified": 464,
+  "learnedCandidates": 462,
+  "gaps": [],
+  "beforeMissing": [
+    {
+      "name": "いとをはく",
+      "id": "stringshot"
+    },
+    {
+      "name": "いやなおと",
+      "id": "screech"
+    },
+    {
+      "name": "あやしいひかり",
+      "id": "confuseray"
+    },
+    {
+      "name": "ひかりのかべ",
+      "id": "lightscreen"
+    },
+    {
+      "name": "くろいきり",
+      "id": "haze"
+    },
+    {
+      "name": "リフレクター",
+      "id": "reflect"
+    },
+    {
+      "name": "きあいだめ",
+      "id": "focusenergy"
+    },
+    {
+      "name": "へんしん",
+      "id": "transform"
+    },
+    {
+      "name": "みがわり",
+      "id": "substitute"
+    },
+    {
+      "name": "わたほうし",
+      "id": "cottonspore"
+    },
+    {
+      "name": "うらみ",
+      "id": "spite"
+    },
+    {
+      "name": "こわいかお",
+      "id": "scaryface"
+    },
+    {
+      "name": "てんしのキッス",
+      "id": "sweetkiss"
+    },
+    {
+      "name": "みちづれ",
+      "id": "destinybond"
+    },
+    {
+      "name": "ロックオン",
+      "id": "lockon"
+    },
+    {
+      "name": "すなあらし",
+      "id": "sandstorm"
+    },
+    {
+      "name": "あまえる",
+      "id": "charm"
+    },
+    {
+      "name": "メロメロ",
+      "id": "attract"
+    },
+    {
+      "name": "しんぴのまもり",
+      "id": "safeguard"
+    },
+    {
+      "name": "あまいかおり",
+      "id": "sweetscent"
+    },
+    {
+      "name": "あまごい",
+      "id": "raindance"
+    },
+    {
+      "name": "にほんばれ",
+      "id": "sunnyday"
+    },
+    {
+      "name": "じこあんじ",
+      "id": "psychup"
+    },
+    {
+      "name": "たくわえる",
+      "id": "stockpile"
+    },
+    {
+      "name": "いちゃもん",
+      "id": "torment"
+    },
+    {
+      "name": "おきみやげ",
+      "id": "memento"
+    },
+    {
+      "name": "トリック",
+      "id": "trick"
+    },
+    {
+      "name": "なりきり",
+      "id": "roleplay"
+    },
+    {
+      "name": "スキルスワップ",
+      "id": "skillswap"
+    },
+    {
+      "name": "ふういん",
+      "id": "imprison"
+    },
+    {
+      "name": "フェザーダンス",
+      "id": "featherdance"
+    },
+    {
+      "name": "フラフラダンス",
+      "id": "teeterdance"
+    },
+    {
+      "name": "うそなき",
+      "id": "faketears"
+    },
+    {
+      "name": "きんぞくおん",
+      "id": "metalsound"
+    },
+    {
+      "name": "くすぐる",
+      "id": "tickle"
+    },
+    {
+      "name": "はねやすめ",
+      "id": "roost"
+    },
+    {
+      "name": "じゅうりょく",
+      "id": "gravity"
+    },
+    {
+      "name": "つぼをつく",
+      "id": "acupressure"
+    },
+    {
+      "name": "なげつける",
+      "id": "fling"
+    },
+    {
+      "name": "パワートリック",
+      "id": "powertrick"
+    },
+    {
+      "name": "いえき",
+      "id": "gastroacid"
+    },
+    {
+      "name": "パワースワップ",
+      "id": "powerswap"
+    },
+    {
+      "name": "ガードスワップ",
+      "id": "guardswap"
+    },
+    {
+      "name": "なやみのタネ",
+      "id": "worryseed"
+    },
+    {
+      "name": "でんじふゆう",
+      "id": "magnetrise"
+    },
+    {
+      "name": "すりかえ",
+      "id": "switcheroo"
+    },
+    {
+      "name": "きりばらい",
+      "id": "defog"
+    },
+    {
+      "name": "トリックルーム",
+      "id": "trickroom"
+    },
+    {
+      "name": "ガードシェア",
+      "id": "guardsplit"
+    },
+    {
+      "name": "パワーシェア",
+      "id": "powersplit"
+    },
+    {
+      "name": "ワンダールーム",
+      "id": "wonderroom"
+    },
+    {
+      "name": "マジックルーム",
+      "id": "magicroom"
+    },
+    {
+      "name": "みずびたし",
+      "id": "soak"
+    },
+    {
+      "name": "シンプルビーム",
+      "id": "simplebeam"
+    },
+    {
+      "name": "なかまづくり",
+      "id": "entrainment"
+    },
+    {
+      "name": "ミラータイプ",
+      "id": "reflecttype"
+    },
+    {
+      "name": "ハロウィン",
+      "id": "trickortreat"
+    },
+    {
+      "name": "おたけび",
+      "id": "nobleroar"
+    },
+    {
+      "name": "もりののろい",
+      "id": "forestscurse"
+    },
+    {
+      "name": "ひっくりかえす",
+      "id": "topsyturvy"
+    },
+    {
+      "name": "グラスフィールド",
+      "id": "grassyterrain"
+    },
+    {
+      "name": "ミストフィールド",
+      "id": "mistyterrain"
+    },
+    {
+      "name": "そうでん",
+      "id": "electrify"
+    },
+    {
+      "name": "フェアリーロック",
+      "id": "fairylock"
+    },
+    {
+      "name": "かいでんぱ",
+      "id": "eerieimpulse"
+    },
+    {
+      "name": "エレキフィールド",
+      "id": "electricterrain"
+    },
+    {
+      "name": "つぶらなひとみ",
+      "id": "babydolleyes"
+    },
+    {
+      "name": "サイコフィールド",
+      "id": "psychicterrain"
+    },
+    {
+      "name": "スピードスワップ",
+      "id": "speedswap"
+    },
+    {
+      "name": "オーロラベール",
+      "id": "auroraveil"
+    },
+    {
+      "name": "なみだめ",
+      "id": "tearfullook"
+    },
+    {
+      "name": "ほおばる",
+      "id": "stuffcheeks"
+    },
+    {
+      "name": "まほうのこな",
+      "id": "magicpowder"
+    },
+    {
+      "name": "たこがため",
+      "id": "octolock"
+    },
+    {
+      "name": "コートチェンジ",
+      "id": "courtchange"
+    },
+    {
+      "name": "ふしょくガス",
+      "id": "corrosivegas"
+    },
+    {
+      "name": "ゆきげしき",
+      "id": "snowscape"
+    }
+  ],
+  "rows": [
+    {
+      "name": "はたく",
+      "id": "pound",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": false,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ほのおのパンチ",
+      "id": "firepunch",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "れいとうパンチ",
+      "id": "icepunch",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をこおり状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "かみなりパンチ",
+      "id": "thunderpunch",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハサミギロチン",
+      "id": "guillotine",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をひんしにする。 命中率３０％固定。",
+      "callbackReview": null
+    },
+    {
+      "name": "つるぎのまい",
+      "id": "swordsdance",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 2
+      },
+      "gap": false,
+      "effect": "自分の攻撃を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふきとばし",
+      "id": "whirlwind",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に控えがいる場合 相手をランダムに交代させる。",
+      "callbackReview": null
+    },
+    {
+      "name": "そらをとぶ",
+      "id": "fly",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで空中状態になり 次のターンで攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "しめつける",
+      "id": "bind",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "メガトンキック",
+      "id": "megakick",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "つのドリル",
+      "id": "horndrill",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をひんしにする。 命中率３０％固定。",
+      "callbackReview": null
+    },
+    {
+      "name": "のしかかり",
+      "id": "bodyslam",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をまひ状態にする。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "まきつく",
+      "id": "wrap",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "あばれる",
+      "id": "thrash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は あばれ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "すてみタックル",
+      "id": "doubleedge",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミサイルばり",
+      "id": "pinmissile",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "かみつく",
+      "id": "bite",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほえる",
+      "id": "roar",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に控えがいる場合 相手をランダムに交代させる。",
+      "callbackReview": null
+    },
+    {
+      "name": "うたう",
+      "id": "sing",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をねむり状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "かなしばり",
+      "id": "disable",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "４ターンの間 相手をわざふうじ状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "かえんほうしゃ",
+      "id": "flamethrower",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハイドロポンプ",
+      "id": "hydropump",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "なみのり",
+      "id": "surf",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "水中状態の相手には 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "れいとうビーム",
+      "id": "icebeam",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をこおり状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふぶき",
+      "id": "blizzard",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をこおり状態にする。 ゆき状態の場合 相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "はかいこうせん",
+      "id": "hyperbeam",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドリルくちばし",
+      "id": "drillpeck",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "けたぐり",
+      "id": "lowkick",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が重いほど威力が上がる。 威力２０ー１２０。",
+      "callbackReview": null
+    },
+    {
+      "name": "カウンター",
+      "id": "counter",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに相手から受けた 物理技のダメージを２倍にして返す。",
+      "callbackReview": null
+    },
+    {
+      "name": "ちきゅうなげ",
+      "id": "seismictoss",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手のHPに５０ダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "やどりぎのタネ",
+      "id": "leechseed",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をやどりぎのタネ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "せいちょう",
+      "id": "growth",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "spa": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃 特攻を１段階上げる。 にほんばれ状態の場合 ２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ソーラービーム",
+      "id": "solarbeam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで溜め状態になり 次のターンで攻撃する。 にほんばれ状態の場合は溜め状態にならず すぐに攻撃できる。 他の天気の場合は威力が１／２になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくのこな",
+      "id": "poisonpowder",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をどく状態にする。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "しびれごな",
+      "id": "stunspore",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をまひ状態にする。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねむりごな",
+      "id": "sleeppowder",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をねむり状態にする。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "はなびらのまい",
+      "id": "petaldance",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は あばれ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いとをはく",
+      "id": "stringshot",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほのおのうず",
+      "id": "firespin",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "１０まんボルト",
+      "id": "thunderbolt",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "でんじは",
+      "id": "thunderwave",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をまひ状態にする。 じめんタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "かみなり",
+      "id": "thunder",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をまひ状態にする。 あめ状態の場合 相手に必ず命中する。 にほんばれ状態の場合 命中率は５０％になる。 空中状態の相手にも当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じしん",
+      "id": "earthquake",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "地中状態の相手には威力が２倍になる。 グラスフィールド状態の時 威力が１／２になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じわれ",
+      "id": "fissure",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をひんしにする。 命中率３０％固定。",
+      "callbackReview": null
+    },
+    {
+      "name": "あなをほる",
+      "id": "dig",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで地中状態になり 次のターンで攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくどく",
+      "id": "toxic",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をもうどく状態にする。 どくタイプが使うと相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイコキネシス",
+      "id": "psychic",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "さいみんじゅつ",
+      "id": "hypnosis",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をねむり状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "こうそくいどう",
+      "id": "agility",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spe": 2
+      },
+      "gap": false,
+      "effect": "自分の素早さを２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "でんこうせっか",
+      "id": "quickattack",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ナイトヘッド",
+      "id": "nightshade",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手のHPに５０ダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "いやなおと",
+      "id": "screech",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の防御を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "かげぶんしん",
+      "id": "doubleteam",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "evasion": 1
+      },
+      "gap": false,
+      "effect": "自分の回避率を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じこさいせい",
+      "id": "recover",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ちいさくなる",
+      "id": "minimize",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "evasion": 2
+      },
+      "gap": false,
+      "effect": "自分の回避率を２段階上げる。 自分は ちいさくなる状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "あやしいひかり",
+      "id": "confuseray",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をこんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひかりのかべ",
+      "id": "lightscreen",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５ターンの間 味方の場を ひかりのかべ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "くろいきり",
+      "id": "haze",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "全体の場の 能力変化をなくす。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "リフレクター",
+      "id": "reflect",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５ターンの間 味方の場を リフレクター状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "きあいだめ",
+      "id": "focusenergy",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分はきゅうしょアップ状態＋２ になる。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "じばく",
+      "id": "selfdestruct",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使うと自分はひんしになる。",
+      "callbackReview": null
+    },
+    {
+      "name": "だいもんじ",
+      "id": "fireblast",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "たきのぼり",
+      "id": "waterfall",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドわすれ",
+      "id": "amnesia",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spd": 2
+      },
+      "gap": false,
+      "effect": "自分の特防を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "とびひざげり",
+      "id": "highjumpkick",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "外れるか失敗すると自分の最大ＨＰの １／２のダメージを受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "へびにらみ",
+      "id": "glare",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "きゅうけつ",
+      "id": "leechlife",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ゴッドバード",
+      "id": "skyattack",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで溜め状態になり 次のターンで攻撃する。 ３０％の確率で相手をひるませる。 きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "へんしん",
+      "id": "transform",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手と同じポケモンに変身する。 ＨＰ以外のステータスも同じになる。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "とける",
+      "id": "acidarmor",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": 2
+      },
+      "gap": false,
+      "effect": "自分の防御を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "クラブハンマー",
+      "id": "crabhammer",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "だいばくはつ",
+      "id": "explosion",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使うと自分はひんしになる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねむる",
+      "id": "rest",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを全回復し状態異常も回復する。 ２ターンの間 ねむり状態になる。 ＨＰが満タンだと失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "いわなだれ",
+      "id": "rockslide",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "トライアタック",
+      "id": "triattack",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手を まひ やけど こおり状態のいずれかにする。",
+      "callbackReview": null
+    },
+    {
+      "name": "いかりのまえば",
+      "id": "superfang",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の残りＨＰの １／２のダメージを与える。 残り１の場合は１ダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "きりさく",
+      "id": "slash",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "みがわり",
+      "id": "substitute",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／４減らし みがわりを出す。 みがわりは 自分の代わりに技を受ける。 最大ＨＰの１／４分のダメージを受けると消える。 音の技は みがわりを無視して受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "わるあがき",
+      "id": "struggle",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": false,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "どろぼう",
+      "id": "thief",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が道具を持っていない場合 相手の道具を奪う。",
+      "callbackReview": null
+    },
+    {
+      "name": "いびき",
+      "id": "snore",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分がねむり状態の場合 使うことができる。 ３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "のろい",
+      "id": "curse",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２減らし 相手をのろい状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "じたばた",
+      "id": "flail",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の残りＨＰが少ないほど威力が上がる。 威力２０ー２００。",
+      "callbackReview": null
+    },
+    {
+      "name": "わたほうし",
+      "id": "cottonspore",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを２段階下げる。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "きしかいせい",
+      "id": "reversal",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の残りＨＰが少ないほど威力が上がる。 威力２０ー２００。",
+      "callbackReview": null
+    },
+    {
+      "name": "うらみ",
+      "id": "spite",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が最後に使用した技のＰＰを４減らす。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "まもる",
+      "id": "protect",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 相手の技から身を守る。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "マッハパンチ",
+      "id": "machpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "こわいかお",
+      "id": "scaryface",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "てんしのキッス",
+      "id": "sweetkiss",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をこんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "はらだいこ",
+      "id": "bellydrum",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２減らし 攻撃を６段階目まで上げる。 残りＨＰが足りない場合は失敗する。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "ヘドロばくだん",
+      "id": "sludgebomb",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "どろかけ",
+      "id": "mudslap",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の命中率を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "まきびし",
+      "id": "spikes",
+      "allowed": true,
+      "kinds": [
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を まきびし状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "でんじほう",
+      "id": "zapcannon",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "みちづれ",
+      "id": "destinybond",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は みちづれ状態になる。 連続で使うと失敗する。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "ほろびのうた",
+      "id": "perishsong",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "場の全員を ほろび状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "こごえるかぜ",
+      "id": "icywind",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "みきり",
+      "id": "detect",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 相手の技から身を守る。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ボーンラッシュ",
+      "id": "bonerush",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ロックオン",
+      "id": "lockon",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分は ロックオン状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "げきりん",
+      "id": "outrage",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は あばれ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "すなあらし",
+      "id": "sandstorm",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 すなあらし状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ギガドレイン",
+      "id": "gigadrain",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "こらえる",
+      "id": "endure",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中は ひんしになる技のダメージを受けると ＨＰを１残して耐える。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "あまえる",
+      "id": "charm",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いばる",
+      "id": "swagger",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を２段階上げ こんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミルクのみ",
+      "id": "milkdrink",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分か味方の ＨＰを最大ＨＰの１／２回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "はがねのつばさ",
+      "id": "steelwing",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で自分の防御を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "くろいまなざし",
+      "id": "meanlook",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手をにげられない状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "メロメロ",
+      "id": "attract",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をメロメロ状態にする。 同性 性別不明の相手には失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねごと",
+      "id": "sleeptalk",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分がねむり状態の場合 使うことができる。 自分が覚えている他の技の中から いずれかの技を使う。",
+      "callbackReview": null
+    },
+    {
+      "name": "いやしのすず",
+      "id": "healbell",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分と味方と 手持ちのポケモン全員の 状態異常を回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "しんぴのまもり",
+      "id": "safeguard",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５ターンの間 味方の場を しんぴのまもり状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "いたみわけ",
+      "id": "painsplit",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分と相手の残りＨＰを足して 互いに１／２ずつに分ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ばくれつパンチ",
+      "id": "dynamicpunch",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をこんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "メガホーン",
+      "id": "megahorn",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "バトンタッチ",
+      "id": "batonpass",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "手持ちの他のポケモンと交代する。 能力変化 みがわり等を そのポケモンに引き継ぐ。",
+      "callbackReview": null
+    },
+    {
+      "name": "アンコール",
+      "id": "encore",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をアンコール状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "こうそくスピン",
+      "id": "rapidspin",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分にかかっているバインド やどりぎのタネ状態と 味方の場にかかっているまきびし どくびし ねばねばネット ステルスロック状態を解除する。 自分の素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "あまいかおり",
+      "id": "sweetscent",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の回避率を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アイアンテール",
+      "id": "irontail",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "あさのひざし",
+      "id": "morningsun",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。 にほんばれ状態の場合は２／３回復する。 それ以外の天気の場合は１／４回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "こうごうせい",
+      "id": "synthesis",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。 にほんばれ状態の場合は２／３回復する。 それ以外の天気の場合は１／４回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "つきのひかり",
+      "id": "moonlight",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。 にほんばれ状態の場合は２／３回復する。 それ以外の天気の場合は１／４回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "クロスチョップ",
+      "id": "crosschop",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "あまごい",
+      "id": "raindance",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 あめ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "にほんばれ",
+      "id": "sunnyday",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 にほんばれ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "かみくだく",
+      "id": "crunch",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミラーコート",
+      "id": "mirrorcoat",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに相手から受けた 特殊技のダメージを２倍にして返す。",
+      "callbackReview": null
+    },
+    {
+      "name": "じこあんじ",
+      "id": "psychup",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手にかかっている能力変化を 自分にもかける。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "しんそく",
+      "id": "extremespeed",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "げんしのちから",
+      "id": "ancientpower",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で自分の攻撃 防御 特攻 特防 素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "シャドーボール",
+      "id": "shadowball",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "みらいよち",
+      "id": "futuresight",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手がいる場所を みらいにこうげき状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "うずしお",
+      "id": "whirlpool",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。 水中状態の相手には 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふくろだたき",
+      "id": "beatup",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "手持ちのポケモンの数だけ相手を攻撃する。 ひんしや状態異常のポケモンは数えない。 技の威力は手持ちポケモンのこうげきで計算する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねこだまし",
+      "id": "fakeout",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をひるませる。 登場して最初に出す技でない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "さわぐ",
+      "id": "uproar",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は さわぐ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "たくわえる",
+      "id": "stockpile",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御 特防を１段階上げる。 たくわえる状態を１増やす。 最大３回までたくわえられる。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "はきだす",
+      "id": "spitup",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "たくわえる状態の数値が多いほど 威力が上がる。威力１００ー３００。 たくわえる状態ではない場合この技は失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "のみこむ",
+      "id": "swallow",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "たくわえる状態の数値が多いとＨＰを多く回復する。 １回だと最大ＨＰの１／４回復する。 ２回だと最大ＨＰの１／２回復する。 ３回だと全回復する。 たくわえる状態ではない場合この技は失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねっぷう",
+      "id": "heatwave",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "いちゃもん",
+      "id": "torment",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手を連続不可状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "おだてる",
+      "id": "flatter",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階上げ こんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "おにび",
+      "id": "willowisp",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "おきみやげ",
+      "id": "memento",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分はひんしになるが 相手の攻撃 特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "からげんき",
+      "id": "facade",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分がどく もうどく まひ やけど状態の いずれかの場合 威力が２倍になる。 やけど状態による物理技のダメージが 半減される効果は無視する。",
+      "callbackReview": null
+    },
+    {
+      "name": "きあいパンチ",
+      "id": "focuspunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が技を使うターンで 先に相手からの技のダメージを受けると失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "このゆびとまれ",
+      "id": "followme",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の技を全て自分が受ける。 相手を選ぶ技にしか効果はない。",
+      "callbackReview": null
+    },
+    {
+      "name": "じゅうでん",
+      "id": "charge",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spd": 1
+      },
+      "gap": false,
+      "effect": "自分の特防を１段階上げる。 でんき威力アップ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ちょうはつ",
+      "id": "taunt",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をちょうはつ状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "てだすけ",
+      "id": "helpinghand",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 味方の技の威力を１．５倍する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トリック",
+      "id": "trick",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手と自分の持っている道具を入れ替える。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "なりきり",
+      "id": "roleplay",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分の特性を相手と同じ特性に変える。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねがいごと",
+      "id": "wish",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分がいる場所を ねがいごと状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねをはる",
+      "id": "ingrain",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分は ねをはる状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ばかぢから",
+      "id": "superpower",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の攻撃 防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "リサイクル",
+      "id": "recycle",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分が最後に消費した道具を 元に戻し 再び持つ。",
+      "callbackReview": null
+    },
+    {
+      "name": "かわらわり",
+      "id": "brickbreak",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場の ひかりのかべ リフレクター オーロラベール状態を解除して攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "あくび",
+      "id": "yawn",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をねむけ状態にする。 相手に必ず命中する。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "はたきおとす",
+      "id": "knockoff",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が道具を持っていると 威力が１．５倍になる。 相手の道具を失わせる。",
+      "callbackReview": null
+    },
+    {
+      "name": "がむしゃら",
+      "id": "endeavor",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の残りＨＰから自分の残りＨＰを 引いた数値のダメージを与える。 相手のＨＰが自分のＨＰ以下なら失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふんか",
+      "id": "eruption",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の残りＨＰが少ないほど威力が下がる。 威力１ー１５０。",
+      "callbackReview": null
+    },
+    {
+      "name": "スキルスワップ",
+      "id": "skillswap",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分と相手の特性を入れ替える。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふういん",
+      "id": "imprison",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は ふういん状態になる。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "ダイビング",
+      "id": "dive",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで水中状態になり 次のターンで攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "フェザーダンス",
+      "id": "featherdance",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "フラフラダンス",
+      "id": "teeterdance",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分以外の場の全員を こんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ブレイズキック",
+      "id": "blazekick",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。 きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "なまける",
+      "id": "slackoff",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハイパーボイス",
+      "id": "hypervoice",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "どくどくのキバ",
+      "id": "poisonfang",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で相手をもうどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ブレイククロー",
+      "id": "crushclaw",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ブラストバーン",
+      "id": "blastburn",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハイドロカノン",
+      "id": "hydrocannon",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "コメットパンチ",
+      "id": "meteormash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で自分の攻撃を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ウェザーボール",
+      "id": "weatherball",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "天気が変わっていると 威力が２倍になり タイプも変わる。 にほんばれ状態：ほのお あめ状態：みず ゆき状態：こおり すなあらし状態：いわ",
+      "callbackReview": null
+    },
+    {
+      "name": "うそなき",
+      "id": "faketears",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特防を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "エアカッター",
+      "id": "aircutter",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "オーバーヒート",
+      "id": "overheat",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "がんせきふうじ",
+      "id": "rocktomb",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "きんぞくおん",
+      "id": "metalsound",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特防を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "くすぐる",
+      "id": "tickle",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃 防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "コスモパワー",
+      "id": "cosmicpower",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": 1,
+        "spd": 1
+      },
+      "gap": false,
+      "effect": "自分の防御 特防を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "しおふき",
+      "id": "waterspout",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の残りＨＰが少ないほど威力が下がる。 威力１ー１５０。",
+      "callbackReview": null
+    },
+    {
+      "name": "シャドーパンチ",
+      "id": "shadowpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "じんつうりき",
+      "id": "extrasensory",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "すなじごく",
+      "id": "sandtomb",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ぜったいれいど",
+      "id": "sheercold",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をひんしにする。命中率３０％固定。 こおりタイプの相手には当たらない。 こおりタイプ以外が使うと命中率が２０％になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "だくりゅう",
+      "id": "muddywater",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手の命中率を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "タネマシンガン",
+      "id": "bulletseed",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "つばめがえし",
+      "id": "aerialace",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "つららばり",
+      "id": "iciclespear",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "てっぺき",
+      "id": "irondefense",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": 2
+      },
+      "gap": false,
+      "effect": "自分の防御を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "とおせんぼう",
+      "id": "block",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手をにげられない状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "とおぼえ",
+      "id": "howl",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分と味方の攻撃を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドラゴンクロー",
+      "id": "dragonclaw",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ハードプラント",
+      "id": "frenzyplant",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ビルドアップ",
+      "id": "bulkup",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "def": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃 防御を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "とびはねる",
+      "id": "bounce",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで空中状態になり 次のターンで攻撃する。 ３０％の確率で相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "マッドショット",
+      "id": "mudshot",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほしがる",
+      "id": "covet",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が道具を持っていない場合 相手の道具を奪う。",
+      "callbackReview": null
+    },
+    {
+      "name": "ボルテッカー",
+      "id": "volttackle",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。 １０％の確率で相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "めいそう",
+      "id": "calmmind",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spa": 1,
+        "spd": 1
+      },
+      "gap": false,
+      "effect": "自分の特攻 特防を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "リーフブレード",
+      "id": "leafblade",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "りゅうのまい",
+      "id": "dragondance",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "spe": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃 素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ロックブラスト",
+      "id": "rockblast",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "みずのはどう",
+      "id": "waterpulse",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をこんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "はねやすめ",
+      "id": "roost",
+      "allowed": true,
+      "kinds": [
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２回復する。 ひこうタイプが使うとそのターン中 ひこうタイプでなくなる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じゅうりょく",
+      "id": "gravity",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を じゅうりょく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "アームハンマー",
+      "id": "hammerarm",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ジャイロボール",
+      "id": "gyroball",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さが相手より低いほど 威力が大きくなる。 威力１ー１５０。",
+      "callbackReview": null
+    },
+    {
+      "name": "いやしのねがい",
+      "id": "healingwish",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分はひんしになるが 次にこちらが出すポケモンの ＨＰを全回復し状態異常を回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "フェイント",
+      "id": "feint",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "まもる みきり等の効果を 解除して攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ついばむ",
+      "id": "pluck",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手がきのみを持っていれば そのきのみを代わりに食べ 自分がその効果を受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "おいかぜ",
+      "id": "tailwind",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "４ターンの間 味方の場を おいかぜ状態にする。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "つぼをつく",
+      "id": "acupressure",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分か味方の 攻撃 防御 特攻 特防 素早さ 命中率 回避率のいずれか１つを ２段階上げる。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "メタルバースト",
+      "id": "metalburst",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに相手から受けた 技のダメージを１．５倍にして返す。",
+      "callbackReview": null
+    },
+    {
+      "name": "とんぼがえり",
+      "id": "uturn",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "攻撃した後 手持ちの他のポケモンと交代する。",
+      "callbackReview": null
+    },
+    {
+      "name": "インファイト",
+      "id": "closecombat",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御 特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "しっぺがえし",
+      "id": "payback",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手より後に攻撃すると 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ダメおし",
+      "id": "assurance",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターン中 相手がすでにダメージを受けているなら 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "なげつける",
+      "id": "fling",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "持っている道具によって 威力と効果が変わる。 使うと道具はなくなる。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "パワートリック",
+      "id": "powertrick",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分は 攻防反転状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いえき",
+      "id": "gastroacid",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をとくせいなし状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "まねっこ",
+      "id": "copycat",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "最後に使われた技を出す。 使われた技がない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "パワースワップ",
+      "id": "powerswap",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分の攻撃 特攻の能力変化を 相手の攻撃 特攻の能力変化と入れ替える。",
+      "callbackReview": null
+    },
+    {
+      "name": "ガードスワップ",
+      "id": "guardswap",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分の防御 特防の能力変化を 相手の防御 特防の能力変化と入れ替える。",
+      "callbackReview": null
+    },
+    {
+      "name": "とっておき",
+      "id": "lastresort",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "他に覚えている技を 全て使っていない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "なやみのタネ",
+      "id": "worryseed",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手の特性を ふみん にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふいうち",
+      "id": "suckerpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が攻撃を選んでおり かつ この技を使ったターン中 まだ攻撃を していない時でないと失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくびし",
+      "id": "toxicspikes",
+      "allowed": true,
+      "kinds": [
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を どくびし状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクアリング",
+      "id": "aquaring",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分は アクアリング状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "でんじふゆう",
+      "id": "magnetrise",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分は でんじふゆう状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "フレアドライブ",
+      "id": "flareblitz",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。 １０％の確率で相手をやけど状態にする。 使うと自分のこおり状態を治す。",
+      "callbackReview": null
+    },
+    {
+      "name": "はどうだん",
+      "id": "aurasphere",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ロックカット",
+      "id": "rockpolish",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spe": 2
+      },
+      "gap": false,
+      "effect": "自分の素早さを２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくづき",
+      "id": "poisonjab",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "あくのはどう",
+      "id": "darkpulse",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "つじぎり",
+      "id": "nightslash",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクアテール",
+      "id": "aquatail",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "タネばくだん",
+      "id": "seedbomb",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "エアスラッシュ",
+      "id": "airslash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "シザークロス",
+      "id": "xscissor",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "むしのさざめき",
+      "id": "bugbuzz",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "りゅうのはどう",
+      "id": "dragonpulse",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ドラゴンダイブ",
+      "id": "dragonrush",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をひるませる。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "パワージェム",
+      "id": "powergem",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ドレインパンチ",
+      "id": "drainpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "しんくうは",
+      "id": "vacuumwave",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "きあいだま",
+      "id": "focusblast",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "エナジーボール",
+      "id": "energyball",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ブレイブバード",
+      "id": "bravebird",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "だいちのちから",
+      "id": "earthpower",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "すりかえ",
+      "id": "switcheroo",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手と自分の持っている道具を入れ替える。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "ギガインパクト",
+      "id": "gigaimpact",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "わるだくみ",
+      "id": "nastyplot",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spa": 2
+      },
+      "gap": false,
+      "effect": "自分の特攻を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "バレットパンチ",
+      "id": "bulletpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ゆきなだれ",
+      "id": "avalanche",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技を使うターンに 相手からの 技のダメージを受けていれば威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "こおりのつぶて",
+      "id": "iceshard",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "シャドークロー",
+      "id": "shadowclaw",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "かみなりのキバ",
+      "id": "thunderfang",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をまひ状態にする。 １０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "こおりのキバ",
+      "id": "icefang",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をこおり状態にする。 １０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほのおのキバ",
+      "id": "firefang",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。 １０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "かげうち",
+      "id": "shadowsneak",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "サイコカッター",
+      "id": "psychocut",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "しねんのずつき",
+      "id": "zenheadbutt",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ラスターカノン",
+      "id": "flashcannon",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "きりばらい",
+      "id": "defog",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手の回避率を１段階下げる。 リフレクター まきびし しんぴのまもり フィールド等を解除する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トリックルーム",
+      "id": "trickroom",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を トリックルーム状態にする。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "りゅうせいぐん",
+      "id": "dracometeor",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほうでん",
+      "id": "discharge",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふんえん",
+      "id": "lavaplume",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "リーフストーム",
+      "id": "leafstorm",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "パワーウィップ",
+      "id": "powerwhip",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "がんせきほう",
+      "id": "rockwrecker",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "クロスポイズン",
+      "id": "crosspoison",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をどく状態にする。 きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ダストシュート",
+      "id": "gunkshot",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "アイアンヘッド",
+      "id": "ironhead",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ストーンエッジ",
+      "id": "stoneedge",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ステルスロック",
+      "id": "stealthrock",
+      "allowed": true,
+      "kinds": [
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を ステルスロック状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "くさむすび",
+      "id": "grassknot",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が重いほど威力が上がる。 威力２０ー１２０。",
+      "callbackReview": null
+    },
+    {
+      "name": "むしくい",
+      "id": "bugbite",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手がきのみを持っていれば そのきのみを代わりに食べ 自分がその効果を受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "チャージビーム",
+      "id": "chargebeam",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "７０％の確率で自分の特攻を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ウッドハンマー",
+      "id": "woodhammer",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクアジェット",
+      "id": "aquajet",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "もろはのずつき",
+      "id": "headsmash",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／２を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ダブルアタック",
+      "id": "doublehit",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ワイドガード",
+      "id": "wideguard",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 味方全員に当たる技から身を守る。",
+      "callbackReview": null
+    },
+    {
+      "name": "ガードシェア",
+      "id": "guardsplit",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分と相手の 防御の数値と特防の数値を足して 互いに１／２ずつに分ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "パワーシェア",
+      "id": "powersplit",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分と相手の 攻撃の数値と特攻の数値を足して 互いに１／２ずつに分ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ワンダールーム",
+      "id": "wonderroom",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を ワンダールーム状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイコショック",
+      "id": "psyshock",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技は特殊技だが 相手の防御でダメージを計算する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ベノムショック",
+      "id": "venoshock",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手がどく もうどく状態の場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いかりのこな",
+      "id": "ragepowder",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の技を全て自分が受ける。 相手を選ぶ技にしか効果はない。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "マジックルーム",
+      "id": "magicroom",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を マジックルーム状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "うちおとす",
+      "id": "smackdown",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "地面にいない相手を着地状態にする。 空中状態の相手にも当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "やまあらし",
+      "id": "stormthrow",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "必ず急所に当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ヘドロウェーブ",
+      "id": "sludgewave",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ちょうのまい",
+      "id": "quiverdance",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spa": 1,
+        "spd": 1,
+        "spe": 1
+      },
+      "gap": false,
+      "effect": "自分の特攻 特防 素早さを １段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ヘビーボンバー",
+      "id": "heavyslam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が相手より重いほど威力が上がる。 威力４０ー１２０。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "エレキボール",
+      "id": "electroball",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さが相手より高いほど 威力が上がる。威力４０ー１５０。",
+      "callbackReview": null
+    },
+    {
+      "name": "みずびたし",
+      "id": "soak",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手のタイプをみずタイプに変える。",
+      "callbackReview": null
+    },
+    {
+      "name": "ニトロチャージ",
+      "id": "flamecharge",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "とぐろをまく",
+      "id": "coil",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "def": 1,
+        "accuracy": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃 防御 命中率を １段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ローキック",
+      "id": "lowsweep",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アシッドボム",
+      "id": "acidspray",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特防を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "イカサマ",
+      "id": "foulplay",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の攻撃ではなく 相手の攻撃の数値でダメージが決まる。",
+      "callbackReview": null
+    },
+    {
+      "name": "シンプルビーム",
+      "id": "simplebeam",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手の特性を たんじゅん にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "なかまづくり",
+      "id": "entrainment",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手の特性を自分と同じ特性にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "おさきにどうぞ",
+      "id": "afteryou",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の行動を自分の行動のすぐ後にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "りんしょう",
+      "id": "round",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "同じターンに複数のポケモンがこの技を使うと １匹目が使ったすぐ後に２匹目以降が使う。 ２匹目以降の威力は２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "クリアスモッグ",
+      "id": "clearsmog",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の能力変化を元に戻す。 相手に必ず命中する。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "アシストパワー",
+      "id": "storedpower",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の能力変化が１段階上がるごとに この技の威力は２０上がる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ファストガード",
+      "id": "quickguard",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 自分と味方を先制技から守る。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイドチェンジ",
+      "id": "allyswitch",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分と味方の場所を入れ替える。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねっとう",
+      "id": "scald",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をやけど状態にする。 相手のこおり状態を治す。 使うと自分のこおり状態を治す。",
+      "callbackReview": null
+    },
+    {
+      "name": "からをやぶる",
+      "id": "shellsmash",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": -1,
+        "spd": -1,
+        "atk": 2,
+        "spa": 2,
+        "spe": 2
+      },
+      "gap": false,
+      "effect": "自分の防御 特防を１段階下げて 攻撃 特攻 素早さを２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いやしのはどう",
+      "id": "healpulse",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手のＨＰを最大ＨＰの１／２回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "たたりめ",
+      "id": "hex",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が状態異常だと威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ギアチェンジ",
+      "id": "shiftgear",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "spe": 2,
+        "atk": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃を１段階上げて 素早さを２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ともえなげ",
+      "id": "circlethrow",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に控えがいる場合 相手をランダムに交代させる。",
+      "callbackReview": null
+    },
+    {
+      "name": "さきおくり",
+      "id": "quash",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の行動の順番を そのターンの最後にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクロバット",
+      "id": "acrobatics",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が道具を持っていない場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミラータイプ",
+      "id": "reflecttype",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分のタイプを相手のタイプと同じにする。",
+      "callbackReview": null
+    },
+    {
+      "name": "いのちがけ",
+      "id": "finalgambit",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分はひんしになり その時に残っていたＨＰ分の ダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "れんごく",
+      "id": "inferno",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ボルトチェンジ",
+      "id": "voltswitch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "攻撃した後 手持ちの他のポケモンと交代する。",
+      "callbackReview": null
+    },
+    {
+      "name": "むしのていこう",
+      "id": "strugglebug",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じならし",
+      "id": "bulldoze",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。 グラスフィールド状態の時 威力が１／２になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "こおりのいぶき",
+      "id": "frostbreath",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "必ず急所に当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドラゴンテール",
+      "id": "dragontail",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に控えがいる場合 相手をランダムに交代させる。",
+      "callbackReview": null
+    },
+    {
+      "name": "エレキネット",
+      "id": "electroweb",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ワイルドボルト",
+      "id": "wildcharge",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／４を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドリルライナー",
+      "id": "drillrun",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ウッドホーン",
+      "id": "hornleech",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "せいなるつるぎ",
+      "id": "sacredsword",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の能力変化を無視してダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "シェルブレード",
+      "id": "razorshell",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ヒートスタンプ",
+      "id": "heatcrash",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分が相手より重いほど威力が上がる。 威力４０ー１２０。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "コットンガード",
+      "id": "cottonguard",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": 3
+      },
+      "gap": false,
+      "effect": "自分の防御を３段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ナイトバースト",
+      "id": "nightdaze",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "４０％の確率で相手の命中率を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "スイープビンタ",
+      "id": "tailslap",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ぼうふう",
+      "id": "hurricane",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をこんらん状態にする。 あめ状態の場合 相手に必ず命中する。 にほんばれ状態の場合 命中率は５０％になる。 空中状態の相手にも当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほのおのまい",
+      "id": "fierydance",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で自分の特攻を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "バークアウト",
+      "id": "snarl",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "つららおとし",
+      "id": "iciclecrash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "フライングプレス",
+      "id": "flyingpress",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技のタイプとひこうタイプの ２つの相性を組み合わせてダメージが決まる。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ゲップ",
+      "id": "belch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "戦闘中にきのみを食べていない場合 この技は失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねばねばネット",
+      "id": "stickyweb",
+      "allowed": true,
+      "kinds": [
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を ねばねばネット状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "とどめばり",
+      "id": "fellstinger",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技で相手を倒すと 攻撃が３段階上がる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ゴーストダイブ",
+      "id": "phantomforce",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで潜伏状態になり 次のターンで攻撃する。 まもる みきり等の効果を 解除して攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハロウィン",
+      "id": "trickortreat",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手をハロウィン状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "おたけび",
+      "id": "nobleroar",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃 特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "パラボラチャージ",
+      "id": "paraboliccharge",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "もりののろい",
+      "id": "forestscurse",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手を もりののろい状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "はなふぶき",
+      "id": "petalblizzard",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "フリーズドライ",
+      "id": "freezedry",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "みずタイプの相手にも効果バツグンとなる。",
+      "callbackReview": null
+    },
+    {
+      "name": "すてゼリフ",
+      "id": "partingshot",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の攻撃 特攻を１段階下げ 自分は手持ちの他のポケモンと交代する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひっくりかえす",
+      "id": "topsyturvy",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手の能力変化を全て逆にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドレインキッス",
+      "id": "drainingkiss",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの３／４ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "グラスフィールド",
+      "id": "grassyterrain",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を グラスフィールド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミストフィールド",
+      "id": "mistyterrain",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を ミストフィールド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "そうでん",
+      "id": "electrify",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が技を出す前に この技が命中すると そのターン 相手の技はでんきタイプになる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じゃれつく",
+      "id": "playrough",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ムーンフォース",
+      "id": "moonblast",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ばくおんぱ",
+      "id": "boomburst",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "フェアリーロック",
+      "id": "fairylock",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "場の全員を フェアリーロック状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "キングシールド",
+      "id": "kingsshield",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 相手の攻撃から身を守り 接触技をしてきた相手の攻撃を１段階下げる。 シールドフォルムにフォルムチェンジする。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "みずしゅりけん",
+      "id": "watershuriken",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "マジカルフレイム",
+      "id": "mysticalfire",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ニードルガード",
+      "id": "spikyshield",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 相手の技から身を守り 接触技をしてきた相手の最大ＨＰの １／８のダメージを与える。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アロマミスト",
+      "id": "aromaticmist",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "味方の特防を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "かいでんぱ",
+      "id": "eerieimpulse",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "じばそうさ",
+      "id": "magneticflux",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "特性が プラス マイナス である 自分と味方の防御 特防を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "エレキフィールド",
+      "id": "electricterrain",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を エレキフィールド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "マジカルシャイン",
+      "id": "dazzlinggleam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "つぶらなひとみ",
+      "id": "babydolleyes",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほっぺすりすり",
+      "id": "nuzzle",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をまひ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "まとわりつく",
+      "id": "infestation",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "はめつのひかり",
+      "id": "lightofruin",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／２を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "であいがしら",
+      "id": "firstimpression",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "登場して最初に出す技でない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トーチカ",
+      "id": "banefulbunker",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "使ったターン中 相手の技から身を守る。 接触技をしてきた相手をどく状態にする。 連続で使うと成功率が 前に使った時の１／３になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "かげぬい",
+      "id": "spiritshackle",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をにげられない状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "ＤＤラリアット",
+      "id": "darkestlariat",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の能力変化を無視して ダメージを与える。",
+      "callbackReview": null
+    },
+    {
+      "name": "うたかたのアリア",
+      "id": "sparklingaria",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手のやけど状態を治す。",
+      "callbackReview": null
+    },
+    {
+      "name": "アイスハンマー",
+      "id": "icehammer",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "１０まんばりき",
+      "id": "highhorsepower",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ちからをすいとる",
+      "id": "strengthsap",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手の攻撃の数値分 自分のＨＰを回復する。 相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ソーラーブレード",
+      "id": "solarblade",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで溜め状態になり 次のターンで攻撃する。 にほんばれ状態の場合は溜め状態にならず すぐに攻撃できる。 他の天気の場合は威力が１／２になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくのいと",
+      "id": "toxicthread",
+      "allowed": true,
+      "kinds": [
+        "status",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを２段階下げる。 相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "じごくづき",
+      "id": "throatchop",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をじごくづき状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "かふんだんご",
+      "id": "pollenpuff",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "味方に使うとダメージを与えず その味方のＨＰを 味方の最大ＨＰの１／２回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイコフィールド",
+      "id": "psychicterrain",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 全体の場を サイコフィールド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "とびかかる",
+      "id": "lunge",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほのおのムチ",
+      "id": "firelash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "つけあがる",
+      "id": "powertrip",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の能力変化が１段階上がるごとに この技の威力は２０上がる。",
+      "callbackReview": null
+    },
+    {
+      "name": "もえつきる",
+      "id": "burnup",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分のほのおタイプがなくなる。 使うと自分のこおり状態を治す。 自分がほのおタイプではない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "スピードスワップ",
+      "id": "speedswap",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分と相手の素早さを入れ替える。",
+      "callbackReview": null
+    },
+    {
+      "name": "スマートホーン",
+      "id": "smartstrike",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トロピカルキック",
+      "id": "tropkick",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "さいはい",
+      "id": "instruct",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "相手が直前に使った技を もう１度使わせる。",
+      "callbackReview": null
+    },
+    {
+      "name": "くちばしキャノン",
+      "id": "beakblast",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "技を使う前に接触技を受けると その相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "スケイルノイズ",
+      "id": "clangingscales",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ぶんまわす",
+      "id": "brutalswing",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "オーロラベール",
+      "id": "auroraveil",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５ターンの間 味方の場を オーロラベール状態にする。 ゆき状態の場合にしか使えない。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイコファング",
+      "id": "psychicfangs",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場の ひかりのかべ リフレクター オーロラベール状態を解除して攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "じだんだ",
+      "id": "stompingtantrum",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "前のターン 自分が動けなかったり 技を外したり失敗していた場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクセルロック",
+      "id": "accelerock",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "アクアブレイク",
+      "id": "liquidation",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手の防御を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "なみだめ",
+      "id": "tearfullook",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃 特攻を１段階下げる。 相手の回避率 まもる等を無視して当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "びりびりちくちく",
+      "id": "zingzap",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねらいうち",
+      "id": "snipeshot",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "技を引き受ける特性や技の影響を無視する。 きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "くらいつく",
+      "id": "jawlock",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手と自分を くらいつく状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "ほおばる",
+      "id": "stuffcheeks",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "持っているきのみを食べる。 自分の防御を２段階上げる。 きのみを持っていないと この技は使えない。",
+      "callbackReview": "特殊な積み・展開"
+    },
+    {
+      "name": "はいすいのじん",
+      "id": "noretreat",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "def": 1,
+        "spa": 1,
+        "spd": 1,
+        "spe": 1
+      },
+      "gap": false,
+      "effect": "自分の攻撃 防御 特攻 特防 素早さを １段階上げる。自分は にげられない状態になる。 登場するたび １回だけ使える。 ２回目以降は失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "まほうのこな",
+      "id": "magicpowder",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "相手のタイプをエスパータイプに変える。 くさタイプの ポケモンには効かない。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドラゴンアロー",
+      "id": "dragondarts",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２回連続で攻撃する。 相手が２匹いる場合は それぞれに１回ずつ攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "おちゃかい",
+      "id": "teatime",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "場の全員は それぞれ持っているきのみを食べて使う。",
+      "callbackReview": null
+    },
+    {
+      "name": "たこがため",
+      "id": "octolock",
+      "allowed": true,
+      "kinds": [
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手を にげられない状態と たこがため状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "コートチェンジ",
+      "id": "courtchange",
+      "allowed": true,
+      "kinds": [
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "味方と相手の場の状態を入れ替える。",
+      "callbackReview": "特殊な設置"
+    },
+    {
+      "name": "ソウルビート",
+      "id": "clangoroussoul",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "atk": 1,
+        "def": 1,
+        "spa": 1,
+        "spd": 1,
+        "spe": 1
+      },
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／３減らし 自分の攻撃 防御 特攻 特防 素早さを １段階上げる。 残りＨＰが足りない場合は失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ボディプレス",
+      "id": "bodypress",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技は攻撃ではなく 防御の数値でダメージが決まる。",
+      "callbackReview": null
+    },
+    {
+      "name": "デコレーション",
+      "id": "decorate",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃 特攻を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドラムアタック",
+      "id": "drumbeating",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "トラバサミ",
+      "id": "snaptrap",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をバインド状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "かえんボール",
+      "id": "pyroball",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１０％の確率で相手をやけど状態にする。 使うと自分のこおり状態をなおす。",
+      "callbackReview": null
+    },
+    {
+      "name": "オーラぐるま",
+      "id": "aurawheel",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階上げる。 モルペコのフォルムでタイプが変わる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ワイドブレイカー",
+      "id": "breakingswipe",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "オーバードライブ",
+      "id": "overdrive",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "りんごさん",
+      "id": "appleacid",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "Ｇのちから",
+      "id": "gravapple",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の防御を１段階下げる。 じゅうりょく状態の場合 威力が１．５倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ソウルクラッシュ",
+      "id": "spiritbreak",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "いのちのしずく",
+      "id": "lifedew",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分と味方のＨＰを それぞれの最大ＨＰの１／４回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "スターアサルト",
+      "id": "meteorassault",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使った次のターン 自分は 反動状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "てっていこうせん",
+      "id": "steelbeam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "攻撃した後 自分の最大ＨＰの １／２のダメージを受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ワイドフォース",
+      "id": "expandingforce",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "サイコフィールド状態の効果を 受けている場合 威力が１．５倍になり 相手全体を攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "アイアンローラー",
+      "id": "steelroller",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "場にフィールドがない場合 失敗する。 フィールドを解除する。",
+      "callbackReview": null
+    },
+    {
+      "name": "スケイルショット",
+      "id": "scaleshot",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ー５回連続で攻撃する。 自分の防御を１段階下げ 素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "メテオビーム",
+      "id": "meteorbeam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで溜め状態になり 次のターンで攻撃する。 使ったターンに自分の特攻を １段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "シェルアームズ",
+      "id": "shellsidearm",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２０％の確率で相手をどく状態にする。 物理技である方がダメージが大きい場合は 物理技になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ミストバースト",
+      "id": "mistyexplosion",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使うと自分はひんしになる。 ミストフィールド状態の効果を 受けている場合 威力が１．５倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "グラススライダー",
+      "id": "grassyglide",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "グラスフィールド状態の 効果を受けている場合 優先度＋１ になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ライジングボルト",
+      "id": "risingvoltage",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手がエレキフィールド状態の効果を 受けている場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "だいちのはどう",
+      "id": "terrainpulse",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分がフィールドの効果を 受けている場合 威力が２倍になる。 フィールドの種類によってタイプが変わる。",
+      "callbackReview": null
+    },
+    {
+      "name": "はいよるいちげき",
+      "id": "skittersmack",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特攻を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "しっとのほのお",
+      "id": "burningjealousy",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに相手の能力が上がっている場合 相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "うっぷんばらし",
+      "id": "lashout",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに自分の能力が下がっている場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ポルターガイスト",
+      "id": "poltergeist",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が道具を持っていない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふしょくガス",
+      "id": "corrosivegas",
+      "allowed": true,
+      "kinds": [
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "自分以外の場の全員の 持っている道具を失わせる。",
+      "callbackReview": null
+    },
+    {
+      "name": "コーチング",
+      "id": "coaching",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "味方の攻撃 防御を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "クイックターン",
+      "id": "flipturn",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "攻撃した後 手持ちの他のポケモンと交代する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トリプルアクセル",
+      "id": "tripleaxel",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１回目は威力２０ ２回目は威力４０ ３回目は威力６０ の３回連続攻撃。 途中で外れると攻撃は終わる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ダブルウイング",
+      "id": "dualwingbeat",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ねっさのだいち",
+      "id": "scorchingsands",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をやけど状態にする。 相手のこおり状態を治す。 使うと自分のこおり状態を治す。",
+      "callbackReview": null
+    },
+    {
+      "name": "ぶきみなじゅもん",
+      "id": "eeriespell",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が最後に使用した技のＰＰを３減らす。",
+      "callbackReview": null
+    },
+    {
+      "name": "フェイタルクロー",
+      "id": "direclaw",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手を どく まひ ねむり状態のいずれかにする。",
+      "callbackReview": null
+    },
+    {
+      "name": "バリアーラッシュ",
+      "id": "psyshieldbash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "がんせきアックス",
+      "id": "stoneaxe",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を ステルスロック状態にする。",
+      "callbackReview": "特殊な設置"
+    },
+    {
+      "name": "だいふんげき",
+      "id": "ragingfury",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分は あばれ状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ウェーブタックル",
+      "id": "wavecrash",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "与えたダメージの１／３を自分も受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひょうざんおろし",
+      "id": "mountaingale",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をひるませる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ぶちかまし",
+      "id": "headlongrush",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御 特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "どくばりセンボン",
+      "id": "barbbarrage",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で相手をどく状態にする。 相手がどく もうどく状態の場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "うらみつらみ",
+      "id": "bittermalice",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "たてこもる",
+      "id": "shelter",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": {
+        "def": 2
+      },
+      "gap": false,
+      "effect": "自分の防御を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "３ぼんのや",
+      "id": "triplearrows",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "５０％の確率で相手の防御を１段階下げる。 ３０％の確率で相手をひるませる。 きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひゃっきやこう",
+      "id": "infernalparade",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をやけど状態にする。 相手が状態異常だと威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひけん・ちえなみ",
+      "id": "ceaselessedge",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "hazard"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の場を まきびし状態にする。",
+      "callbackReview": "特殊な設置"
+    },
+    {
+      "name": "かかとおとし",
+      "id": "axekick",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で相手をこんらん状態にする。 外れるか失敗すると自分の最大ＨＰの １／２のダメージを受ける。",
+      "callbackReview": null
+    },
+    {
+      "name": "おはかまいり",
+      "id": "lastrespects",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "手持ちのポケモンが１匹ひんしになるたび 威力が５０上がる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ルミナコリジョン",
+      "id": "luminacrash",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の特防を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ジェットパンチ",
+      "id": "jetpunch",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": null,
+      "callbackReview": null
+    },
+    {
+      "name": "ハバネロエキス",
+      "id": "spicyextract",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の防御を２段階下げて 攻撃を２段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ネズミざん",
+      "id": "populationbomb",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "１ー１０回連続で攻撃する。 途中で外れると攻撃は終わる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アイススピナー",
+      "id": "icespinner",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "フィールドを解除する。",
+      "callbackReview": null
+    },
+    {
+      "name": "きょけんとつげき",
+      "id": "glaiverush",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "次に自分が行動するまで 自分は 無防備状態になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "さいきのいのり",
+      "id": "revivalblessing",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "手持ちのひんしのポケモンを 最大ＨＰの１／２の状態で復活させる。",
+      "callbackReview": null
+    },
+    {
+      "name": "しおづけ",
+      "id": "saltcure",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手をしおづけ状態にする。",
+      "callbackReview": "特殊な状態・制限"
+    },
+    {
+      "name": "キラースピン",
+      "id": "mortalspin",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分にかかっているバインド やどりぎのタネ状態と 味方の場にかかっているまきびし どくびし ねばねばネット ステルスロック状態を解除する。 相手をどく状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドゲザン",
+      "id": "kowtowcleave",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "トリックフラワー",
+      "id": "flowertrick",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に必ず命中する。 必ず急所に当たる。",
+      "callbackReview": null
+    },
+    {
+      "name": "フレアソング",
+      "id": "torchsong",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の特攻を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクアステップ",
+      "id": "aquastep",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "レイジングブル",
+      "id": "ragingbull",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分のフォルムによって技のタイプが変わる。 相手の場の ひかりのかべ リフレクター オーロラベール状態を解除して攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ゴールドラッシュ",
+      "id": "makeitrain",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の特攻を２段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "しっぽきり",
+      "id": "shedtail",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "自分のＨＰを最大ＨＰの１／２減らし みがわりを出す。 その後 手持ちの他のポケモンと交代する。 みがわりは 自分の代わりに技を受ける。 最大ＨＰの１／４分のダメージを受けると消える。",
+      "callbackReview": null
+    },
+    {
+      "name": "さむいギャグ",
+      "id": "chillyreception",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 ゆき状態にする。 手持ちの他のポケモンと交代する。",
+      "callbackReview": null
+    },
+    {
+      "name": "おかたづけ",
+      "id": "tidyup",
+      "allowed": true,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "全体の場の ねばねばネット ステルスロック みがわり まきびし どくびし状態を解除する。 自分の攻撃 素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ゆきげしき",
+      "id": "snowscape",
+      "allowed": true,
+      "kinds": [
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": false,
+      "gap": false,
+      "effect": "５ターンの間 ゆき状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "とびつく",
+      "id": "pounce",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の素早さを１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "くさわけ",
+      "id": "trailblaze",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の素早さを１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ひやみず",
+      "id": "chillingwater",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の攻撃を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ツインビーム",
+      "id": "twinbeam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２回連続で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "ふんどのこぶし",
+      "id": "ragefist",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "技のダメージを受けるたび 威力が５０上がる。最大威力３５０。 手持ちに戻ると 威力は元に戻る。",
+      "callbackReview": null
+    },
+    {
+      "name": "アーマーキャノン",
+      "id": "armorcannon",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "setup"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分の防御 特防を１段階下げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "むねんのつるぎ",
+      "id": "bitterblade",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。",
+      "callbackReview": null
+    },
+    {
+      "name": "でんこうそうげき",
+      "id": "doubleshock",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "自分のでんきタイプがなくなる。 自分がでんきタイプではない場合 失敗する。",
+      "callbackReview": null
+    },
+    {
+      "name": "デカハンマー",
+      "id": "gigatonhammer",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "この技は２回連続で出すことはできない。",
+      "callbackReview": null
+    },
+    {
+      "name": "ほうふく",
+      "id": "comeuppance",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンに相手から受けた 技のダメージを１．５倍にして返す。",
+      "callbackReview": null
+    },
+    {
+      "name": "アクアカッター",
+      "id": "aquacutter",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "きゅうしょアップ＋１ で攻撃する。",
+      "callbackReview": null
+    },
+    {
+      "name": "シャカシャカほう",
+      "id": "matchagotcha",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手に与えたダメージの１／２ 自分のＨＰを回復する。 ２０％の確率で相手をやけど状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "みずあめボム",
+      "id": "syrupbomb",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status",
+        "control"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３ターンの間 相手を あめまみれ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "エレクトロビーム",
+      "id": "electroshot",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターンで溜め状態になり 次のターンで攻撃する。 あめ状態の場合は溜め状態にならず すぐに攻撃できる。 使ったターンに 自分の特攻を１段階上げる。",
+      "callbackReview": null
+    },
+    {
+      "name": "きまぐレーザー",
+      "id": "ficklebeam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "３０％の確率で威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "ハードプレス",
+      "id": "hardpress",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手の残りＨＰが多いほど威力が高くなる。 威力１ー１００。",
+      "callbackReview": null
+    },
+    {
+      "name": "ドラゴンエール",
+      "id": "dragoncheer",
+      "allowed": false,
+      "kinds": [],
+      "learnedCandidate": false,
+      "required": false,
+      "gap": false,
+      "effect": "味方をきゅうしょアップ状態にする。 ドラゴンタイプなら＋２ それ以外のタイプなら＋１。",
+      "callbackReview": null
+    },
+    {
+      "name": "みわくのボイス",
+      "id": "alluringvoice",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "使ったターン中 相手の能力が上がっている場合 相手をこんらん状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "やけっぱち",
+      "id": "temperflare",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "前のターン 自分が動けなかったり 技を外したり失敗していた場合 威力が２倍になる。",
+      "callbackReview": null
+    },
+    {
+      "name": "サンダーダイブ",
+      "id": "supercellslam",
+      "allowed": true,
+      "kinds": [
+        "attack"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "外れるか失敗すると自分の最大ＨＰの １／２のダメージを受ける。 ちいさくなる状態の相手には 威力が２倍になり必ず命中する。",
+      "callbackReview": null
+    },
+    {
+      "name": "サイコノイズ",
+      "id": "psychicnoise",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "２ターンの間 相手をかいふくふうじ状態にする。",
+      "callbackReview": null
+    },
+    {
+      "name": "はやてがえし",
+      "id": "upperhand",
+      "allowed": true,
+      "kinds": [
+        "attack",
+        "status"
+      ],
+      "learnedCandidate": true,
+      "required": true,
+      "gap": false,
+      "effect": "相手が 先制できる攻撃を使っていない場合 失敗する。相手をひるませる。",
+      "callbackReview": null
+    }
+  ]
+}

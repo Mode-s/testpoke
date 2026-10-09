@@ -1,4 +1,5 @@
 const fs = require("node:fs");
+const { ACTIVE_BATTLE_RULES, assertMoveAllowed, createBattleTeamValidator } = require('./battle-rules.cjs');
 
 const {
   Dex,
@@ -7,7 +8,7 @@ const {
 
 Dex.includeFormats();
 
-const FORMAT = "gen9championsbssregmc";
+const FORMAT = ACTIVE_BATTLE_RULES.format;
 
 function loadMaster(path) {
   const data = JSON.parse(fs.readFileSync(path, "utf-8"));
@@ -94,6 +95,7 @@ function convertTeam(path) {
         "わざ"
       );
 
+      assertMoveAllowed(Dex.forFormat(FORMAT).moves.get(move.showdownId), member.pokemon);
       return move.showdownId;
     });
 
@@ -104,6 +106,14 @@ function convertTeam(path) {
       nature: nature.showdownId,
       moves: showdownMoves,
       level: 100,
+      evs: {
+        hp: member.statPoints?.hp ?? 0,
+        atk: member.statPoints?.attack ?? 0,
+        def: member.statPoints?.defense ?? 0,
+        spa: member.statPoints?.spAttack ?? 0,
+        spd: member.statPoints?.spDefense ?? 0,
+        spe: member.statPoints?.speed ?? 0,
+      },
     };
   });
 }
@@ -111,7 +121,7 @@ function convertTeam(path) {
 const teamA = convertTeam("./teams/team-a.json");
 const teamB = convertTeam("./teams/team-b.json");
 
-const validator = new TeamValidator(FORMAT);
+const validator = createBattleTeamValidator(TeamValidator, Dex);
 
 const problemsA = validator.validateTeam(teamA);
 const problemsB = validator.validateTeam(teamB);
@@ -133,3 +143,4 @@ console.log(
   "Team B:",
   problemsB ?? "OK"
 );
+if (problemsA || problemsB) process.exitCode = 1;

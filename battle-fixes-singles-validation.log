@@ -1,0 +1,155 @@
+=== Team A ===
+[
+  {
+    species: 'Steelix',
+    ability: 'Sturdy',
+    item: '',
+    nature: 'Serious',
+    moves: [ 'stealthrock' ],
+    level: 50,
+    evs: { hp: 32, atk: 0, def: 32, spa: 0, spd: 2, spe: 0 },
+    name: 'Steelix',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Venusaur',
+    ability: 'Overgrow',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'gigadrain', 'sludgebomb', 'sleeppowder', 'protect' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Venusaur',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Blastoise',
+    ability: 'Torrent',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'surf', 'raindance' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Blastoise',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Gengar',
+    ability: 'Cursed Body',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'shadowball' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Gengar',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Arcanine',
+    ability: 'Intimidate',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'flamethrower' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Arcanine',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Charizard',
+    ability: 'Blaze',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'flamethrower', 'sunnyday' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Charizard',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  }
+]
+
+=== Team B ===
+[
+  {
+    species: 'Charizard',
+    ability: 'Blaze',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'flamethrower' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Charizard',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Arcanine',
+    ability: 'Intimidate',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'flamethrower' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Arcanine',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Gengar',
+    ability: 'Cursed Body',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'shadowball' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Gengar',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Blastoise',
+    ability: 'Torrent',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'surf' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Blastoise',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Venusaur',
+    ability: 'Overgrow',
+    item: '',
+    nature: 'Timid',
+    moves: [ 'gigadrain', 'sludgebomb' ],
+    level: 50,
+    evs: { hp: 2, atk: 0, def: 0, spa: 32, spd: 0, spe: 32 },
+    name: 'Venusaur',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  },
+  {
+    species: 'Steelix',
+    ability: 'Sturdy',
+    item: '',
+    nature: 'Serious',
+    moves: [ 'earthquake' ],
+    level: 50,
+    evs: { hp: 32, atk: 32, def: 2, spa: 0, spd: 0, spe: 0 },
+    name: 'Steelix',
+    ivs: { hp: 31, atk: 31, def: 31, spa: 31, spd: 31, spe: 31 },
+    gender: ''
+  }
+]
+
+=== Champions M-C チェック ===
+Team A: OK
+Team B: OK

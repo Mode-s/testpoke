@@ -1,0 +1,51 @@
+{
+  "repetitions": 21,
+  "warmup": 3,
+  "results": [
+    {
+      "name": "追加効果同士",
+      "referenceMs": 30.5316,
+      "optimizedMs": 23.0791,
+      "referenceBranches": 588,
+      "optimizedBranches": 378,
+      "improvementPercent": 24.40913676322237,
+      "exact": true
+    },
+    {
+      "name": "連続攻撃と追加効果",
+      "referenceMs": 20.9601,
+      "optimizedMs": 14.4198,
+      "referenceBranches": 336,
+      "optimizedBranches": 210,
+      "improvementPercent": 31.203572502039588,
+      "exact": true
+    },
+    {
+      "name": "ランダム能力上昇",
+      "referenceMs": 14.3973,
+      "optimizedMs": 8.2641,
+      "referenceBranches": 294,
+      "optimizedBranches": 168,
+      "improvementPercent": 42.599654101810756,
+      "exact": true
+    }
+  ],
+  "fullDecision": [
+    {
+      "optimized": false,
+      "medianMs": 6731.4033,
+      "scenarios": 2288,
+      "branches": 10192,
+      "skipped": 0,
+      "output": "[null,null,\"no-safe-improvement\",236.31979695431474]"
+    },
+    {
+      "optimized": true,
+      "medianMs": 918.7154,
+      "scenarios": 584,
+      "branches": 1372,
+      "skipped": 1704,
+      "output": "[null,null,\"no-safe-improvement\",236.31979695431474]"
+    }
+  ]
+}

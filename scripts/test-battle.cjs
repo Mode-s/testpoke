@@ -7,7 +7,9 @@ const {
 
 Dex.includeFormats();
 
-const FORMAT = "gen9championsbssregmc";
+const { ACTIVE_BATTLE_RULES, isMoveAllowed, createBattleTeamValidator, assertRequestSupported } = require('./battle-rules.cjs');
+const FORMAT = ACTIVE_BATTLE_RULES.format;
+const battleDex = Dex.forFormat(FORMAT);
 
 // -------------------------
 // AI-1 の6匹
@@ -111,7 +113,7 @@ const team2 = [
 // チームが合法かチェック
 // -------------------------
 
-const validator = new TeamValidator(FORMAT);
+const validator = createBattleTeamValidator(TeamValidator, Dex);
 
 const team1Problems = validator.validateTeam(team1);
 const team2Problems = validator.validateTeam(team2);
@@ -145,6 +147,7 @@ function randomItem(array) {
 }
 
 function chooseAction(request) {
+  assertRequestSupported(request);
   // -------------------------
   // 6匹から3匹を選出
   // -------------------------
@@ -197,7 +200,7 @@ function chooseAction(request) {
       .filter(
         ({ move }) =>
           !move.disabled &&
-          move.pp > 0
+          move.pp > 0 && isMoveAllowed(battleDex.moves.get(move.id))
       );
 
     if (usableMoves.length > 0) {
