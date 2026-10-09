@@ -1,0 +1,15 @@
+{
+  "team": "hazard",
+  "seed": [
+    17,
+    29,
+    41,
+    53
+  ],
+  "guardTurn": 3,
+  "ended": true,
+  "winner": "Control",
+  "turns": 10,
+  "choices": 18,
+  "matched": true
+}

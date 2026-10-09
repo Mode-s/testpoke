@@ -1,0 +1,30 @@
+元対戦一致 bulky/setup 17,29,41,53
+  9T Toxapex/Gyarados Surf → Subject 27T
+  10T Toxapex/Gyarados Surf → Subject 30T
+  11T Toxapex/Gyarados Surf → Subject 36T
+元対戦一致 bulky/setup 31,43,59,71
+  11T Toxapex/Gyarados Surf → Subject 32T
+  14T Toxapex/Gyarados Surf → Subject 25T
+  16T Toxapex/Gyarados Surf → Subject 31T
+  18T Toxapex/Gyarados Surf → Subject 32T
+  20T Toxapex/Gyarados Surf → Subject 31T
+  21T Toxapex/Gyarados Surf → Subject 32T
+  22T Toxapex/Gyarados Surf → Subject 35T
+  23T Toxapex/Gyarados Surf → Subject 34T
+元対戦一致 setup/hazard 17,29,41,53
+  6T Blastoise/Gengar Surf → Control 10T
+  6T Blastoise/Gengar Ice Beam → Control 10T
+元対戦一致 setup/hazard 31,43,59,71
+  2T Blastoise/Steelix Surf → Subject 19T
+  2T Blastoise/Steelix Ice Beam → Subject 15T
+元対戦一致 hazard/attack 17,29,41,53
+  3T Steelix/Blastoise Earthquake → Subject 13T
+  3T Steelix/Blastoise Heavy Slam → Subject 13T
+  4T Steelix/Blastoise Earthquake → Control 10T
+  4T Steelix/Blastoise Heavy Slam → Control 10T
+元対戦一致 hazard/attack 31,43,59,71
+  3T Steelix/Blastoise Earthquake → Control 8T
+  3T Steelix/Blastoise Heavy Slam → Control 8T
+  4T Steelix/Blastoise Earthquake → Control 11T
+  4T Steelix/Blastoise Heavy Slam → Control 11T
+{"games":6,"guards":17,"branches":23,"guardOverrides":2,"attackStillWins":13,"fasterAttackWins":2,"immediateAttackWins":0,"cappedBranches":0}

@@ -9,9 +9,10 @@ function loadLogic() {
   const source = fs.readFileSync(filename, 'utf8');
   const context = vm.createContext({ require, process, console: { ...console, log() {} } });
   vm.runInContext(source.slice(0, source.indexOf('const stream = new BattleStream();')) + '\nconst stream = { battle: null };', context, { filename });
+  vm.runInContext('lookaheadPolicy.depth = 0;', context);
   return vm.runInContext(`({ Battle, Teams, FORMAT, validator, battleDex, rosterByShowdownId, learnsetByName, moveByChampionsId,
     stream, teamA, latestRequests, updateBattleState, battleState, chooseAction, selectHiddenDisruption,
-    hiddenDisruptionPolicy, hiddenDisruptionMetrics, hiddenDisruptionDecisions })`, context);
+    hiddenDisruptionPolicy, hiddenDisruptionMetrics, hiddenDisruptionDecisions, lookaheadPolicy, lookaheadDecisions })`, context);
 }
 function member(species, ability, item, moves, offense = 'atk', nature = 'Adamant') {
   return { species, ability, item, moves, nature, level: 100, evs: { hp: 32, [offense]: 32, spe: 2 } };
@@ -60,7 +61,7 @@ function percentile(values, p) {
   const sorted = values.slice().sort((a, b) => a - b);
   return sorted[Math.max(0, Math.ceil(sorted.length * p) - 1)] || 0;
 }
-function game(ownTeam, foeTeam, seed, subject, enabled) {
+function game(ownTeam, foeTeam, seed, subject, enabled, depth = 0) {
   const api = loadLogic();
   api.hiddenDisruptionPolicy.optimize = !process.argv.includes('--reference');
   const choices = [];
@@ -108,6 +109,7 @@ function game(ownTeam, foeTeam, seed, subject, enabled) {
         if (!request || request.wait) continue;
         api.latestRequests[player] = request;
         api.hiddenDisruptionPolicy.enabled = enabled && player === subject;
+        api.lookaheadPolicy.depth = player === subject ? depth : 0;
         api.hiddenDisruptionPolicy.trace = process.argv.includes('--trace');
         api.hiddenDisruptionDecisions.delete(player);
         const oldMetrics = { ...api.hiddenDisruptionMetrics };
@@ -118,6 +120,7 @@ function game(ownTeam, foeTeam, seed, subject, enabled) {
         if (process.argv.includes('--trace')) console.error(`判断終了 ${action}`);
         const elapsedMs = Number(process.hrtime.bigint() - began) / 1e6;
         const decision = api.hiddenDisruptionDecisions.get(player);
+        const lookahead = api.lookaheadDecisions.get(player);
         const slot = Number(action.split(' ')[1]);
         const id = action.startsWith('move ') ? request.active[0].moves[slot - 1]?.id : null;
         const species = action.startsWith('switch ') ? request.side.pokemon[slot - 1].details.split(',')[0] : null;
@@ -128,10 +131,12 @@ function game(ownTeam, foeTeam, seed, subject, enabled) {
         const metrics = Object.fromEntries(Object.entries(api.hiddenDisruptionMetrics).map(([key, value]) => [key, value - oldMetrics[key]]));
         choices.push({ turn: battle.turn, player, action, id, elapsedMs, backtrack, metrics,
           guard: !!id && !!api.battleDex.moves.get(id).stallingMove,
-          certainFirstKO: !!decision?.certainFirstKO,
-          retainedCertainKO: !decision?.certainFirstKO || action.startsWith(`move ${decision.slot}`),
+          certainFirstKO: !!decision?.certainFirstKO || !!lookahead?.certainFirstKO,
+          retainedCertainKO: !(decision?.certainFirstKO || lookahead?.certainFirstKO) || action.startsWith(`move ${decision?.certainFirstKO ? decision.slot : lookahead.slot}`),
           override: !!decision?.override && decision.override.slot === slot && action.startsWith(decision.override.kind),
-          reason: decision?.reason, rows: decision?.rows ? JSON.parse(JSON.stringify(decision.rows)) : null, recent });
+          reason: decision?.reason, rows: decision?.rows ? JSON.parse(JSON.stringify(decision.rows)) : null, recent,
+          lookahead: lookahead ? { nodes: lookahead.nodes, reason: lookahead.reason, override: lookahead.override,
+            depth: lookahead.rows[0]?.depth || 0, considered: lookahead.considered, completed: lookahead.rows.length, coverage: lookahead.coverage } : null });
         assert.equal(battle.choose(player, action), true, `${player} ${action}は受理されない`);
       }
       battle.sendUpdates();
@@ -139,7 +144,7 @@ function game(ownTeam, foeTeam, seed, subject, enabled) {
     assert.ok(!publicLog.some((line) => /NaN|Invalid choice|\|error\|/.test(line)), '対戦に不正な出力');
     const own = choices.filter((row) => row.player === subject);
     const firstKOs = own.filter((row) => row.certainFirstKO);
-    return { ownTeam, foeTeam, seed, subject, enabled, ended: battle.ended, winner: battle.winner || null,
+    return { ownTeam, foeTeam, seed, subject, enabled, depth, ended: battle.ended, winner: battle.winner || null,
       turns: battle.turn, win: battle.winner === 'Subject', choices: own.length,
       guards: own.filter((row) => row.guard).length, switches: own.filter((row) => row.action.startsWith('switch ')).length,
       backtracks: own.filter((row) => row.backtrack).length, overrides: own.filter((row) => row.override).length,

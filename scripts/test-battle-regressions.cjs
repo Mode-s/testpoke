@@ -18,6 +18,8 @@ function loadLogic() {
     console: { ...console, log() {} },
   });
   vm.runInContext(source.slice(0, entryPoint) + '\nconst stream = { battle: null };', context, { filename: sourcePath });
+  // 既存の各評価器の回帰試験は先読みを無効にして単独で検証する。
+  vm.runInContext('lookaheadPolicy.depth = 0;', context);
   return vm.runInContext(`({
     battleState, battleDex, createEmptyBoosts, updateBattleState,
     guessIncomingDamage, guessedStabDamageCache, knownCombatant,
@@ -41,6 +43,8 @@ function loadLogic() {
     learnsetByName, rosterByShowdownId,
     hiddenDisruptionKinds, hiddenDisruptionEffectBranches,
     selectHiddenDisruption, hiddenDisruptionPolicy, hiddenDisruptionMetrics, hiddenDisruptionDecisions,
+    lookaheadPolicy, lookaheadDecisions, createLookaheadBattle, advanceLookaheadTurn,
+    lookaheadActions, computeLookahead, lookaheadNextPlan, lookaheadActionKey, lookaheadPosition,
   })`, context);
 }
 

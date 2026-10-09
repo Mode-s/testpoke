@@ -1,0 +1,52 @@
+bulky seed=17 9T depth=0 → banefulbunker disabled
+bulky seed=17 9T depth=1 → switch Corviknight complete
+bulky seed=17 9T depth=2 → switch Corviknight complete
+bulky seed=17 10T depth=0 → banefulbunker disabled
+bulky seed=17 10T depth=1 → switch Corviknight complete
+bulky seed=17 10T depth=2 → switch Corviknight complete
+bulky seed=17 11T depth=0 → banefulbunker disabled
+bulky seed=17 11T depth=1 → switch Corviknight complete
+bulky seed=17 11T depth=2 → switch Corviknight complete
+bulky seed=31 11T depth=0 → banefulbunker disabled
+bulky seed=31 11T depth=1 → banefulbunker complete
+bulky seed=31 11T depth=2 → toxic complete
+bulky seed=31 14T depth=0 → banefulbunker disabled
+bulky seed=31 14T depth=1 → recover complete
+bulky seed=31 14T depth=2 → switch Slowbro complete
+bulky seed=31 16T depth=0 → banefulbunker disabled
+bulky seed=31 16T depth=1 → recover complete
+bulky seed=31 16T depth=2 → switch Slowbro complete
+bulky seed=31 18T depth=0 → banefulbunker disabled
+bulky seed=31 18T depth=1 → banefulbunker complete
+bulky seed=31 18T depth=2 → switch Slowbro complete
+bulky seed=31 20T depth=0 → banefulbunker disabled
+bulky seed=31 20T depth=1 → banefulbunker complete
+bulky seed=31 20T depth=2 → banefulbunker complete
+bulky seed=31 21T depth=0 → banefulbunker disabled
+bulky seed=31 21T depth=1 → banefulbunker complete
+bulky seed=31 21T depth=2 → banefulbunker complete
+bulky seed=31 22T depth=0 → banefulbunker disabled
+bulky seed=31 22T depth=1 → banefulbunker complete
+bulky seed=31 22T depth=2 → banefulbunker complete
+bulky seed=31 23T depth=0 → banefulbunker disabled
+bulky seed=31 23T depth=1 → banefulbunker complete
+bulky seed=31 23T depth=2 → banefulbunker complete
+setup seed=17 6T depth=0 → protect disabled
+setup seed=17 6T depth=1 → protect complete
+setup seed=17 6T depth=2 → switch Scizor complete
+setup seed=31 2T depth=0 → protect disabled
+setup seed=31 2T depth=1 → protect complete
+setup seed=31 2T depth=2 → protect complete
+hazard seed=17 3T depth=0 → protect disabled
+hazard seed=17 3T depth=1 → protect complete
+hazard seed=17 3T depth=2 → protect complete
+hazard seed=17 4T depth=0 → protect disabled
+hazard seed=17 4T depth=1 → protect complete
+hazard seed=17 4T depth=2 → protect complete
+hazard seed=31 3T depth=0 → protect disabled
+hazard seed=31 3T depth=1 → protect complete
+hazard seed=31 3T depth=2 → protect completed-candidates-only
+hazard seed=31 4T depth=0 → protect disabled
+hazard seed=31 4T depth=1 → protect complete
+hazard seed=31 4T depth=2 → protect completed-candidates-only
+全17場面の比較と実戦状態の不変性を確認

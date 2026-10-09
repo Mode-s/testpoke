@@ -1,0 +1,466 @@
+{
+  "team": "setup",
+  "foe": "hazard",
+  "seed": [
+    17,
+    29,
+    41,
+    53
+  ],
+  "turn": 6,
+  "action": "switch 3",
+  "decision": {
+    "rows": [
+      {
+        "action": {
+          "kind": "move",
+          "id": "protect",
+          "slot": 4,
+          "score": 7.124511058528106,
+          "loss": 36.328592814371234,
+          "threat": "sunnyday",
+          "lossComplete": true,
+          "opportunityCost": 16.325199033750675,
+          "improvement": 208.9109281437126,
+          "netImprovement": 192.58572910996193,
+          "role": "guard"
+        },
+        "depth": 2,
+        "value": 108.17826132216732,
+        "plans": [
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 2,
+            "weight": 0.8175277726266053
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 2,
+            "weight": 0.1824722273733947
+          }
+        ]
+      },
+      {
+        "action": {
+          "kind": "move",
+          "slot": 2,
+          "id": "surf",
+          "role": "attack",
+          "score": 39.774909126029456
+        },
+        "depth": 2,
+        "value": 78.4726795417668,
+        "plans": [
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 202,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 3",
+            "id": "earthquake",
+            "hypotheses": 2,
+            "weight": 0.8175277726266053
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 24,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 1,
+            "weight": 0.09047441629408842
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 16,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 1,
+            "weight": 0.09199781107930628
+          }
+        ]
+      },
+      {
+        "action": {
+          "kind": "move",
+          "slot": 1,
+          "id": "shellsmash",
+          "role": "setup",
+          "score": 18.311377245508993
+        },
+        "depth": 2,
+        "value": 71.1384527961182,
+        "plans": [
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 202,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 3",
+            "id": "earthquake",
+            "hypotheses": 2,
+            "weight": 0.8175277726266053
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 2,
+            "weight": 0.1824722273733947
+          }
+        ]
+      },
+      {
+        "action": {
+          "kind": "switch",
+          "slot": 2,
+          "species": "Gyarados",
+          "role": "switch",
+          "score": 28.918341809230824
+        },
+        "depth": 2,
+        "value": 204.835798995849,
+        "plans": [
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 141,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 3",
+            "id": "earthquake",
+            "hypotheses": 1,
+            "weight": 0.4095255837059116
+          },
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 202,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "switch 3",
+            "id": "Scizor",
+            "hypotheses": 2,
+            "weight": 0.1824722273733947
+          },
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 135,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 3",
+            "id": "earthquake",
+            "hypotheses": 1,
+            "weight": 0.40800218892069373
+          }
+        ]
+      },
+      {
+        "action": {
+          "kind": "move",
+          "slot": 3,
+          "id": "icebeam",
+          "role": "attack",
+          "score": 6.743999767536565
+        },
+        "depth": 2,
+        "value": 72.81203286888976,
+        "plans": [
+          {
+            "own": {
+              "species": "Gyarados",
+              "hp": 202,
+              "maxhp": 202,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 3",
+            "id": "earthquake",
+            "hypotheses": 2,
+            "weight": 0.8175277726266053
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 66,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 1,
+            "weight": 0.09047441629408842
+          },
+          {
+            "own": {
+              "species": "Blastoise",
+              "hp": 30,
+              "maxhp": 186,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 63,
+              "status": ""
+            },
+            "action": "move 4",
+            "id": "protect",
+            "hypotheses": 1,
+            "weight": 0.09199781107930628
+          }
+        ]
+      },
+      {
+        "action": {
+          "kind": "switch",
+          "slot": 3,
+          "species": "Scizor",
+          "role": "switch",
+          "score": 1.1474759207260234
+        },
+        "depth": 2,
+        "value": 165.7483468251035,
+        "plans": [
+          {
+            "own": {
+              "species": "Scizor",
+              "hp": 170,
+              "maxhp": 177,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 2",
+            "id": "bulletpunch",
+            "hypotheses": 1,
+            "weight": 0.4095255837059116
+          },
+          {
+            "own": {
+              "species": "Scizor",
+              "hp": 177,
+              "maxhp": 177,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 2",
+            "id": "bulletpunch",
+            "hypotheses": 2,
+            "weight": 0.1824722273733947
+          },
+          {
+            "own": {
+              "species": "Scizor",
+              "hp": 168,
+              "maxhp": 177,
+              "status": ""
+            },
+            "foe": {
+              "species": "Gengar",
+              "hpPercent": 100,
+              "status": ""
+            },
+            "action": "move 2",
+            "id": "bulletpunch",
+            "hypotheses": 1,
+            "weight": 0.40800218892069373
+          }
+        ]
+      }
+    ],
+    "nodes": 168,
+    "coverage": 1,
+    "reason": "complete",
+    "profiles": [
+      {
+        "role": "special",
+        "ability": "cursedbody",
+        "item": "focussash",
+        "moves": [
+          "sludgewave",
+          "shadowball",
+          "nastyplot",
+          "energyball"
+        ]
+      }
+    ],
+    "considered": 6,
+    "selected": "switch 3",
+    "override": true,
+    "baseline": "move 4"
+  },
+  "models": [
+    {
+      "role": "special",
+      "ability": "cursedbody",
+      "item": "focussash",
+      "moves": [
+        "sludgewave",
+        "shadowball",
+        "nastyplot",
+        "energyball"
+      ],
+      "sample": 0,
+      "responses": [
+        {
+          "kind": "move",
+          "slot": 4,
+          "id": "energyball",
+          "role": "attack",
+          "score": 187.74193548387098,
+          "weight": 0.8190511674118232
+        },
+        {
+          "kind": "move",
+          "slot": 3,
+          "id": "nastyplot",
+          "role": "setup",
+          "score": 22,
+          "weight": 0.18094883258817684
+        }
+      ]
+    },
+    {
+      "role": "special",
+      "ability": "cursedbody",
+      "item": "focussash",
+      "moves": [
+        "sludgewave",
+        "shadowball",
+        "nastyplot",
+        "energyball"
+      ],
+      "sample": 1,
+      "responses": [
+        {
+          "kind": "move",
+          "slot": 4,
+          "id": "energyball",
+          "role": "attack",
+          "score": 183.44086021505376,
+          "weight": 0.8160043778413875
+        },
+        {
+          "kind": "move",
+          "slot": 3,
+          "id": "nastyplot",
+          "role": "setup",
+          "score": 22,
+          "weight": 0.18399562215861257
+        }
+      ]
+    }
+  ],
+  "actualPublicLog": [
+    "|",
+    "|t:|1791541047",
+    "|switch|p1a: Scizor|Scizor, L50, M|100/100",
+    "|move|p2a: Gengar|Shadow Ball|p1a: Scizor",
+    "|-crit|p1a: Scizor",
+    "|-damage|p1a: Scizor|23/100",
+    "|",
+    "|-heal|p1a: Scizor|29/100|[from] item: Leftovers",
+    "|upkeep",
+    "|turn|7"
+  ]
+}

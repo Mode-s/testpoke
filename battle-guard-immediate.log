@@ -1,0 +1,30 @@
+元対戦一致 bulky/setup 17,29,41,53
+  9T Toxapex/Gyarados Surf → 未終局 9T
+  10T Toxapex/Gyarados Surf → 未終局 10T
+  11T Toxapex/Gyarados Surf → 未終局 11T
+元対戦一致 bulky/setup 31,43,59,71
+  11T Toxapex/Gyarados Surf → 未終局 12T
+  14T Toxapex/Gyarados Surf → 未終局 15T
+  16T Toxapex/Gyarados Surf → 未終局 17T
+  18T Toxapex/Gyarados Surf → 未終局 19T
+  20T Toxapex/Gyarados Surf → 未終局 20T
+  21T Toxapex/Gyarados Surf → 未終局 21T
+  22T Toxapex/Gyarados Surf → 未終局 22T
+  23T Toxapex/Gyarados Surf → 未終局 23T
+元対戦一致 setup/hazard 17,29,41,53
+  6T Blastoise/Gengar Surf → 未終局 6T
+  6T Blastoise/Gengar Ice Beam → 未終局 6T
+元対戦一致 setup/hazard 31,43,59,71
+  2T Blastoise/Steelix Surf → 未終局 3T
+  2T Blastoise/Steelix Ice Beam → 未終局 3T
+元対戦一致 hazard/attack 17,29,41,53
+  3T Steelix/Blastoise Earthquake → 未終局 3T
+  3T Steelix/Blastoise Heavy Slam → 未終局 3T
+  4T Steelix/Blastoise Earthquake → 未終局 4T
+  4T Steelix/Blastoise Heavy Slam → 未終局 4T
+元対戦一致 hazard/attack 31,43,59,71
+  3T Steelix/Blastoise Earthquake → 未終局 3T
+  3T Steelix/Blastoise Heavy Slam → 未終局 3T
+  4T Steelix/Blastoise Earthquake → 未終局 4T
+  4T Steelix/Blastoise Heavy Slam → 未終局 4T
+{"games":6,"guards":17,"branches":23,"guardOverrides":2,"attackStillWins":0,"fasterAttackWins":0,"immediateAttackWins":0,"cappedBranches":23}

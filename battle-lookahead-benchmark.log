@@ -1,0 +1,13 @@
+attack/bulky seed=17 depth=0 Subject 12T 防御0 往復0 中央値4809.2ms
+attack/bulky seed=17 depth=1 Subject 15T 防御0 往復0 中央値4993.4ms
+attack/bulky seed=17 depth=2 Subject 12T 防御0 往復0 中央値4071.5ms
+bulky/setup seed=17 depth=0 Subject 30T 防御3 往復0 中央値977.2ms
+bulky/setup seed=17 depth=1 Subject 26T 防御0 往復3 中央値1226.1ms
+bulky/setup seed=17 depth=2 Subject 15T 防御0 往復0 中央値2107.7ms
+setup/hazard seed=17 depth=0 Subject 19T 防御1 往復0 中央値940.8ms
+setup/hazard seed=17 depth=1 Subject 12T 防御0 往復1 中央値862.4ms
+setup/hazard seed=17 depth=2 Control 11T 防御2 往復0 中央値642.6ms
+hazard/attack seed=17 depth=0 Control 10T 防御2 往復2 中央値1179.5ms
+hazard/attack seed=17 depth=1 Control 10T 防御2 往復2 中央値1414.3ms
+hazard/attack seed=17 depth=2 Control 10T 防御2 往復2 中央値2503.8ms
+[{"depth":0,"games":4,"wins":3,"losses":1,"capped":0,"guards":6,"switches":13,"backtracks":2,"following":{"attack":0,"guard":3,"switch":3,"other":0},"heal":14,"setup":3,"missedCertainKOs":0,"certainKOs":5,"medianMs":1274.0687,"p95Ms":6672.0137,"lookaheadOverrides":0,"completeTwoTurn":0,"oneTurnFallbacks":0,"budgetFallbacks":0,"errors":0,"maxNodes":0},{"depth":1,"games":4,"wins":3,"losses":1,"capped":0,"guards":2,"switches":17,"backtracks":6,"following":{"attack":0,"guard":1,"switch":1,"other":0},"heal":8,"setup":2,"missedCertainKOs":0,"certainKOs":5,"medianMs":1507.74,"p95Ms":8285.7347,"lookaheadOverrides":16,"completeTwoTurn":0,"oneTurnFallbacks":0,"budgetFallbacks":0,"errors":0,"maxNodes":72},{"depth":2,"games":4,"wins":2,"losses":2,"capped":0,"guards":4,"switches":14,"backtracks":2,"following":{"attack":0,"guard":2,"switch":2,"other":0},"heal":2,"setup":2,"missedCertainKOs":0,"certainKOs":4,"medianMs":2410.737,"p95Ms":11712.9443,"lookaheadOverrides":6,"completeTwoTurn":44,"oneTurnFallbacks":0,"budgetFallbacks":0,"errors":0,"maxNodes":504}]

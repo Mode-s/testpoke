@@ -459,6 +459,7 @@ function syncFieldStateFromBattle() {
   fieldState.trickRoomTurns = trickRoom?.duration ?? null;
 
   fieldState.gravity = Boolean(battle.field.pseudoWeather.gravity);
+  fieldState.gravityTurns = battle.field.pseudoWeather.gravity?.duration ?? null;
 
   for (const sideId of ['p1', 'p2']) {
     const liveSide = battle.sides[sideId === 'p1' ? 0 : 1];
@@ -507,6 +508,7 @@ function syncFieldStateFromBattle() {
 
     const nextVolatiles = {};
     if (battleState[sideId].volatiles.stockpile) nextVolatiles.stockpile = battleState[sideId].volatiles.stockpile;
+    if (Number.isInteger(battleState[sideId].volatiles.perishsong)) nextVolatiles.perishsong = battleState[sideId].volatiles.perishsong;
 
     for (const id of publicVolatileIds) {
       const volatile = active?.volatiles?.[id];
@@ -1627,7 +1629,9 @@ function updateBattleState(output) {
     if (parts[1] === '-start' || parts[1] === '-end') {
       const state = battleState[parts[2]?.slice(0, 2)];
       const id = normalizeBattleEffect(parts[3]);
-      if (state && /^stockpile[123]$/.test(id)) {
+      if (state && /^perish[0-3]$/.test(id)) {
+        state.volatiles.perishsong = Number(id.slice(-1));
+      } else if (state && /^stockpile[123]$/.test(id)) {
         const old = state.volatiles.stockpile;
         state.volatiles.stockpile = { layers: Number(id.slice(-1)), def: old?.def || 0, spd: old?.spd || 0, pending: { def: true, spd: true } };
       } else if (state && id === 'stockpile') {
@@ -6718,6 +6722,7 @@ function projectMegaRequest(player, request) {
 }
 
 function chooseAction(player, request) {
+  lookaheadDecisions.delete(player);
   syncFieldStateFromBattle();
   const projection = request.teamPreview || request.wait || request.forceSwitch?.some(Boolean) ? null : projectMegaRequest(player, request);
   if (!projection) return chooseActionInternal(player, request);
@@ -7146,7 +7151,7 @@ function computeHiddenDisruption(player, request, scoredMoves, canSwitch) {
       })) return { certainFirstKO: true, slot: best.slot, override: null };
   const actions = [{ kind: 'move', id: best.move.id, slot: best.slot, score: best.score }];
   for (const row of scoredMoves) {
-    if (row !== best && !row.failed && (row.move.stallingMove || row.move.category !== 'Status')) {
+    if (row !== best && !row.failed) {
       actions.push({ kind: 'move', id: row.move.id, slot: row.slot, score: row.score });
     }
   }
@@ -7176,6 +7181,422 @@ function computeHiddenDisruption(player, request, scoredMoves, canSwitch) {
     }
   }
   return selectHiddenDisruption(rows, battleState[player].recentSpecies || []);
+}
+
+// 公開情報から別の対戦を作る。実戦のBattle・相手request・内部乱数はコピーしない。
+const requestedLookaheadDepth = Number(process.argv.find((arg) => arg.startsWith('--lookahead-depth='))?.split('=')[1] ?? 2);
+if (![0, 1, 2].includes(requestedLookaheadDepth)) throw new Error('先読みの深さは0・1・2のいずれかを指定してください。');
+const lookaheadPolicy = { depth: requestedLookaheadDepth, maxNodes: 640, maxMillis: 2500, maxProfiles: 3, samples: 2,
+  maxOwnActions: 6, maxFoeActions: 2, maxNextActions: 3, improvement: 3 };
+const lookaheadDecisions = new Map();
+const lookaheadCache = new Map();
+function lookaheadActionKey(action) { return `${action.kind} ${action.slot}`; }
+function lookaheadMoveRole(move) {
+  if (move.stallingMove) return 'guard';
+  if (move.heal || ['rest', 'wish', 'strengthsap', 'painsplit'].includes(move.id)) return 'heal';
+  if (move.boosts && Object.values(move.boosts).some((n) => n > 0) || ['substitute', 'bellydrum', 'tailwind', 'trickroom'].includes(move.id)) return 'setup';
+  if (move.sideCondition || ['stoneaxe', 'ceaselessedge'].includes(move.id)) return 'hazard';
+  return move.category === 'Status' ? 'utility' : 'attack';
+}
+function limitLookaheadActions(actions, limit, first = null) {
+  const ranked = [...actions].sort((a, b) => b.score - a.score || lookaheadActionKey(a).localeCompare(lookaheadActionKey(b)));
+  const kept = [];
+  const add = (row) => { if (row && !kept.some((other) => lookaheadActionKey(other) === lookaheadActionKey(row))) kept.push(row); };
+  add(first); add(ranked[0]);
+  for (const role of ['attack', 'heal', 'setup', 'guard', 'switch', 'hazard', 'utility']) add(ranked.find((row) => row.role === role));
+  for (const row of ranked) add(row);
+  return kept.slice(0, Math.max(1, limit));
+}
+function lookaheadPublicLines(lines) {
+  const shared = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith('|split|')) { i++; continue; }
+    if (!/^\|(t:|debug)\|/.test(lines[i])) shared.push(lines[i]);
+  }
+  return shared;
+}
+function seedLookaheadStatus(mon, player, active, sample) {
+  const state = battleState[player]; const name = baseSpeciesName(mon.species.name);
+  const sleep = active ? { age: state.statusAge || 0, source: state.sleepSource } : state.sleepHistory[name] || {};
+  if (mon.status === 'slp') {
+    const decrement = mon.ability === 'earlybird' ? 2 : 1;
+    const times = (sleep.source === 'rest' ? [3] : [2, 3, 3]).map((n) => n - (sleep.age || 0) * decrement).filter((n) => n > 0);
+    const time = times[sample % times.length] || 1;
+    Object.assign(mon.statusState, { id: 'slp', target: mon, startTime: time, time });
+  } else if (mon.status === 'frz') {
+    const age = active ? state.statusAge || 0 : state.freezeHistory[name] || 0;
+    Object.assign(mon.statusState, { id: 'frz', target: mon, startTime: 3, time: Math.max(1, 3 - age) });
+  } else if (mon.status === 'tox') Object.assign(mon.statusState, { id: 'tox', target: mon, stage: active ? Math.max(0, (state.toxicCounter || 1) - 1) : 0 });
+  else if (mon.status) Object.assign(mon.statusState, { id: mon.status, target: mon });
+}
+function normalizeLookaheadState(calc) {
+  // VMで評価器を検証する場合も、エンジンのState serializerが扱うplain objectへ揃える。
+  const NativeObject = calc.sides[0].choice.constructor;
+  if (NativeObject === Object) return;
+  const seen = new Set();
+  const adopt = (value) => {
+    if (!value || typeof value !== 'object' || seen.has(value)) return;
+    if (!Array.isArray(value) && value.constructor?.name !== 'Object') return;
+    seen.add(value);
+    if (!Array.isArray(value) && value.constructor !== NativeObject) Object.setPrototypeOf(value, NativeObject.prototype);
+    for (const child of Object.values(value)) adopt(child);
+  };
+  for (const side of calc.sides) {
+    for (const value of Object.values(side)) adopt(value);
+    for (const mon of side.pokemon) for (const value of Object.values(mon)) adopt(value);
+  }
+  for (const value of Object.values(calc.field)) adopt(value);
+}
+function lookaheadOwnSpread(spec) {
+  if (!spec.exact) return {};
+  const species = battleDex.species.get(spec.species);
+  const hp = species.maxHP ? 0 : spec.exact.hp - species.baseStats.hp - 75;
+  for (const nature of battleDex.natures.all()) {
+    const evs = { ...emptyEvs(), hp }; let valid = hp >= 0 && hp <= 32;
+    for (const stat of ['atk', 'def', 'spa', 'spd', 'spe']) {
+      const factor = nature.plus === stat ? 1.1 : nature.minus === stat ? 0.9 : 1;
+      const points = Array.from({ length: 33 }, (_, i) => i).find((i) => Math.floor((species.baseStats[stat] + i + 20) * factor) === spec.exact[stat]);
+      if (points == null) { valid = false; break; }
+      evs[stat] = points;
+    }
+    if (valid && Object.values(evs).reduce((sum, n) => sum + n, 0) <= 66) return { nature: nature.name, evs };
+  }
+  return {};
+}
+function createLookaheadBattle(player, request, profile, sample = 0, profileIndex = 0) {
+  const foePlayer = player === 'p1' ? 'p2' : 'p1';
+  const ownPokemon = request.side.pokemon;
+  const ownSpecs = ownPokemon.map((pokemon) => {
+    const spec = knownCombatant({ ...pokemon, level: pokemon.level || BATTLE_LEVEL }, pokemon.active ? battleState[player].boosts : createEmptyBoosts());
+    return { ...spec, ...lookaheadOwnSpread(spec), baseAbility: normalizeBattleEffect(pokemon.baseAbility || pokemon.ability),
+      moves: pokemon.moves?.length ? pokemon.moves : pokemon.active ? request.active[0].moves.map((row) => row.id) : [], fainted: pokemon.condition.includes('fnt') };
+  });
+  const publicBench = benchSpeciesNames(foePlayer);
+  const seen = publicBench.filter((name) => battleState[foePlayer].publicPokemon[baseSpeciesName(name)]);
+  const unseen = publicBench.filter((name) => !seen.includes(name));
+  const rotated = unseen.map((_, i) => unseen[(i + profileIndex) % unseen.length]);
+  const pickedSize = battleDex.formats.getRuleTable(battleDex.formats.get(FORMAT)).pickedTeamSize || 3;
+  const aliveSlots = Math.max(1, pickedSize - battleState[foePlayer].faintedSpecies.size);
+  const foeNames = [battleState[foePlayer].species, ...seen, ...rotated].slice(0, aliveSlots);
+  const foeSpecs = foeNames.map((name, i) => {
+    const guess = i ? predictOpponentSets(foePlayer, name)[profileIndex % (predictOpponentSets(foePlayer, name).length || 1)] || profile : profile;
+    const stat = guess.role === 'special' ? 'spa' : guess.role === 'bulky' ? 'def' : 'atk';
+    const spec = { ...rangedCombatant(battleDex.species.get(name), stat, 'max', i ? createEmptyBoosts() : battleState[foePlayer].boosts, foePlayer),
+      ...guess, species: name, level: BATTLE_LEVEL, active: !i };
+    const observed = speedKnowledge[player][name];
+    if (!i && observed?.observations && observed.candidates.length) {
+      const species = battleDex.species.get(name); const spreads = [];
+      for (const nature of [...new Set([spec.nature, guess.role === 'special' ? 'Timid' : 'Jolly', 'Serious', guess.role === 'special' ? 'Quiet' : 'Brave'])]) {
+        const data = battleDex.natures.get(nature);
+        const factor = data.plus === 'spe' ? 1.1 : data.minus === 'spe' ? 0.9 : 1;
+        for (let points = 0; points <= 32; points++) {
+          const speed = Math.floor((species.baseStats.spe + points + 20) * factor);
+          if (observed.candidates.includes(speed)) spreads.push({ nature, speed, evs: { ...emptyEvs(), hp: 32, [stat]: Math.min(32, 34 - points), spe: points } });
+        }
+      }
+      spreads.sort((a, b) => a.speed - b.speed);
+      const chosen = spreads[sample % 2 ? spreads.length - 1 : 0];
+      if (chosen) Object.assign(spec, { nature: chosen.nature, evs: chosen.evs });
+    }
+    return spec;
+  });
+  const specs = { [player]: ownSpecs, [foePlayer]: foeSpecs };
+  const calc = new Battle({ formatid: FORMAT, seed: [17 + sample * 101, 29 + sample * 73, 41 + sample * 53, 53 + sample * 31], send() {} });
+  try {
+    for (let i = 0; i < 2; i++) {
+      const id = i ? 'p2' : 'p1'; const side = new Side(id, calc, i, specs[id].map(toCalcSet)); calc.sides[i] = side;
+      specs[id].forEach((spec, slot) => {
+        const mon = side.pokemon[slot]; applyCombatant(mon, spec); mon.position = slot;
+        if (id === player) {
+          mon.baseAbility = spec.baseAbility;
+          if (spec.exact) Object.assign(mon.baseStoredStats, spec.exact);
+        }
+        for (const entry of mon.baseMoveSlots) entry.pp = Math.max(0, entry.pp - (battleState[id].ppUsed[baseSpeciesName(spec.species)]?.[entry.id] || 0));
+        mon.isActive = !!spec.active; mon.isStarted = !!spec.active; mon.activeTurns = spec.active ? 1 : 0;
+        if (spec.fainted) { mon.hp = 0; mon.fainted = true; mon.status = ''; }
+        seedLookaheadStatus(mon, id, !!spec.active, sample);
+      });
+      side.active[0] = side.pokemon.find((mon) => mon.isActive) || side.pokemon[0];
+      side.pokemonLeft = side.pokemon.filter((mon) => mon.hp && !mon.fainted).length;
+      side.totalFainted = side.pokemon.length - side.pokemonLeft;
+    }
+    calc.sides[0].foe = calc.sides[1]; calc.sides[1].foe = calc.sides[0];
+    const attacker = calc.sides[player === 'p1' ? 0 : 1].active[0]; const defender = attacker.side.foe.active[0];
+    const session = { calc, attacker, defender, source: attacker, effectAssumption: profile };
+    useWeather(calc, fieldState.weather, attacker);
+    if (fieldState.terrain) calc.field.setTerrain(`${fieldState.terrain}terrain`, attacker);
+    applyEffectPublicField(session, player, foePlayer);
+    if (fieldState.gravity) calc.field.addPseudoWeather('gravity', attacker);
+    for (const [key, state] of [['weather', calc.field.weatherState], ['terrain', calc.field.terrainState]]) {
+      if (fieldState[`${key}Turns`] != null) state.duration = Math.max(1, fieldState[`${key}Turns`]);
+    }
+    for (const id of ['trickroom', 'gravity']) if (calc.field.pseudoWeather[id] && fieldState[`${id === 'trickroom' ? 'trickRoom' : id}Turns`] != null) {
+      calc.field.pseudoWeather[id].duration = Math.max(1, fieldState[`${id === 'trickroom' ? 'trickRoom' : id}Turns`]);
+    }
+    for (const [id, side] of [['p1', calc.sides[0]], ['p2', calc.sides[1]]]) for (const [condition, state] of Object.entries(side.sideConditions)) {
+      const key = { lightscreen: 'lightScreen', auroraveil: 'auroraVeil' }[condition] || condition;
+      if (fieldState.sides[id][`${key}Turns`] != null) state.duration = Math.max(1, fieldState.sides[id][`${key}Turns`]);
+    }
+    applyPublicCalcState(attacker, player, ownSpecs.find((spec) => spec.active));
+    applyPublicCalcState(defender, foePlayer, foeSpecs[0]);
+    seedPublicEffectState(session, ownPokemon.find((pokemon) => pokemon.active), player, foePlayer, request);
+    for (const mon of [attacker, defender]) mon.baseMoveSlots = mon.moveSlots.slice();
+    for (const [mon, id] of [[attacker, player], [defender, foePlayer]]) {
+      const state = battleState[id]; mon.activeMoveActions = state.activeMoveActions || 0;
+      seedLookaheadStatus(mon, id, true, sample);
+      const chain = state.protectionChain;
+      if (chain?.count && chain.turn === speedLearningState.turn - 1) {
+        mon.addVolatile('stall'); for (let n = 1; n < chain.count; n++) mon.addVolatile('stall');
+      }
+      if (mon.volatiles.yawn) mon.volatiles.yawn.duration = Math.max(1, (state.yawnDueTurn ?? speedLearningState.turn + 1) - speedLearningState.turn + 1);
+      if (['choiceband', 'choicespecs', 'choicescarf'].includes(mon.item) && state.lastMove && mon.moveSlots.some((slot) => slot.id === state.lastMove)) {
+        mon.volatiles.choicelock = { id: 'choicelock', target: mon, source: mon, move: state.lastMove };
+      }
+      if (Number.isInteger(state.volatiles.perishsong)) mon.volatiles.perishsong = { id: 'perishsong', target: mon, source: mon.side.foe.active[0], duration: state.volatiles.perishsong };
+    }
+    calc.started = true; calc.turn = Math.max(1, speedLearningState.turn); calc.midTurn = false;
+    for (const mon of [attacker, defender]) calc.runEvent('DisableMove', mon);
+    calc.log = []; calc.queue.clear(); calc.faintQueue = []; calc.makeRequest('move');
+    normalizeLookaheadState(calc);
+    return calc;
+  } catch (error) { calc.destroy(); throw error; }
+}
+function lookaheadShallowDamage(calc, mon, target, move) {
+  if (!mon?.hp || !target?.hp) return 0;
+  try {
+    const prepared = prepareDamageMove(calc, mon, target, move);
+    if (!prepared) return 0;
+    return Math.max(0, Number(calc.actions.getDamage(mon, target, prepared, true)) || 0);
+  } catch { return 0; }
+}
+function lookaheadActions(calc, player, limit) {
+  const side = calc.sides[player === 'p1' ? 0 : 1]; const request = side.activeRequest;
+  if (!request || request.wait) return [];
+  const mon = side.active[0]; const target = side.foe.active[0]; const rows = [];
+  if (!request.forceSwitch?.some(Boolean)) {
+    for (const [i, slot] of (request.active?.[0]?.moves || []).entries()) {
+      const move = calc.dex.moves.get(slot.id);
+      if (slot.disabled || slot.pp === 0 || !isMoveAllowed(move)) continue;
+      const role = lookaheadMoveRole(move); let score = 0;
+      if (role === 'attack') { const damage = lookaheadShallowDamage(calc, mon, target, move); score = damage / target.maxhp * 100 + (damage >= target.hp ? 120 : 0); }
+      else if (role === 'heal') score = (1 - mon.hp / mon.maxhp) * 85;
+      else if (role === 'setup') score = 22;
+      else if (role === 'guard') score = target.moveSlots.reduce((max, entry) => Math.max(max, lookaheadShallowDamage(calc, target, mon, calc.dex.moves.get(entry.id)) / mon.maxhp * 35), 0);
+      else if (role === 'hazard') score = Math.min(25, (side.foe.pokemonLeft - 1) * 12);
+      else score = move.status ? 22 : 10;
+      rows.push({ kind: 'move', slot: i + 1, id: move.id, role, score });
+    }
+  }
+  if (request.forceSwitch?.some(Boolean) || !request.active?.[0]?.trapped && !request.active?.[0]?.maybeTrapped) {
+    request.side.pokemon.forEach((pokemon, i) => {
+      if (pokemon.active || pokemon.condition.includes('fnt')) return;
+      const species = calc.dex.species.get(getPokemonSpeciesName(pokemon));
+      const defense = Math.max(...target.species.types.map((type) => getTypeMultiplier(type, species.types)));
+      rows.push({ kind: 'switch', slot: i + 1, species: species.name, role: 'switch', score: parseCondition(pokemon.condition).hpPercent * 0.15 + (1 - defense) * 25 });
+    });
+  }
+  return limitLookaheadActions(rows, limit);
+}
+function lookaheadForcedChoice(calc, player) {
+  // 自分のrequestと、公開された相手の種族だけで決める。仮説の特性・技は見ない。
+  return lookaheadActions(calc, player, 1).find((row) => row.kind === 'switch');
+}
+function lookaheadPosition(calc, player) {
+  const own = calc.sides[player === 'p1' ? 0 : 1]; const foe = own.foe;
+  if (calc.ended) return calc.winner === own.name ? 10000 : calc.winner === foe.name ? -10000 : 0;
+  const value = (side) => side.pokemon.reduce((sum, mon) => {
+    if (!mon.hp || mon.fainted) return sum;
+    let score = 180 + mon.hp / mon.maxhp * 70;
+    const physical = mon.moveSlots.some((slot) => calc.dex.moves.get(slot.id).category === 'Physical');
+    const special = mon.moveSlots.some((slot) => calc.dex.moves.get(slot.id).category === 'Special');
+    const boostValue = (stage) => Math.log2(stage >= 0 ? (2 + stage) / 2 : 2 / (2 - stage));
+    if (mon.isActive) score += ((physical ? boostValue(mon.boosts.atk) : 0) + (special ? boostValue(mon.boosts.spa) : 0)) * 10 / Math.max(1, Number(physical) + Number(special)) +
+      (boostValue(mon.boosts.def) + boostValue(mon.boosts.spd)) * 6 + boostValue(mon.boosts.spe) * 6;
+    if (mon.status) score -= { brn: physical && !special ? 22 : 8, par: 14, slp: 22, frz: 24, psn: 12, tox: 18 }[mon.status] || 0;
+    if (mon.volatiles.substitute) score += mon.volatiles.substitute.hp / mon.maxhp * 65;
+    if (mon.volatiles.leechseed || mon.volatiles.saltcure || mon.volatiles.curse) score -= 15;
+    if (mon.volatiles.yawn) score -= 15;
+    if (mon.volatiles.perishsong) score -= 80;
+    if (!mon.isActive) score -= effectHazardBurden(side, mon) * 0.8;
+    return sum + score;
+  }, 0);
+  return value(own) - value(foe);
+}
+function advanceLookaheadTurn(snapshot, player, ownAction, foeAction, budget = null) {
+  if (budget && (budget.nodes >= budget.limit || Date.now() >= budget.deadline)) return null;
+  if (budget) budget.nodes++;
+  const calc = Battle.fromJSON(snapshot); calc.send = () => {};
+  try {
+    const turn = calc.turn; const foePlayer = player === 'p1' ? 'p2' : 'p1';
+    for (const id of ['p1', 'p2']) {
+      const request = calc.sides[id === 'p1' ? 0 : 1].activeRequest;
+      if (!request || request.wait) continue;
+      const action = id === player ? ownAction : foeAction;
+      if (!action || !calc.choose(id, lookaheadActionKey(action))) return null;
+    }
+    for (let n = 0; !calc.ended && (calc.turn === turn || calc.requestState === 'switch') && n < 12; n++) {
+      if (calc.requestState !== 'switch') break;
+      const pending = calc.sides.map((side) => ({ id: side.id, request: side.activeRequest }));
+      for (const { id, request } of pending) {
+        if (!request?.forceSwitch?.some(Boolean)) continue;
+        const action = lookaheadForcedChoice(calc, id);
+        if (!action || !calc.choose(id, lookaheadActionKey(action))) return null;
+      }
+    }
+    if (!calc.ended && (calc.turn <= turn || calc.requestState !== 'move')) return null;
+    const own = calc.sides[player === 'p1' ? 0 : 1].active[0]; const foe = own.side.foe.active[0];
+    const publicLog = lookaheadPublicLines(calc.log);
+    const ownRequest = calc.sides[player === 'p1' ? 0 : 1].activeRequest;
+    return { state: JSON.stringify(calc.toJSON()), observable: JSON.stringify([ownRequest, publicLog]), publicLog,
+      ended: calc.ended, winner: calc.winner, value: lookaheadPosition(calc, player), turn: calc.turn,
+      own: { species: own.species.name, hp: own.hp, maxhp: own.maxhp, status: own.status },
+      foe: { species: foe.species.name, hpPercent: Math.ceil(foe.hp / foe.maxhp * 100), status: foe.status }, foePlayer };
+  } finally { calc.destroy(); }
+}
+function lookaheadResponses(calc, player, limit) {
+  const rows = lookaheadActions(calc, player, limit);
+  const total = rows.reduce((sum, row) => sum + Math.max(1, row.score + 25), 0);
+  return rows.map((row) => ({ ...row, weight: Math.max(1, row.score + 25) / total }));
+}
+function lookaheadNextPlan(outcomes, player, policy, budget) {
+  // 同じ観測の仮説をまとめ、全仮説に共通の一手だけを選ぶ（strategy fusionを防ぐ）。
+  const groups = new Map();
+  let terminalValue = 0; const plans = [];
+  for (const row of outcomes) {
+    if (row.ended) { terminalValue += row.weight * row.value; continue; }
+    const group = groups.get(row.observable) || []; group.push(row); groups.set(row.observable, group);
+  }
+  for (const group of groups.values()) {
+    const candidates = new Map(); const responses = [];
+    const total = group.reduce((sum, row) => sum + row.weight, 0);
+    for (const row of group) {
+      const calc = Battle.fromJSON(row.state); calc.send = () => {};
+      try {
+        for (const action of lookaheadActions(calc, player, policy.maxOwnActions)) {
+          const key = lookaheadActionKey(action); const combined = candidates.get(key) || { ...action, score: 0 };
+          combined.score += action.score * row.weight / total; candidates.set(key, combined);
+        }
+        responses.push(lookaheadResponses(calc, row.foePlayer, policy.maxFoeActions));
+      } finally { calc.destroy(); }
+    }
+    let best = null;
+    for (const action of limitLookaheadActions([...candidates.values()], policy.maxNextActions)) {
+      let score = 0; let complete = true;
+      for (let i = 0; i < group.length && complete; i++) for (const response of responses[i]) {
+        const after = advanceLookaheadTurn(group[i].state, player, action, response, budget);
+        if (!after) { complete = false; break; }
+        score += group[i].weight * response.weight * after.value;
+      }
+      if (!complete) return null;
+      if (!best || score > best.score) best = { action, score };
+    }
+    if (!best) return null;
+    terminalValue += best.score;
+    plans.push({ own: group[0].own, foe: group[0].foe, action: lookaheadActionKey(best.action), id: best.action.id || best.action.species,
+      hypotheses: group.length, weight: total });
+  }
+  return { value: terminalValue, plans };
+}
+function computeLookahead(player, request, actions, policy = lookaheadPolicy) {
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  // 既存の公開記録には変身先の実数・現在タイプがない。誤った復元で判断を上書きしない。
+  if (battleState[player].transformed || battleState[foe].transformed) return { rows: [], nodes: 0, reason: 'unsupported-transformed-state' };
+  const profiles = [...predictOpponentSets(foe, battleState[foe].species)].sort((a, b) => b.weight - a.weight).slice(0, Math.max(1, policy.maxProfiles));
+  const coverage = profiles.reduce((sum, profile) => sum + profile.weight, 0);
+  const budget = { nodes: 0, limit: Math.max(0, policy.maxNodes), deadline: policy.maxMillis > 0 ? Date.now() + policy.maxMillis : Infinity };
+  const scenarios = [];
+  try {
+    for (const [i, profile] of profiles.entries()) for (let sample = 0; sample < Math.max(1, policy.samples); sample++) {
+      const calc = createLookaheadBattle(player, request, profile, sample, i);
+      try {
+        const ownRequest = calc.sides[player === 'p1' ? 0 : 1].activeRequest;
+        if (JSON.stringify(ownRequest.active[0].moves.map((row) => row.id)) !== JSON.stringify(request.active[0].moves.map((row) => row.id))) {
+          return { rows: [], nodes: 0, coverage, reason: 'unsupported-move-request' };
+        }
+        scenarios.push({ state: JSON.stringify(calc.toJSON()), weight: profile.weight / coverage / Math.max(1, policy.samples),
+          responses: lookaheadResponses(calc, foe, policy.maxFoeActions), profile: { role: profile.role, ability: profile.ability, item: profile.item, moves: [...profile.moves] } });
+      } finally { calc.destroy(); }
+    }
+    if (!scenarios.length || scenarios.some((row) => !row.responses.length)) return { rows: [], nodes: budget.nodes, coverage, reason: 'no-model' };
+    const rows = [];
+    // まず全候補を同じ1ターン深さで比較。その後、完了した2ターン候補同士だけを比べる。
+    for (const action of actions) {
+      const outcomes = []; let complete = true;
+      for (const scenario of scenarios) {
+        for (const response of scenario.responses) {
+          const after = advanceLookaheadTurn(scenario.state, player, action, response, budget);
+          if (!after) { complete = false; break; }
+          outcomes.push({ ...after, weight: scenario.weight * response.weight });
+        }
+        if (!complete) break;
+      }
+      if (!complete) return { rows: [], nodes: budget.nodes, coverage, reason: 'incomplete-first-turn' };
+      rows.push({ action, depth: 1, value: outcomes.reduce((sum, row) => sum + row.value * row.weight, 0), outcomes, plans: [] });
+    }
+    if (policy.depth >= 2) {
+      const deep = [];
+      for (const row of rows) {
+        const next = lookaheadNextPlan(row.outcomes, player, policy, budget);
+        if (next) deep.push({ ...row, depth: 2, ...next });
+      }
+      // 元の選択を同じ深さで評価できない場合、深さの違う値を比較しない。
+      if (deep.some((row) => lookaheadActionKey(row.action) === lookaheadActionKey(actions[0]))) {
+        return { rows: deep.map(({ outcomes, ...row }) => row), nodes: budget.nodes, coverage, reason: deep.length === rows.length ? 'complete' : 'completed-candidates-only',
+          profiles: scenarios.filter((_, i) => i % Math.max(1, policy.samples) === 0).map((row) => row.profile), considered: actions.length };
+      }
+    }
+    return { rows: rows.map(({ outcomes, ...row }) => row), nodes: budget.nodes, coverage, reason: policy.depth >= 2 ? 'first-turn-fallback' : 'complete', considered: actions.length };
+  } catch (error) {
+    return { rows: [], nodes: budget.nodes, coverage, reason: 'simulation-error', error: error.message };
+  }
+}
+function finishLookaheadChoice(player, request, scoredMoves, canSwitch, legacy, risk, onScore, quiet) {
+  let selected = legacy; let result = null;
+  const foe = player === 'p1' ? 'p2' : 'p1';
+  const scored = scoredMoves.find((row) => legacy.kind === 'move' && row.slot === legacy.slot);
+  const pokemon = request.side.pokemon.find((row) => row.active);
+  const certainFirstKO = !!risk?.certainFirstKO || lookaheadPolicy.depth > 0 && !!scored && scored.minDamagePercent >= battleState[foe].hpPercent && scored.hitChance === 1 &&
+    cantMoveFactor(parseCondition(pokemon.condition).status, player, pokemon.ability) === 1 && effectProfileGroups(foe, battleState[foe].species).every((profile) => {
+      const speed = getSpeedEstimate(player, pokemon, battleState[player].boosts, battleState[player].status,
+        battleState[foe].species, battleState[foe].boosts, battleState[foe].status, false, profile);
+      return [...profile.moves.map((id) => battleDex.moves.get(id)), ...hiddenDisruptionMoves(foe, battleState[foe].species)].every((move) =>
+        compareEstimatedMoveOrder(battleDex.moves.get(scored.move.id), move, speed.ownSpeed, speed.opponentMinSpeed, speed.opponentMaxSpeed, player, pokemon, profile) === 'own');
+    });
+  if (lookaheadPolicy.depth > 0 && !certainFirstKO) {
+    const actions = scoredMoves.filter((row) => !row.failed && !row.move.disabled && row.move.pp !== 0).map((row) => ({
+      kind: 'move', slot: row.slot, id: row.move.id, role: lookaheadMoveRole(battleDex.moves.get(row.move.id)), score: row.score }));
+    const switches = canSwitch ? risk?.rows?.filter((row) => row.kind === 'switch') || evaluateSwitchCandidates(player, request, battleState[foe].species,
+      getRevealedMoves(foe, battleState[foe].species), battleState[foe].boosts, battleState[foe].status) : [];
+    for (const row of switches) {
+      actions.push({ kind: 'switch', slot: row.slot, species: row.species, role: 'switch', score: row.score });
+    }
+    const limited = limitLookaheadActions(actions, lookaheadPolicy.maxOwnActions, { ...legacy, role: legacy.kind === 'switch' ? 'switch' : lookaheadMoveRole(battleDex.moves.get(legacy.id)) });
+    const key = JSON.stringify([player, request, battleState, fieldState, speedKnowledge[player], speedLearningState.turn, limited, lookaheadPolicy],
+      (_, value) => Object.prototype.toString.call(value) === '[object Set]' ? [...value] : value);
+    result = lookaheadCache.get(key);
+    if (!result) {
+      result = computeLookahead(player, request, limited);
+      if (lookaheadCache.size >= 32) lookaheadCache.clear();
+      if (result.reason !== 'simulation-error') lookaheadCache.set(key, result);
+    }
+    const baseline = result.rows.find((row) => lookaheadActionKey(row.action) === lookaheadActionKey(legacy));
+    const allowed = result.rows.filter((row) => {
+      if (lookaheadActionKey(row.action) === lookaheadActionKey(legacy)) return true;
+      const assessed = risk?.rows?.find((item) => item.kind === row.action.kind && item.slot === row.action.slot);
+      // 未公開重大技の破綻確認は平均の先読みに混ぜず、独立の安全条件として残す。
+      return !risk?.rows || assessed && assessed.loss < hiddenDisruptionPolicy.limit;
+    }).sort((a, b) => b.value - a.value || b.action.score - a.action.score);
+    const best = allowed[0];
+    if (baseline && best && best.value > baseline.value + lookaheadPolicy.improvement) selected = best.action;
+    result = { ...result, selected: lookaheadActionKey(selected), override: lookaheadActionKey(selected) !== lookaheadActionKey(legacy), baseline: lookaheadActionKey(legacy) };
+  } else result = { rows: [], nodes: 0, reason: certainFirstKO ? 'certain-first-ko' : 'disabled', certainFirstKO, slot: legacy.slot, selected: lookaheadActionKey(legacy), override: false };
+  lookaheadDecisions.set(player, result);
+  if (result.override && !quiet) console.log(`${player} ${result.rows[0]?.depth || 1}ターン先読み: ${result.baseline} → ${result.selected} / 仮計算${result.nodes}回`);
+  onScore?.(selected.score);
+  if (selected.kind === 'switch') {
+    battleState[player].recentSpecies = [...(battleState[player].recentSpecies || []), battleState[player].species]; battleState[player].lastChoice = 'switch';
+  } else { battleState[player].recentSpecies = []; battleState[player].lastChoice = 'move'; }
+  return lookaheadActionKey(selected);
 }
 
 function chooseActionInternal(player, request, onScore = null, quiet = false) {
@@ -7464,15 +7885,7 @@ function chooseActionInternal(player, request, onScore = null, quiet = false) {
     const action = hiddenDisruption.override;
     const threat = battleDex.moves.get(hiddenDisruption.rows[0].threat).name;
     console.log(`${player} 未公開の重大な一手: ${threat} / 居座りの不利${hiddenDisruption.rows[0].loss.toFixed(1)} → ${action.kind === 'switch' ? action.species : action.id}の不利${action.loss.toFixed(1)}`);
-    onScore?.(action.score);
-    if (action.kind === 'switch') {
-      battleState[player].recentSpecies = [...(battleState[player].recentSpecies || []), ownSpecies];
-      battleState[player].lastChoice = 'switch';
-      return `switch ${action.slot}`;
-    }
-    battleState[player].recentSpecies = [];
-    battleState[player].lastChoice = 'move';
-    return `move ${action.slot}`;
+    return finishLookaheadChoice(player, request, scoredMoves, canSwitch, action, hiddenDisruption, onScore, quiet);
   }
 
   if (canSwitch && !hiddenDisruption?.certainFirstKO && (!bestMove.koType || bestMoveIsUnsafe || !opponentDamageKnown || bestMove.yawnPenalty > 0)) {
@@ -7521,14 +7934,8 @@ function chooseActionInternal(player, request, onScore = null, quiet = false) {
       const switchMargin = cycling ? 80 : recent.length ? 50 : 20;
 
       if (bestSwitch.score >= currentPositionScore + switchMargin && bestSwitch.score >= 25) {
-        onScore?.(bestSwitch.score);
         console.log(`${player} 自主交代判断: ` + `${ownSpecies} → ` + `${bestSwitch.species}`);
-
-        battleState[player].recentSpecies = [...(battleState[player].recentSpecies || []), ownSpecies];
-
-        battleState[player].lastChoice = 'switch';
-
-        return `switch ${bestSwitch.slot}`;
+        return finishLookaheadChoice(player, request, scoredMoves, canSwitch, { kind: 'switch', ...bestSwitch }, hiddenDisruption, onScore, quiet);
       }
     }
   }
@@ -7599,12 +8006,7 @@ function chooseActionInternal(player, request, onScore = null, quiet = false) {
       .join(' / '),
   );
 
-  battleState[player].recentSpecies = [];
-
-  battleState[player].lastChoice = 'move';
-
-  onScore?.(bestMove.score);
-  return `move ${bestMove.slot}`;
+  return finishLookaheadChoice(player, request, scoredMoves, canSwitch, { kind: 'move', id: bestMove.move.id, slot: bestMove.slot, score: bestMove.score }, hiddenDisruption, onScore, quiet);
 }
 
 // ========================================
